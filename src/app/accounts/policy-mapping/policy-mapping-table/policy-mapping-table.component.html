@@ -1,0 +1,60 @@
+<nz-table class="Policy-builder-table" [nzScroll]="{ x: '1200px', y: null }" #filterTable [nzLoading]="loading"
+    [nzData]="data" class="border">
+    <thead>
+        <tr>
+            <ng-container *ngFor="let column of listOfColumns ;let index = index">
+                <th *ngIf="column.isColumnHide != true" [nzWidth]="index == 0 ? '5%' : '120px'" nzCustomFilter>{{column.name}}
+                    <nz-filter-trigger [hidden]="column.inVisible" [nzDropdownMenu]="menu">
+                        <span nz-icon nzType="search"></span>
+                    </nz-filter-trigger>
+                </th>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <div class="ant-table-filter-dropdown">
+                        <div class="search-box">
+                            <input type="text" nz-input nzClear (keyup)="search($event , column)"
+                                placeholder="Search here..." [(ngModel)]="column.searchValue" />
+                        </div>
+                    </div>
+                </nz-dropdown-menu>
+            </ng-container>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let row of filterTable.data">
+            <tr>
+                <ng-container *ngFor="let column of listOfColumns;let index = index">
+                    <td [(nzExpand)]="row.expand" *ngIf="index == 0 && column.isColumnHide != true"></td>
+                    <td *ngIf="index == 1 && column.isColumnHide != true">{{ row[column.dataField] }}</td>
+                    <td *ngIf="index != 1 && index != 0 && column.isColumnHide != true">
+                        <label nz-checkbox [(ngModel)]="row[column.dataField]"></label>
+                    </td>
+                </ng-container>
+            </tr>
+            <tr [nzExpand]="row.expand">
+                <div *ngIf="row?.children">
+                    <nz-collapse *ngIf="row?.children.length > 0">
+                        <nz-collapse-panel [nzHeader]="'Menus'" [nzActive]="false" [nzDisabled]="false">
+                            <ng-container
+                                *ngTemplateOutlet="recursiveTemplate; context: { $implicit: row.children }"></ng-container>
+                        </nz-collapse-panel>
+                    </nz-collapse>
+                </div>
+                <div class="mt-2" *ngIf="row?.actionChildren">
+                    <nz-collapse *ngIf="row?.actionChildren.length > 0">
+                        <nz-collapse-panel [nzHeader]="'Actions'" [nzActive]="false" [nzDisabled]="false">
+                            <ng-container
+                                *ngTemplateOutlet="recursiveTemplateAction; context: { $implicit: row.actionChildren }"></ng-container>
+                        </nz-collapse-panel>
+                    </nz-collapse>
+                </div>
+            </tr>
+        </ng-container>
+    </tbody>
+</nz-table>
+
+<ng-template #recursiveTemplate let-data>
+    <st-policy-mapping-table [data]="data" [listOfColumns]="listOfColumns"></st-policy-mapping-table>
+</ng-template>
+<ng-template #recursiveTemplateAction let-data>
+    <st-policy-mapping-table [data]="data" [listOfColumns]="actionColumns"></st-policy-mapping-table>
+</ng-template>

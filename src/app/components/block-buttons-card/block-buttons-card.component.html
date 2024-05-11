@@ -1,0 +1,57 @@
+<div class="m-0" *ngIf="softIconList.type != 'buttonGroup'">
+  <div class={{softIconList.format}}>
+    <span>
+      <!-- <span *ngIf="softIconList?.tooltipPosition == 'left'">
+        <span class="pt-2 pl-1" nz-tooltip
+          *ngIf="softIconList.tooltip && !softIconList?.tooltipWithoutIcon || false"
+          [nzTooltipTitle]='softIconList.tooltip | translate'><span nz-icon
+            nzType="question-circle"
+            [style.color]="softIconList['toolTipColor']"
+            nzTheme="outline"></span></span>
+      </span> -->
+
+      <st-buttons [mappingId]="mappingId" [tableDisplayData]="tableDisplayData" [GridRuleColor]="GridRuleColor"
+        (gridEmit)="gridEmit($event)" [screenId]="screenId" [drawOpen]="drawOpen" [tableIndex]="tableIndex"
+        [formlyModel]="formlyModel" [form]="form" [screenName]="screenName" [buttonData]="softIconList"
+        [tableRowId]="tableRowId" [title]="title"></st-buttons>
+
+      <!-- <span
+        *ngIf="softIconList?.tooltipPosition == 'right' || softIconList?.tooltipPosition == undefined">
+        <span class="pt-2 pl-1" nz-tooltip
+          *ngIf="softIconList.tooltip && !softIconList?.tooltipWithoutIcon || false"
+          [nzTooltipTitle]='softIconList.tooltip | translate'><span nz-icon
+            nzType="question-circle"
+            [style.color]="softIconList['toolTipColor']"
+            nzTheme="outline"></span></span>
+      </span> -->
+    </span>
+  </div>
+
+</div>
+<div *ngIf="softIconList.type == 'buttonGroup' && softIconList.children.length">
+  <div
+    [class]="softIconList.buttonGroupClass + ' ' +  softIconList.btngroupformat + ' ' + softIconList.applicationThemeClasses + ' ' + softIconList.appGlobalClass">
+    <span>
+      <span *ngIf="softIconList?.tooltipPosition == 'left'">
+        <span class="pt-2 pr-1" nz-tooltip *ngIf="softIconList.tooltip && !softIconList?.tooltipWithoutIcon || false"
+          [nzTooltipTitle]='softIconList.tooltip | translate'><span nz-icon nzType="question-circle"
+            [style.color]="softIconList['toolTipColor']" nzTheme="outline"></span></span>
+      </span>
+
+      <nz-button-group>
+        <div *ngFor="let item of softIconList.children">
+          <st-buttons [mappingId]="mappingId" [tableDisplayData]="tableDisplayData" [GridRuleColor]="GridRuleColor"
+            (gridEmit)="gridEmit($event)" [screenId]="screenId" [drawOpen]="drawOpen" [tableIndex]="tableIndex"
+            [formlyModel]="formlyModel" [form]="form" [screenName]="screenName" [tableRowId]="tableRowId"
+            [buttonData]="item" [title]="title"></st-buttons>
+        </div>
+      </nz-button-group>
+
+      <span *ngIf="softIconList?.tooltipPosition == 'right' || softIconList?.tooltipPosition == undefined">
+        <span class="pt-2 pl-1" nz-tooltip *ngIf="softIconList.tooltip && !softIconList?.tooltipWithoutIcon || false"
+          [nzTooltipTitle]='softIconList.tooltip | translate'><span nz-icon nzType="question-circle"
+            [style.color]="softIconList['toolTipColor']" nzTheme="outline"></span></span>
+      </span>
+    </span>
+  </div>
+</div>

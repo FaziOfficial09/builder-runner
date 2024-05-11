@@ -1,0 +1,30 @@
+<!-- <nz-cascader [nzOptions]="cascaderData.options" [(ngModel)]="values"
+    [appConfigurableSelect]="cascaderData['appConfigurableEvent']" [loadAction]="cascaderData['eventActionconfig']"
+    [processData]="processData" [nzDisabled]="cascaderData.disabled" [nzExpandIcon]="expandIcon"
+    [nzExpandTrigger]="cascaderData.expandTrigger" [nzPlaceHolder]="cascaderData.placeHolder"
+    [nzShowInput]="cascaderData.showInput" [nzSize]="cascaderData.size" [nzStatus]="cascaderData.status"
+    (ngModelChange)="onChanges($event)">
+
+</nz-cascader> -->
+<div class="dynamic-cascader">
+    <nz-cascader [nzSize]="to['additionalProperties']?.size" [nzStatus]="to['additionalProperties']?.status"
+        nzChangeOnSelect [nzAllowClear]="true" [appConfigurableSelect]="to['appConfigurableEvent']"
+        [loadAction]="to['eventActionconfig']" [processData]="processData" class="!w-full" [(ngModel)]="values"
+        [nzOptions]="list" (ngModelChange)="onChanges($event)" [nzLoadData]="loadData.bind(this)"
+        [nzPlaceHolder]="to.placeholder || ''" [nzShowSearch]="true"
+        [nzExpandTrigger]="to['additionalProperties']?.expandTrigger">
+    </nz-cascader>
+</div>
+
+
+&nbsp;
+<ng-template #expandIcon>
+    <span *ngIf="to['additionalProperties']?.icon">
+        <st-icon [type]="to['additionalProperties']?.iconType || 'outline'" [icon]="to['additionalProperties']?.icon"
+            [size]="to['additionalProperties']?.iconSize"
+            [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+            [color]="to['additionalProperties']?.iconColor"></st-icon>
+    </span>
+</ng-template>
+
+<!-- <a href="javascript:;" (click)="changeNzOptions()" class="change-options">Change Options</a> -->

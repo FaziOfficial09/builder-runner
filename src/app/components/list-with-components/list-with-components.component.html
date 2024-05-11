@@ -1,0 +1,11 @@
+<nz-list [nzBordered]="listData.isBordered" >
+    <nz-list-item [ngStyle]="{'border-bottom': !listData.isBordered ? 'none' : '1px solid #f0f0f0'}"
+        *ngFor="let item of listData.children">
+        <st-main [mainData]="item" 
+        [screenName]="screenName" 
+        [form]="form" 
+        [formlyModel]="formlyModel"
+        [mappingId]="mappingId"
+        [screenId]="screenId"></st-main>
+    </nz-list-item>
+</nz-list>

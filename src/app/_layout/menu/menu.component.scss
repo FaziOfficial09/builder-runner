@@ -1,0 +1,32 @@
+menu-title {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding: 4%
+}
+
+// .menu-item {
+//     // font-weight: 500 !important;
+//     // font-family: Inter, Helvetica, "sans-serif";
+
+// }
+
+.menu-link {
+    color: var(--bs-gray-700);
+}
+
+.my-text:hover {
+    color: red;
+}
+
+// .comment-drawer .ant-drawer-header {
+//     background: #4582f1 !important;
+// }
+
+// .comment-drawer .ant-drawer-title {
+//     color: white !important;
+// }
+
+// .comment-drawer .ant-drawer-close {
+//     color: white !important;
+// }

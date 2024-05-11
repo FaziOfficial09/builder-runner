@@ -1,0 +1,556 @@
+<div nz-tooltip [nzTooltipTitle]="item?.tooltipWithoutIcon ? item.tooltip : ''">
+    <!-- <span class="tooltip-icon" *ngIf="item?.tooltipPosition == 'left'">
+        <span *ngIf="item.type != 'progressBar' && item.type != 'alert'
+    && item.type != 'switch' && item.type != 'rangeSlider' && item.type != 'editor_js' && item?.formlyType != 'input' && item.tooltip
+    && !item?.tooltipWithoutIcon || false" nz-tooltip [nzTooltipTitle]="item.tooltip">
+            <span nz-icon nzType="question-circle" [style.color]="item['toolTipColor']" nzTheme="outline"></span>
+        </span>
+    </span> -->
+    
+    <st-sales-card [salesdata]="item" *ngIf="item.type == 'chart';else second "></st-sales-card>
+    <ng-template #second>
+        <div *ngIf="item.type == 'headerLogo';else third">
+            <!-- <img class="desktop-toggle"
+                [style.height]="item.height !== undefined && item.height !== null && item.height !== 0 && item.height !== '' ? item.height + 'px' : 'auto'"
+                [style.width]="item.width !== undefined && item.width !== null && item.width !== 0 && item.width !== '' ? item.width + 'px' : 'auto'"
+                [src]="'assets/spectrum.png'" alt> -->
+            <img class="desktop-toggle"
+                [style.height]="item.height !== undefined && item.height !== null && item.height !== 0 && item.height !== '' ? item.height + 'px' : 'auto'"
+                [style.width]="item.width !== undefined && item.width !== null && item.width !== 0 && item.width !== '' ? item.width + 'px' : 'auto'"
+                (click)="defaultPageRoute()"
+                [src]="dataSharedService.headerLogo ? dataSharedService.headerLogo : 'assets/images/logo.png'" alt>
+            <div class="mobile-toggle flex">
+                <button nz-button
+                    class="!rounded !bg-transparent !text-amber-300 hover:!bg-transparent hover:!text-amber-300 !border !border-amber-300 !hover:border-amber-300 !font-md !flex !flex-wrap !items-center"
+                    (click)="menuCollapsed()">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <img class="mobile-logo" (click)="defaultPageRoute()"
+                    [src]="dataSharedService.headerLogo ? dataSharedService.headerLogo : 'assets/images/logo.png'" alt>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #third>
+        <div *ngIf="item.type == 'fileManager';else fourth">
+            <st-file-manager [data]="item"></st-file-manager>
+        </div>
+    </ng-template>
+    <ng-template #fourth>
+        <div *ngIf="item.type == 'qrcode';else fifth">
+            <st-qr-code [item]="item"></st-qr-code>
+        </div>
+    </ng-template>
+    <ng-template #fifth>
+        <div *ngIf="item.type == 'chat';else sixth">
+            <st-support-chat [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form" [screenId]="screenId"
+                [screenName]="screenName" [data]="item"></st-support-chat>
+        </div>
+    </ng-template>
+    <ng-template #sixth>
+        <div *ngIf="item.type == 'email_template';else seventh">
+            <st-email></st-email>
+        </div>
+    </ng-template>
+    <ng-template #seventh>
+        <div *ngIf="item.type == 'taskManager';else eight">
+            <st-task-manager [mappingId]="mappingId" [screenName]="screenName" [screenId]="screenId"
+                [formlyModel]="formlyModel" [form]="form" [taskManagerData]="item"></st-task-manager>
+        </div>
+    </ng-template>
+    <ng-template #eight>
+        <div *ngIf="item.type == 'card';else tenth">
+            <!-- <st-task-detail-card [widgetcard]="item"></st-task-detail-card> -->
+        </div>
+    </ng-template>
+    <ng-template #tenth>
+        <st-heading *ngIf="item.type == 'heading'; else eleventh" [headingData]="item"></st-heading>
+    </ng-template>
+    <ng-template #eleventh>
+        <st-paragraph *ngIf="item.type =='paragraph' ; else twelth" [data]="item"></st-paragraph>
+    </ng-template>
+    <ng-template #twelth>
+        <div
+            *ngIf="item.type == 'button' || item.type =='linkbutton' || item.type =='buttonGroup' || item.type =='dropdownButton' ; else thirteenth">
+            <nz-badge *ngIf="item?.badgeType == 'count' && item.type != 'buttonGroup'" [nzCount]="item?.badgeCount">
+                <st-block-buttons-card [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form"
+                    [screenName]="screenName" [softIconList]="item" [screenId]="screenId">
+                </st-block-buttons-card>
+            </nz-badge>
+            <nz-badge nzDot *ngIf="item?.badgeType == 'dot' && item.type != 'buttonGroup'">
+                <st-block-buttons-card [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form"
+                    [screenName]="screenName" [softIconList]="item" [screenId]="screenId">
+                </st-block-buttons-card></nz-badge>
+            <st-block-buttons-card [mappingId]="mappingId"
+                *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'" [formlyModel]="formlyModel"
+                [form]="form" [screenName]="screenName" [softIconList]="item" [mappingId]="mappingId" [screenId]="screenId">
+            </st-block-buttons-card>
+        </div>
+    </ng-template>
+    <ng-template #thirteenth>
+        <st-html-block [htmlBlockData]="item.data" *ngIf="item.type =='htmlBlock'; else forteenth"></st-html-block>
+    </ng-template>
+    <ng-template #forteenth>
+        <div *ngIf="item.type =='icon'; else fifteen">
+            <nz-badge nzDot *ngIf="item?.badgeType == 'dot'">
+                <st-icon [type]="item.iconType" [icon]="item.icon" [size]="item.iconSize" [color]="item.iconColor"
+                    [hoverIconColor]="item.hoverIconColor"
+                    [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"></st-icon>
+            </nz-badge>
+            <nz-badge [nzCount]="item?.badgeCount" *ngIf="item?.badgeType == 'count'">
+                <st-icon [type]="item.iconType" [icon]="item.icon" [size]="item.iconSize"
+                    [hoverIconColor]="item.hoverIconColor" [color]="item.iconColor"
+                    [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"
+                    [applicationThemeClasses]="item?.applicationThemeClasses"
+                    [appGlobalClass]="item?.appGlobalClass"></st-icon>
+            </nz-badge>
+            <st-icon *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'" [type]="
+              item.iconType" [icon]="item.icon" [size]="item.iconSize" [color]="item.iconColor"
+                [hoverIconColor]="item.hoverIconColor"
+                [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"></st-icon>
+        </div>
+    </ng-template>
+    <ng-template #fifteen>
+        <div *ngIf="item.type =='cardWithComponents'; else sixteen">
+            <nz-ribbon *ngIf="item?.badgeType == 'ribbon'" [nzColor]="item.dot_ribbon_color"
+                [nzText]="item?.badgeRibbonText">
+                <st-card-with-components [item]="item" [form]="form" [formlyModel]="formlyModel"
+                    [screenName]="screenName" [mappingId]="mappingId" [screenId]="screenId"></st-card-with-components>
+            </nz-ribbon>
+            <!-- <nz-badge *ngIf="item?.badgeType == 'count'" [nzCount]="item?.badgeCount">
+              <st-card-with-components [item]="item"></st-card-with-components>
+          </nz-badge>
+          <nz-badge *ngIf="item?.badgeType == 'dot'" [nzColor]="item.dot_ribbon_color" nzDot>
+              <st-card-with-components [item]="item"></st-card-with-components>
+          </nz-badge> -->
+            <st-card-with-components *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'"
+                [item]="item"></st-card-with-components>
+        </div>
+    </ng-template>
+    <ng-template #sixteen>
+        <div *ngIf="item.type =='gridList';else seventeen">
+            <dynamic-table [tableId]='item.tableId' [checkType]="false" [tableData]='item.tableData'
+                [excelReportData]='item.tableData' [tableHeaders]='item.tableHeaders' [formlyModel]="formlyModel"
+                [form]="form" [screenId]="screenId" [data]="item" [displayData]="item.displayData"
+                [screenName]="screenName" [mappingId]="mappingId" [isDrawer]="isDrawer"
+                [configurationTable]="item?.showEditInput ? item?.showEditInput : false"></dynamic-table>
+        </div>
+
+    </ng-template>
+    <ng-template #seventeen>
+        <st-table *ngIf="item.forCommomComponentCondition =='simpleGridList';else eighteen"></st-table>
+        <!-- <st-tui-grid [gridData]="item"></st-tui-grid> -->
+    </ng-template>
+    <ng-template #eighteen>
+        <st-progressbars [progressBarData]="item" *ngIf="item.type == 'progressBar'; else ninteen"></st-progressbars>
+    </ng-template>
+    <ng-template #ninteen>
+        <st-divider [dividerData]="item" *ngIf="item.type == 'divider' ; else twenty"></st-divider>
+    </ng-template>
+    <ng-template #twenty>
+        <st-videos [videoData]="item" *ngIf="item.type == 'video'; else twentyone"></st-videos>
+    </ng-template>
+    <ng-template #twentyone>
+        <st-audio [audioData]="item" *ngIf="item.type == 'audio' ;else twentytwo"></st-audio>
+    </ng-template>
+    <ng-template #twentytwo>
+        <div *ngIf="item.type == 'browserCombineChart' ;else twentythree">
+            <!-- <st-browser-combine-chart
+              [browserCombinechartData]="item"></st-browser-combine-chart> -->
+        </div>
+    </ng-template>
+    <ng-template #twentythree>
+        <nz-card *ngIf="item.type == 'calender' ;else twentyfour">
+            <st-parent-calendar [item]="item" [screenName]="screenName" [mappingId]="mappingId" [screenId]="screenId"
+            [formlyModel]="formlyModel" [form]="form"></st-parent-calendar>
+        </nz-card>
+        <!-- <st-tui-calendar [calendarData]="item"></st-tui-calendar> -->
+    </ng-template>
+    <ng-template #twentyfour>
+        <div *ngIf="item.type == 'sharedMessagesChart' ;else twentyfive">
+            <!-- <st-shared-messages-card [sharedMessagesData]="item"></st-shared-messages-card> -->
+        </div>
+    </ng-template>
+    <ng-template #twentyfive>
+        <st-new-alerts [alertData]="item" *ngIf="item.type == 'alert' ;else twentysix"></st-new-alerts>
+    </ng-template>
+    <ng-template #twentysix>
+        <div *ngIf="item.type == 'simpleCardWithHeaderBodyFooter' ;else twentyseven">
+            <nz-ribbon *ngIf="item?.badgeType == 'ribbon'" [nzColor]="item.dot_ribbon_color"
+                [nzText]="item?.badgeRibbonText">
+                <st-simple-card-with-header-body-footer [cardData]="item">
+                </st-simple-card-with-header-body-footer>
+            </nz-ribbon>
+            <st-simple-card-with-header-body-footer *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'"
+                [cardData]="item">
+            </st-simple-card-with-header-body-footer>
+        </div>
+    </ng-template>
+    <ng-template #twentyseven>
+        <st-tabs [screenName]="screenName" [tabs]="item" [form]="form" [formlyModel]="formlyModel"
+            [screenId]="screenId" [mappingId]="mappingId" *ngIf="item.type == 'mainTab' else twentyeight"></st-tabs>
+    </ng-template>
+    <ng-template #twentyeight>
+        <st-timeline-builder [timelineData]="item"
+            *ngIf="item.type == 'timeline' ;else twentynine"></st-timeline-builder>
+    </ng-template>
+    <ng-template #twentynine>
+        <div *ngIf="item.type == 'multiFileUpload' ;else thirty">
+
+            <!-- <st-multi-file-upload [multiFileUploadData]="item"></st-multi-file-upload> -->
+        </div>
+    </ng-template>
+    <ng-template #thirty>
+        <div *ngIf="item.type == 'inputFields';else thirtyOne">
+            <!-- <div *ngFor="let items of item.children">
+          <form [formGroup]="form">
+              <formly-form [fields]="items.formly" [(model)]="formlyModel" [form]="form">
+              </formly-form>
+              <button *ngIf="isLast" nz-button nzType="primary" (click)="submit()"><span nz-icon nzType="database" nzTheme="outline"></span>Submit</button>
+              <button *ngIf="isLast" type="submit" class="btn btn-primary submit-button">Submit</button>
+          </form>
+      </div> -->
+        </div>
+
+    </ng-template>
+    <ng-template #thirtyOne>
+        <st-stepper [step]="item" [form]="form" [formlyModel]="formlyModel"
+            [screenName]="screenName" [screenId]="screenId" [mappingId]="mappingId" *ngIf="item.type == 'mainStep'; else thirtyTwo">
+        </st-stepper>
+    </ng-template>
+    <ng-template #thirtyTwo>
+        <st-accordion-button [mappingId]="mappingId" [accordionData]="item" (accordingEmit)="accordingList($event)"
+            [form]="form" [screenId]="screenId" [screenName]="screenName" [formlyModel]="formlyModel"
+            *ngIf="item.type == 'accordionButton'; else thirtyThree"></st-accordion-button>
+    </ng-template>
+    <ng-template #thirtyThree>
+        <st-switch [switchData]="item" *ngIf="item.type == 'switch'; else thirtyforth"></st-switch>
+    </ng-template>
+    <ng-template #thirtyforth>
+        <st-board [mappingId]="mappingId" [kanbanData]="item" *ngIf="item.type == 'kanban' ; else thirtyfifth"
+            [form]="form" [screenId]="screenId" [screenName]="screenName" [formlyModel]="formlyModel"></st-board>
+        <!-- <st-kanban-boards [kanbanData]="item"></st-kanban-boards> -->
+    </ng-template>
+    <ng-template #thirtyfifth>
+        <div *ngIf="item.type == 'fixedDiv'; else thirtySix">
+            <div *ngFor="let data of item.children">
+                <div
+                    *ngIf="data.type == 'button' || data.type == 'linkButton' || data.type == 'buttonGroup' || item.type =='dropdownButton'">
+                    <st-block-buttons-card [formlyModel]="formlyModel" [form]="form" [screenName]="screenName"
+                        [softIconList]="data" [mappingId]="mappingId" [screenId]="screenId">
+                    </st-block-buttons-card>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #thirtySix>
+        <div *ngIf="item.formlyType == 'input'; else thirtySeven">
+            <div
+                [ngClass]="item.formly[0].fieldGroup[0].wrappers[0] == 'formly-vertical-theme-wrapper' ? 'theme-body' : item.formly[0].fieldGroup[0].wrappers[0]">
+                <formly-form [fields]="item.formly" [form]="form" [model]="formlyModel">
+                </formly-form>
+            </div>
+            <!-- <button *ngIf="isLast" type="submit" class="bg-blue-500 mt-2">Submit</button>
+            <div *ngIf="isLast">
+                <button nz-button nzType="primary" (click)="submit()"><span nz-icon nzType="database"
+                      nzTheme="outline"></span>Submit</button>
+            </div> -->
+        </div>
+    </ng-template>
+    <ng-template #thirtySeven>
+        <nz-card *ngIf="item.type == 'textEditor'; else thirtyEight">
+            <st-editor-js-wrapper [(ngModel)]="item.editorJson" [minHeight]="'300px'"
+                [data]="item.editorJson"></st-editor-js-wrapper>
+        </nz-card>
+        <!-- <pre>{{ item.editorJson | json }}</pre> -->
+        <!-- <st-editors [editorData]="item"></st-editors> -->
+    </ng-template>
+    <ng-template #thirtyEight>
+        <br *ngIf="item.type == 'breakTag' ; else thirtyNine">
+    </ng-template>
+    <ng-template #thirtyNine>
+        <st-carousel-crossfade-card *ngIf="item.type == 'carouselCrossfade' ; else fourty"
+            [carouselslides]="item" [form]="form" [formlyModel]="formlyModel" [screenName]="screenName"
+            [screenId]="screenId" [mappingId]="mappingId"></st-carousel-crossfade-card>
+    </ng-template>
+    <ng-template #fourty>
+        <st-builder-toater [toastrData]="item" *ngIf="item.type == 'toastr' ; else fourtyOne"></st-builder-toater>
+    </ng-template>
+    <ng-template #fourtyOne>
+        <st-rang-inputs [rangSlider]="item" *ngIf="item.type == 'rangeSlider' ; else fourtyTwo"></st-rang-inputs>
+    </ng-template>
+    <ng-template #fourtyTwo>
+        <div *ngIf="item.type == 'editor_js' ; else fourtyThree">
+            <!-- <st-editor-js></st-editor-js> -->
+        </div>
+    </ng-template>
+    <ng-template #fourtyThree>
+        <!-- When some thing update in this also update in ddynamic table because also used as a image component
+        in st-dynamictable -->
+        <div class="image-preview" *ngIf="item.type == 'imageUpload' ; else fourtyFour">
+            <button class="mb-2" nz-button nzType="primary" *ngIf="item.imagePreview"
+                (click)="imagePreview(item)">Preview</button>
+            <img *ngIf="item.image ; else secondImage" nz-image
+                [class]="item.innerClass + ' ' + item?.applicationThemeClasses + ' ' + item?.innerClass"
+                [nzSrc]='item.image' [alt]='item.alt' [nzDisablePreview]="false" [nzFallback]="item.fallback" [nzDisablePreview]="true"/>
+            <ng-template #secondImage>
+                <img nz-image
+                    [class]="item.innerClass + ' ' + item?.applicationThemeClasses + ' ' + item?.appGlobalClass"
+                    [nzSrc]='item.source' [alt]='item.alt' [nzDisablePreview]="false" [nzFallback]="item.fallback" [nzDisablePreview]="true"/>
+            </ng-template>
+        </div>
+    </ng-template>
+    <ng-template #fourtyFour>
+        <st-invoice-template [invoiceData]="item"
+            *ngIf="item.type == 'invoice' ; else fourtyFive"></st-invoice-template>
+    </ng-template>
+    <ng-template #fourtyFive>
+        <st-affix [affixData]="item" *ngIf="item.type == 'affix' ; else fourtysix"></st-affix>
+    </ng-template>
+    <ng-template #fourtysix>
+        <st-transfer [transferData]="item" *ngIf="item.type == 'transfer' ; else fourtyseven"></st-transfer>
+    </ng-template>
+    <ng-template #fourtyseven>
+        <st-tree-select [treeSelectData]="item" *ngIf="item.type == 'treeSelect' ; else fourtyeight"></st-tree-select>
+    </ng-template>
+    <ng-template #fourtyeight>
+        <st-cascader [cascaderData]="item" *ngIf="item.type == 'cascader' ; else fourtyNine"></st-cascader>
+    </ng-template>
+    <ng-template #fourtyNine>
+        <st-avatar [avatarData]="item" *ngIf="item.type == 'avatar' ; else fifty"></st-avatar>
+    </ng-template>
+    <ng-template #fifty>
+        <st-badge [badgeData]="item" *ngIf="item.type == 'badge' ; else fiftyOne"></st-badge>
+    </ng-template>
+    <ng-template #fiftyOne>
+        <st-comment [formlyModel]="formlyModel" [form]="form" [commentData]="item" *ngIf="item.type == 'comment' ; else fiftyTwo"></st-comment>
+    </ng-template>
+    <ng-template #fiftyTwo>
+        <button *ngIf="item.type == 'popOver' ; else fiftyThree" [nzPopoverArrowPointAtCenter]="item.arrowPointAtCenter"
+            [nzPopoverTrigger]="item.trigger" [nzPopoverPlacement]="item.placement" [nzPopoverVisible]="item.visible"
+            [nzPopoverMouseEnterDelay]="item.mouseEnterDelay" [nzPopoverMouseLeaveDelay]="item.mouseLeaveDelay"
+            nz-button nz-popover nzType="primary" [nzPopoverTitle]="item.title | translate"
+            [nzPopoverContent]="item.content">{{item.btnLabel}}</button>
+    </ng-template>
+    <ng-template #fiftyThree>
+        <div *ngIf="item.type == 'segmented' ; else fiftyFour">
+            <st-segmented  [item]="item" [mappingId]="mappingId"></st-segmented>
+        </div>
+    </ng-template>
+    <ng-template #fiftyFour>
+        <st-tags *ngIf="item.type == 'tag' ; else fiftyFive" [item]="item" [mappingId]="mappingId"></st-tags>
+    </ng-template>
+    <ng-template #fiftyFive>
+        <nz-spin *ngIf="item.type == 'spin' ; else fiftySix" [nzSimple]="item.simple" [nzSpinning]="item.spinning"
+            [nzSize]='item.size' [nzDelay]="item.delayTime" [nzTip]='item.loaderText'></nz-spin>
+    </ng-template>
+    <ng-template #fiftySix>
+        <st-rate [rateData]="item" *ngIf="item.type == 'rate' ; else fiftySeven"></st-rate>
+    </ng-template>
+    <ng-template #fiftySeven>
+        <st-modal [screenId]="screenId" [screenName]="screenName" [modalData]="item" [formlyModel]="formlyModel" [form]="form" [mappingId]="mappingId"
+            *ngIf="item.type == 'modal' ; else fiftyEight"></st-modal>
+    </ng-template>
+    <ng-template #fiftyEight>
+        <st-popconfirm [popConfirmData]="item" *ngIf="item.type == 'popConfirm' ; else fiftyNine"></st-popconfirm>
+    </ng-template>
+    <ng-template #fiftyNine>
+        <st-description [descriptionData]="item" *ngIf="item.type == 'description' ; else sixty"></st-description>
+    </ng-template>
+    <ng-template #sixty>
+        <st-result [resulData]="item" *ngIf="item.type == 'result' ; else sixtyOne"></st-result>
+    </ng-template>
+    <ng-template #sixtyOne>
+        <st-anchor [anchorData]="item" *ngIf="item.type == 'anchor' ; else sixtyTwo"></st-anchor>
+    </ng-template>
+    <ng-template #sixtyTwo>
+        <st-back-top [backTopData]="item" *ngIf="item.type == 'backTop' ; else sixtyThree"></st-back-top>
+    </ng-template>
+    <ng-template #sixtyThree>
+        <st-statistic [statisticData]="item" *ngIf="item.type == 'statistic' ; else sixtyFour"></st-statistic>
+    </ng-template>
+    <ng-template #sixtyFour>
+        <st-drawer [screenName]="screenName" [screenId]="screenId" [formlyModel]="formlyModel" [form]="form" [drawerData]="item"
+        [mappingId]="mappingId"
+            *ngIf="item.type == 'drawer' else sixtyFive"></st-drawer>
+    </ng-template>
+    <ng-template #sixtyFive>
+        <st-skeleton [skeltonData]="item" *ngIf="item.type == 'skeleton' else sixtySix"></st-skeleton>
+    </ng-template>
+    <ng-template #sixtySix>
+        <st-empty [emptyData]="item" *ngIf="item.type == 'empty' else sixtySeven"></st-empty>
+    </ng-template>
+    <ng-template #sixtySeven>
+        <st-list [mappingId]="mappingId" [listData]="item" *ngIf="item.type == 'list' else sixtyEight"></st-list>
+    </ng-template>
+    <ng-template #sixtyEight>
+      <st-tree-view [treeListData]="item"  *ngIf="item.type == 'treeView' else sixtyNine"></st-tree-view>
+    </ng-template>
+    <ng-template #sixtyNine>
+        <st-mention [mentionData]="item" *ngIf="item.type == 'mentions' else seventy"></st-mention>
+    </ng-template>
+    <ng-template #seventy>
+        <st-message [messageData]="item" *ngIf="item.type == 'message' else seventyOne"></st-message>
+    </ng-template>
+    <ng-template #seventyOne>
+        <st-notification [notificationData]="item"
+            *ngIf="item.type == 'notification'; else seventyTwo"></st-notification>
+    </ng-template>
+    <ng-template #seventyTwo>
+        <st-tree [treeData]="item" *ngIf="item.type == 'tree'; else seventyThree"></st-tree>
+    </ng-template>
+    <ng-template #seventyThree>
+        <st-bar-chart *ngIf="item.type == 'barChart' else seventyFour" [charts]="item"
+            [chartData]="item.chartData?item.chartData:item.tableData"></st-bar-chart>
+    </ng-template>
+    <ng-template #seventyFour>
+        <st-pie-chart *ngIf="item.type == 'pieChart' else seventyFive" [charts]="item"
+            [chartData]="item.chartData?item.chartData:item.tableData"></st-pie-chart>
+    </ng-template>
+    <ng-template #seventyFive>
+        <st-bubble-chart [charts]="item" *ngIf="item.type == 'bubbleChart' else seventySix"
+            [chartData]="item.chartData?item.chartData:item.tableData"></st-bubble-chart>
+    </ng-template>
+    <ng-template #seventySix>
+        <st-candlestick-chart *ngIf="item.type == 'candlestickChart' else seventySeven"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-candlestick-chart>
+    </ng-template>
+    <ng-template #seventySeven>
+        <st-column-chart *ngIf="item.type == 'columnChart' else seventyEight"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-column-chart>
+    </ng-template>
+    <ng-template #seventyEight>
+      <st-gantt-chart-v2 *ngIf="item.type == 'ganttChart' else seventyNine"
+      [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item">
+
+      </st-gantt-chart-v2>
+        <!-- <st-gantt-chart *ngIf="item.type == 'ganttChart' else seventyNine"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-gantt-chart> -->
+    </ng-template>
+    <ng-template #seventyNine>
+        <st-geo-chart *ngIf="item.type == 'geoChart' else eighty"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-geo-chart>
+    </ng-template>
+    <ng-template #eighty>
+        <st-histogram-chart *ngIf="item.type == 'histogramChart' else eightyOne"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-histogram-chart>
+    </ng-template>
+    <ng-template #eightyOne>
+        <st-line-chart *ngIf="item.type == 'lineChart' else eightyTwo" [charts]="item"
+            [chartData]="item.chartData?item.chartData:item.tableData"></st-line-chart>
+    </ng-template>
+    <ng-template #eightyTwo>
+        <div>
+            <st-sankey-chart *ngIf="item.type == 'sankeyChart'; else eightyThree" [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-sankey-chart>
+        </div>
+    </ng-template>
+    <ng-template #eightyThree>
+        <div *ngIf="item.type == 'scatterChart'; else eightyFour">
+            <st-scatter-chart [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-scatter-chart>
+        </div>
+    </ng-template>
+    <ng-template #eightyFour>
+        <div *ngIf="item.type == 'areaChart'; else eightyFive">
+            <st-area-chart [charts]="item" [chartData]="item.chartData?item.chartData:item.tableData"></st-area-chart>
+        </div>
+    </ng-template>
+    <ng-template #eightyFive>
+        <div *ngIf="item.type == 'div';  else eightySix" (click)="routeLink(item)" (dblclick)="patchValue(item)"
+            [style.border-radius.px]="item['radius']"
+            [class]="item.divClass + ' ' + item?.innerClass+ ' ' + item?.appGlobalInnerClass" [ngStyle]="{
+            'height': item.height && item.height !== 0 ? item.height + 'px' : 'auto',
+            'width': item.width && item.width !== 0 && item.imageSrc ? item.width + 'px' : 'auto',
+            'background-image': (item.imageSrc ||  item.image) ? 'url(' + (item.imageSrc ? item.imageSrc : item.image)+ ')' : 'none',
+            'background-repeat': 'no-repeat',
+            'background-size': '100% 100%',
+            'overflow-y': (item.height && item.height !== 0) ? 'auto' : 'hidden'}">
+            <st-main [mappingId]="mappingId" [isDrawer]="isDrawer" [mainData]="item" [formlyModel]="formlyModel"
+                [screenName]="screenName" [screenId]="screenId" [form]="form"></st-main>
+        </div>
+    </ng-template>
+    <ng-template #eightySix>
+        <div [class]="item.divClass" *ngIf="item.type == 'comboChart'; else eightySeven">
+            <st-combo-chart [charts]="item" [chartData]="item.chartData?item.chartData:item.tableData"></st-combo-chart>
+        </div>
+    </ng-template>
+    <ng-template #eightySeven>
+        <div *ngIf="item.type == 'steppedAreaChart'; else eightyEight">
+            <st-stepped-area-chart [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-stepped-area-chart>
+        </div>
+    </ng-template>
+    <ng-template #eightyEight>
+        <div *ngIf="item.type == 'timelineChart'; else eightyNine">
+            <st-timeline-chart [chartData]="item.chartData ? item.chartData : item.tableData"
+                [charts]="item"></st-timeline-chart>
+
+        </div>
+    </ng-template>
+    <ng-template #eightyNine>
+        <st-org-chart *ngIf="item.type == 'orgChart' ; else ninty"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-org-chart>
+    </ng-template>
+    <ng-template #ninty>
+        <st-table-chart *ngIf="item.type == 'tableChart' ; else nintyOne"
+            [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-table-chart>
+    </ng-template>
+    <ng-template #nintyOne>
+        <st-list-with-components class="overflow-x-auto" *ngIf="item.type == 'listWithComponents' ; else nintyTwo"
+            [listData]="item" [formlyModel]="formlyModel" [screenName]="screenName" [mappingId]="mappingId"
+            [form]="form" [screenId]="screenId"></st-list-with-components>
+    </ng-template>
+    <ng-template #nintyTwo>
+        <st-tree-map *ngIf="item.type == 'treeMapChart' ; else hTwo"
+            [chartData]="item.chartData ? item.chartData : item.tableData" [charts]="item"></st-tree-map>
+    </ng-template>
+    <ng-template #hTwo>
+        <div *ngIf="item.type == 'mainDiv'; else hThree" class="flex flex-wrap">
+            <div class={{itemChild.className}} *ngFor="let itemChild of item.children">
+                <div *ngIf="itemChild.type == 'div'" [class]="itemChild.divClass" [ngStyle]="{
+                    'height': itemChild.height && item.height != 0 ? itemChild.height + 'px' : 'auto',
+                    'width': itemChild.width && itemChild.width != 0 && itemChild.imageSrc ? itemChild.width + 'px' : 'auto'
+                }"
+                    style="background-image: url({{itemChild.imageSrc}}); background-repeat: no-repeat; background-size: cover; overflow-y: auto;">
+                    <st-mains [screenId]="screenId" [screenName]="screenName" [mappingId]="mappingId" [item]="itemChild"></st-mains>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #hThree>
+        <st-menu-controll class="desktop-toggle" *ngIf="item.type == 'menu' ; else hFour"></st-menu-controll>
+    </ng-template>
+    <ng-template #hFour>
+        <st-google-map *ngIf="item.type == 'map' ; else hFive"></st-google-map>
+    </ng-template>
+    <ng-template #hFive>
+        <st-downloadbutton *ngIf="item.type == 'downloadButton'; else hSix" [screenId]="screenId"
+            [formlyModel]="formlyModel" [form]="form" [screenName]="screenName" [mappingId]="mappingId" [tableRowId]="''" [buttonData]="item"
+            [title]="''" [screenId]="screenId"></st-downloadbutton>
+    </ng-template>
+    <ng-template #hSix>
+        <st-contact-list [accordionData]="item" (accordingEmit)="accordingList($event)" [form]="form"
+            [screenId]="screenId" [screenName]="screenName" [mappingId]="mappingId" [formlyModel]="formlyModel"
+            *ngIf="item.type == 'contactList'; else hSeven"></st-contact-list>
+    </ng-template>
+    <ng-template #hSeven>
+        <st-recycle [charts]="item"
+            *ngIf="item.type == 'recycleChart'; else hEight"></st-recycle>
+    </ng-template>
+    <ng-template #hEight>
+        <st-builder-menu [data]="item"
+            *ngIf="item.type == 'buildermenu';else hNine"></st-builder-menu>
+    </ng-template>
+    <ng-template #hNine>
+      <st-debug-log *ngIf="item.type == 'debuglog'"></st-debug-log>
+    </ng-template>
+    <!-- <span class="tooltip-icon" *ngIf="item?.tooltipPosition == 'right'">
+        <span
+            *ngIf="item.type != 'progressBar' && item.type != 'alert'
+                  && item.type != 'switch' && item.type != 'rangeSlider' && item.type != 'editor_js' && item?.formlyType != 'input' && item.tooltip && !item?.tooltipWithoutIcon || false "
+            nz-tooltip [nzTooltipTitle]="item.tooltip">
+            <span nz-icon nzType="question-circle" [style.color]="item['toolTipColor']" nzTheme="outline"></span>
+        </span>
+    </span> -->
+
+</div>

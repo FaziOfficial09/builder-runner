@@ -1,0 +1,6 @@
+<nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'" class="builder-design">
+    <div *ngIf="nodes.length  > 0 && navigation">
+        <st-pages [resData]="nodes" [screenName]="screenName" [navigation]="navigation" [form]="form"
+            [formlyModel]="formlyModel"></st-pages>
+    </div>
+</nz-spin>

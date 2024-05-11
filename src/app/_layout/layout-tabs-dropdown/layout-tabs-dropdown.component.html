@@ -1,0 +1,139 @@
+<div class="layout-tabs-drop-down">
+    <ul (mouseenter)="setHovered(false,$event)" (mouseleave)="setHovered(true,$event)" [class]="theme?.font" [style.background]="theme['backGroundColor']" nz-menu nzMode="horizontal"
+        class="layout-tabs-drop-down-ul">
+        <ng-container *ngFor="let child of layoutTabsDropdownData.children">
+            <ng-container *ngIf="child.children.length === 0; else subMenu">
+                <li [ngStyle]="{ 'border-bottom': isActiveShow == child.id ? '2px solid' + (theme['activeBackgroundColor'] ? theme['activeBackgroundColor'] : '#2563eb') : '' }"
+                    [ngClass]="{'active-menu': isActiveShow == child.id}" (mouseenter)="hoverActiveShow = child.id"
+                    (mouseleave)="hoverActiveShow = null" nz-menu-item (click)="screenLoad(child,true)">
+                    <span class="menu-item-icon">
+                        <st-icon *ngIf="child.icon" [type]="child.iconType || 'outline'" [icon]="child.icon"
+                            [size]="theme['iconSize'] || 15" [color]="(isActiveShow === child.id) ? theme['activeIconColor'] :
+                          ( (hoverActiveShow === child.id) ? theme['hoverIconColor'] : theme['iconColor'])"></st-icon>
+                    </span>
+                    <span class="sidenav-title" [class]="!theme?.font" [style.font-size.px]="theme['titleSize'] || 16"
+                        [style.color]="(isActiveShow === child.id) ? (theme['activeTextColor'] || theme['textColor'])  : ( (hoverActiveShow === child.id) ? theme['hoverTextColor']: theme['textColor'])">
+                        {{ child.title | translate }}
+                    </span>
+                </li>
+            </ng-container>
+            <ng-template #subMenu>
+                <li [ngClass]="{'active-menu': isActiveShow == child.id}"
+                    [ngStyle]="{ 'border-bottom': isActiveShow == child.id ? '2px solid' + (theme['activeBackgroundColor'] ? theme['activeBackgroundColor'] : '#2563eb') : '' }"
+                    (mouseenter)="hoverActiveShow = child.id" (mouseleave)="hoverActiveShow = null" nz-submenu
+                    [nzTitle]="mainIconAndTitleTemplate" (click)="screenLoad(child,true)">
+                    <ng-template #mainIconAndTitleTemplate>
+                        <span class="menu-item-icon">
+                            <st-icon *ngIf="child.icon" [type]="child.iconType || 'outline'" [icon]="child.icon"
+                                [size]="theme['iconSize'] || 15"
+                                [color]="(isActiveShow === child.id) ? theme['activeIconColor'] :
+                              ( (hoverActiveShow === child.id) ? theme['hoverIconColor'] : theme['iconColor'])"></st-icon>
+                        </span>
+                        <span class="sidenav-title" [class]="!theme?.font"
+                            [style.font-size.px]="theme['titleSize'] || 16"
+                            [style.color]="(isActiveShow === child.id) ? (theme['activeTextColor'] || theme['textColor'])  : ( (hoverActiveShow === child.id) ? theme['hoverTextColor']: theme['textColor'])">
+                            {{ child.title | translate }}
+                        </span>
+                    </ng-template>
+                    <ul class="layout-tabs-drop-down-submenu" [class]="theme['child']?.font"
+                        [style.background]="theme['child']['backGroundColor']">
+                        <ng-container *ngFor="let child1 of child.children">
+                            <ng-container *ngIf="child1.children.length > 0; else subSubMenu">
+                                <li [ngStyle]="{ 'background': isActiveShowChild == child1.id ? theme['child']['activeBackgroundColor']: '' }"
+                                    (click)="screenLoad(child1,false)" (mouseenter)="hoverActiveShow = child1.id"
+                                    (mouseleave)="hoverActiveShow = null" nz-submenu [nzTitle]="iconAndTitleTemplate">
+                                    <ul class="layout-tabs-drop-down-sub-submenu" [class]="theme['child']?.font"
+                                        [style.background]="theme['child']['backGroundColor']">
+                                        <li [ngStyle]="{ 'background': isActiveShowChild == child2.id ?theme['child']['activeBackgroundColor']: '' }"
+                                            (mouseenter)="hoverActiveShow = child2.id"
+                                            (mouseleave)="hoverActiveShow = null" nz-menu-item
+                                            *ngFor="let child2 of child1.children" (click)="screenLoad(child2,false)">
+                                            <span class="menu-item-icon">
+                                                <st-icon *ngIf="child2.icon" [type]="child2.iconType || 'outline'"
+                                                    [icon]="child2.icon" [size]="theme['child']['iconSize'] || 15"
+                                                    [color]="(hoverActiveShow === child2.id) ? theme['child']['hoverIconColor'] :
+                                                  ((isActiveShowChild === child2.id) ? theme['child']['activeIconColor'] : theme['child']['iconColor'])"></st-icon>
+                                            </span>
+                                            <span class="sidenav-title" [class]="!theme['child']?.font"
+                                                [style.font-size.px]="theme['child']['titleSize'] || 16"
+                                                [style.color]="(hoverActiveShow === child2.id) ? theme['child']['hoverTextColor'] : ((isActiveShowChild === child2.id) ? (theme['child']['activeTextColor'] || theme['child']['textColor']) : theme['child']['textColor'])">
+                                                {{ child2.title | translate }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ng-template #iconAndTitleTemplate>
+                                        <span class="menu-item-icon">
+                                            <st-icon *ngIf="child1.icon" [type]="child1.iconType || 'outline'"
+                                                [icon]="child1.icon" [size]="theme['child']['iconSize'] || 15"
+                                                [color]="(hoverActiveShow === child1.id) ? theme['child']['hoverIconColor'] :
+                                              ((isActiveShowChild === child1.id) ? theme['child']['activeIconColor'] : theme['child']['iconColor'])"></st-icon>
+                                        </span>
+                                        <span class="sidenav-title" [class]="!theme['child']?.font"
+                                            [style.font-size.px]="theme['child']['titleSize'] || 16"
+                                            [style.color]="(hoverActiveShow === child1.id) ? theme['child']['hoverTextColor'] : ((isActiveShowChild === child1.id) ? (theme['child']['activeTextColor'] || theme['child']['textColor']) : theme['child']['textColor'])">
+                                            {{ child1.title | translate }}
+                                        </span>
+                                    </ng-template>
+                                </li>
+                            </ng-container>
+                            <ng-template #subSubMenu>
+                                <li [ngStyle]="{ 'background': isActiveShowChild == child1.id ? (theme['child']['activeBackgroundColor'] ? theme['child']['activeBackgroundColor'] : '' ) : '' }"
+                                    (mouseenter)="hoverActiveShow = child1.id" (mouseleave)="hoverActiveShow = null"
+                                    nz-menu-item (click)="screenLoad(child1,false)">
+                                    <span class="menu-item-icon">
+                                        <st-icon *ngIf="child1.icon" [type]="child1.iconType || 'outline'"
+                                            [icon]="child1.icon" [size]="theme['child']['iconSize'] || 15"
+                                            [color]="(hoverActiveShow === child1.id) ? theme['child']['hoverIconColor'] :
+                                          ((isActiveShowChild === child1.id) ? theme['child']['activeIconColor'] : theme['child']['iconColor'])"></st-icon>
+                                    </span>
+                                    <span class="sidenav-title" [class]="!theme['child']?.font"
+                                        [style.font-size.px]="theme['child']['titleSize'] || 16"
+                                        [style.color]="(hoverActiveShow === child1.id) ? theme['child']['hoverTextColor'] : ((isActiveShowChild === child1.id) ? (theme['child']['activeTextColor'] || theme['child']['textColor']) : theme['child']['textColor'])">
+                                        {{ child1.title | translate }}
+                                    </span>
+                                </li>
+                            </ng-template>
+                        </ng-container>
+                    </ul>
+                </li>
+            </ng-template>
+        </ng-container>
+
+        <!-- <div *ngIf="moreMenu.length" style="flex-grow: 1">
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu">More</button>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+                <ng-container  *ngFor="let item of moreMenu">
+                    <li *ngIf="item.children.length > 0" nz-submenu [nzTitle]="item.title">
+                        <ul *ngFor="let child of item.children">
+                            <li nz-menu-item>{{child.title}}</li>
+                        </ul>
+                    </li>
+                    <li nz-menu-item *ngIf="item.children.length == 0">
+                        {{item.title}}
+                    </li>
+                </ng-container>
+            </ul>
+        </nz-dropdown-menu>
+    </div> -->
+        <!-- <ng-container *ngIf="layoutTabsDropdownData.aboveSevenTab">
+        <ng-container *ngIf="layoutTabsDropdownData.aboveSevenTab.length">
+            <li class="menu" nz-submenu [nzTitle]="'More'" nzIcon="appstore"
+                routerLinkActive="active">
+                <ul *ngFor="let item of layoutTabsDropdownData.aboveSevenTab">
+                    <li *ngIf="item.children.length > 0" nz-submenu
+                        [nzTitle]="item.title" (click)="screenLoad(item .link)">
+                        <ul *ngFor="let child of item.children">
+                            <li nz-menu-item (click)="screenLoad(child.link)">{{child.title}}</li>
+                        </ul>
+                    </li>
+                    <li nz-menu-item *ngIf="item.children.length == 0"
+                        (click)="screenLoad(item.link)">
+                        {{item.title}}
+                    </li>
+                </ul>
+            </li>
+        </ng-container>
+    </ng-container> -->
+    </ul>
+</div>

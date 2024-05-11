@@ -1,0 +1,16 @@
+<!-- <span class="icon" (mouseover)="applyColor(true)" (mouseout)="applyColor(false)"> -->
+<span >
+  <span [class]="iconClass" [style.font-size.px]="size || 15"
+    [style.color]="color ?  color + ' !important' : ''"
+    nz-icon
+    *ngIf="(type == 'outline' || type == 'fill' || type == 'twotone') && !icon.includes('fa-')"
+    [nzType]="icon" [nzTheme]='type'></span>
+  <i [style.font-size.px]="size || 15"
+    [style.color]="color ?  color + ' !important' : ''"
+    *ngIf="type == 'font_awsome' && icon.includes('fa-')" [class]="icon + ' ' + iconClass"></i>
+  <span [class]="iconClass" [style.font-size.px]="size || 15"
+    [style.color]="color ?  color + ' !important' : ''"
+    *ngIf="type == 'material' && !icon.includes('fa-')">
+    <i class="material-icons">{{icon}}</i>
+  </span>
+</span>

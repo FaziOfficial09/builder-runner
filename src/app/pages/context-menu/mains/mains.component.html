@@ -1,0 +1,423 @@
+<div nz-tooltip [nzTooltipTitle]="item?.tooltipWithoutIcon ? item.tooltip : ''">
+    <!-- <span class="tooltip-icon" *ngIf="item?.tooltipPosition == 'left'">
+        <span *ngIf="item.type != 'progressBar' && item.type != 'alert'
+    && item.type != 'switch' && item.type != 'rangeSlider' && item.type != 'editor_js' && item?.formlyType != 'input' && item.tooltip
+    && !item?.tooltipWithoutIcon || false" nz-tooltip [nzTooltipTitle]="item.tooltip">
+            <span nz-icon nzType="question-circle" [style.color]="item['toolTipColor']" nzTheme="outline"></span>
+        </span>
+    </span> -->
+    <ng-container *ngIf="item?.formlyType == 'input';else second ">
+        <div
+            [ngClass]="item.formly[0].fieldGroup[0].wrappers[0] == 'formly-vertical-theme-wrapper' ? 'theme-body' : item.formly[0].fieldGroup[0].wrappers[0]">
+            <formly-form [fields]="item.formly" [form]="form" [model]="formlyModel">
+            </formly-form>
+        </div>
+    </ng-container>
+    <ng-template #second>
+        <ng-container
+            *ngIf="item.type == 'button' || item.type =='linkbutton' || item.type =='buttonGroup' || item.type =='dropdownButton' ; else third">
+            <nz-badge *ngIf="item?.badgeType == 'count' && item.type != 'buttonGroup'" [nzCount]="item?.badgeCount">
+                <st-block-buttons-card [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form"
+                    [screenName]="screenName" [softIconList]="item" [screenId]="screenId">
+                </st-block-buttons-card>
+            </nz-badge>
+            <nz-badge nzDot *ngIf="item?.badgeType == 'dot' && item.type != 'buttonGroup'">
+                <st-block-buttons-card [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form"
+                    [screenName]="screenName" [softIconList]="item" [screenId]="screenId">
+                </st-block-buttons-card></nz-badge>
+            <st-block-buttons-card [mappingId]="mappingId"
+                *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'" [formlyModel]="formlyModel"
+                [form]="form" [screenName]="screenName" [softIconList]="item" [mappingId]="mappingId"
+                [screenId]="screenId">
+            </st-block-buttons-card>
+        </ng-container>
+    </ng-template>
+    <ng-template #third>
+        <ng-container [ngSwitch]="item.type">
+            <st-sales-card *ngSwitchCase="'chart'" [salesdata]="item"></st-sales-card>
+
+            <ng-container *ngSwitchCase="'headerLogo'">
+                <img class="desktop-toggle"
+                    [style.height]="item.height !== undefined && item.height !== null && item.height !== 0 && item.height !== '' ? item.height + 'px' : 'auto'"
+                    [style.width]="item.width !== undefined && item.width !== null && item.width !== 0 && item.width !== '' ? item.width + 'px' : 'auto'"
+                    (click)="defaultPageRoute()"
+                    [src]="dataSharedService.headerLogo ? dataSharedService.headerLogo : 'assets/images/logo.png'" alt>
+                <div class="mobile-toggle flex">
+                    <button nz-button
+                        class="!rounded !bg-transparent !text-amber-300 hover:!bg-transparent hover:!text-amber-300 !border !border-amber-300 !hover:border-amber-300 !font-md !flex !flex-wrap !items-center"
+                        (click)="menuCollapsed()">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <img class="mobile-logo" (click)="defaultPageRoute()"
+                        [src]="dataSharedService.headerLogo ? dataSharedService.headerLogo : 'assets/images/logo.png'"
+                        alt>
+                </div>
+            </ng-container>
+
+            <st-file-manager *ngSwitchCase="'fileManager'" [data]="item"></st-file-manager>
+
+            <st-qr-code *ngSwitchCase="'qrcode'" [item]="item"></st-qr-code>
+
+            <st-support-chat *ngSwitchCase="'chat'" [mappingId]="mappingId" [formlyModel]="formlyModel" [form]="form"
+                [screenId]="screenId" [screenName]="screenName" [data]="item"></st-support-chat>
+
+            <st-email *ngSwitchCase="'email_template'"></st-email>
+
+            <st-task-manager *ngSwitchCase="'taskManager'" [mappingId]="mappingId" [screenName]="screenName"
+                [screenId]="screenId" [formlyModel]="formlyModel" [form]="form"
+                [taskManagerData]="item"></st-task-manager>
+
+            <!-- <st-task-detail-card  *ngSwitchCase="'card'" [widgetcard]="item"></st-task-detail-card> -->
+
+            <st-heading *ngSwitchCase="'heading'" [headingData]="item"></st-heading>
+
+            <st-paragraph *ngSwitchCase="'paragraph'" [data]="item"></st-paragraph>
+
+
+            <st-html-block *ngSwitchCase="'htmlBlock'" [htmlBlockData]="item.data"></st-html-block>
+
+            <ng-container *ngSwitchCase="'icon'">
+                <nz-badge nzDot *ngIf="item?.badgeType == 'dot'">
+                    <st-icon [type]="item.iconType" [icon]="item.icon" [size]="item.iconSize" [color]="item.iconColor"
+                        [hoverIconColor]="item.hoverIconColor"
+                        [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"></st-icon>
+                </nz-badge>
+                <nz-badge [nzCount]="item?.badgeCount" *ngIf="item?.badgeType == 'count'">
+                    <st-icon [type]="item.iconType" [icon]="item.icon" [size]="item.iconSize"
+                        [hoverIconColor]="item.hoverIconColor" [color]="item.iconColor"
+                        [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"
+                        [applicationThemeClasses]="item?.applicationThemeClasses"
+                        [appGlobalClass]="item?.appGlobalClass"></st-icon>
+                </nz-badge>
+                <st-icon *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'" [type]="
+                  item.iconType" [icon]="item.icon" [size]="item.iconSize" [color]="item.iconColor"
+                    [hoverIconColor]="item.hoverIconColor"
+                    [iconClass]="item.iconClass + ' ' + item?.appGlobalInnerIconClass"></st-icon>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'cardWithComponents'">
+                <nz-ribbon *ngIf="item?.badgeType == 'ribbon'" [nzColor]="item.dot_ribbon_color"
+                    [nzText]="item?.badgeRibbonText">
+                    <st-card-with-components [item]="item" [form]="form" [formlyModel]="formlyModel"
+                        [screenName]="screenName" [mappingId]="mappingId"
+                        [screenId]="screenId"></st-card-with-components>
+                </nz-ribbon>
+                <!-- <nz-badge *ngIf="item?.badgeType == 'count'" [nzCount]="item?.badgeCount">
+              <st-card-with-components [item]="item"></st-card-with-components>
+          </nz-badge>
+          <nz-badge *ngIf="item?.badgeType == 'dot'" [nzColor]="item.dot_ribbon_color" nzDot>
+              <st-card-with-components [item]="item"></st-card-with-components>
+          </nz-badge> -->
+
+                <st-card-with-components *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'"
+                    [item]="item"></st-card-with-components>
+            </ng-container>
+
+            <dynamic-table *ngSwitchCase="'gridList'" [tableId]='item.tableId' [checkType]="false"
+                [tableData]='item.tableData' [excelReportData]='item.tableData' [tableHeaders]='item.tableHeaders'
+                [formlyModel]="formlyModel" [form]="form" [screenId]="screenId" [data]="item"
+                [displayData]="item.displayData" [screenName]="screenName" [mappingId]="mappingId" [isDrawer]="isDrawer"
+                [configurationTable]="item?.showEditInput ? item?.showEditInput : false"></dynamic-table>
+
+            <st-table *ngSwitchCase="'simpleGridList'"></st-table>
+
+            <st-progressbars *ngSwitchCase="'progressBar'" [progressBarData]="item"></st-progressbars>
+
+            <st-divider [dividerData]="item" *ngSwitchCase="'divider'"></st-divider>
+
+            <st-videos [videoData]="item" *ngSwitchCase="'video'"></st-videos>
+
+            <st-audio [audioData]="item" *ngSwitchCase="'audio'"></st-audio>
+
+            <!-- <st-browser-combine-chart  *ngSwitchCase="'browserCombineChart'"
+                  [browserCombinechartData]="item"></st-browser-combine-chart> -->
+
+            <st-parent-calendar *ngSwitchCase="'calender'" [item]="item" [screenName]="screenName"
+                [mappingId]="mappingId" [screenId]="screenId" [formlyModel]="formlyModel"
+                [form]="form"></st-parent-calendar>
+
+            <!-- <st-shared-messages-card [sharedMessagesData]="item" *ngSwitchCase="'sharedMessagesChart'"></st-shared-messages-card> -->
+
+            <st-new-alerts *ngSwitchCase="'alert'" [alertData]="item"></st-new-alerts>
+
+            <ng-container *ngSwitchCase="'simpleCardWithHeaderBodyFooter'">
+                <nz-ribbon *ngIf="item?.badgeType == 'ribbon'" [nzColor]="item.dot_ribbon_color"
+                    [nzText]="item?.badgeRibbonText">
+                    <st-simple-card-with-header-body-footer [cardData]="item">
+                    </st-simple-card-with-header-body-footer>
+                </nz-ribbon>
+                <st-simple-card-with-header-body-footer
+                    *ngIf="item?.badgeType == undefined || item?.badgeType == 'none'" [cardData]="item">
+                </st-simple-card-with-header-body-footer>
+            </ng-container>
+
+            <st-tabs *ngSwitchCase="'mainTab'" [screenName]="screenName" [tabs]="item" [form]="form"
+                [formlyModel]="formlyModel" [screenId]="screenId" [mappingId]="mappingId"></st-tabs>
+
+            <st-timeline-builder *ngSwitchCase="'timeline'" [timelineData]="item"></st-timeline-builder>
+
+            <!-- <st-multi-file-upload *ngSwitchCase="'multiFileUpload'" [multiFileUploadData]="item"></st-multi-file-upload> -->
+            <ng-container *ngSwitchCase="'inputFields'">
+                <!-- <div *ngFor="let items of item.children">
+              <form [formGroup]="form">
+                  <formly-form [fields]="items.formly" [(model)]="formlyModel" [form]="form">
+                  </formly-form>
+                  <button *ngIf="isLast" nz-button nzType="primary" (click)="submit()"><span nz-icon nzType="database" nzTheme="outline"></span>Submit</button>
+                  <button *ngIf="isLast" type="submit" class="btn btn-primary submit-button">Submit</button>
+              </form>
+          </div> -->
+            </ng-container>
+
+            <st-stepper *ngSwitchCase="'mainStep'" [step]="item" [form]="form" [formlyModel]="formlyModel"
+                [screenName]="screenName" [screenId]="screenId" [mappingId]="mappingId">
+            </st-stepper>
+
+            <st-accordion-button *ngSwitchCase="'accordionButton'" [mappingId]="mappingId" [accordionData]="item"
+                (accordingEmit)="accordingList($event)" [form]="form" [screenId]="screenId" [screenName]="screenName"
+                [formlyModel]="formlyModel"></st-accordion-button>
+
+            <st-switch *ngSwitchCase="'switch'" [switchData]="item"></st-switch>
+
+            <st-board *ngSwitchCase="'kanban'" [mappingId]="mappingId" [kanbanData]="item" [form]="form"
+                [screenId]="screenId" [screenName]="screenName" [formlyModel]="formlyModel"></st-board>
+
+            <!-- <st-kanban-boards [kanbanData]="item"></st-kanban-boards> -->
+            <ng-container *ngSwitchCase="'fixedDiv'">
+                <div *ngFor="let data of item.children">
+                    <div
+                        *ngIf="data.type == 'button' || data.type == 'linkButton' || data.type == 'buttonGroup' || item.type =='dropdownButton'">
+                        <st-block-buttons-card [formlyModel]="formlyModel" [form]="form" [screenName]="screenName"
+                            [softIconList]="data" [mappingId]="mappingId" [screenId]="screenId">
+                        </st-block-buttons-card>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div *ngSwitchCase="'input'"
+                [ngClass]="item.formly[0].fieldGroup[0].wrappers[0] == 'formly-vertical-theme-wrapper' ? 'theme-body' : item.formly[0].fieldGroup[0].wrappers[0]">
+                <formly-form [fields]="item.formly" [form]="form" [model]="formlyModel">
+                </formly-form>
+            </div>
+            <!-- <button *ngIf="isLast" type="submit" class="bg-blue-500 mt-2">Submit</button>
+                <div *ngIf="isLast">
+                    <button nz-button nzType="primary" (click)="submit()"><span nz-icon nzType="database"
+                          nzTheme="outline"></span>Submit</button>
+                </div> -->
+
+            <nz-card *ngSwitchCase="'textEditor'">
+                <st-editor-js-wrapper [(ngModel)]="item.editorJson" [minHeight]="'300px'"
+                    [data]="item.editorJson"></st-editor-js-wrapper>
+            </nz-card>
+            <!-- <pre>{{ item.editorJson | json }}</pre> -->
+            <!-- <st-editors [editorData]="item"></st-editors> -->
+
+            <br *ngSwitchCase="'breakTag'" />
+
+            <st-carousel-crossfade-card *ngSwitchCase="'carouselCrossfade'" [carouselslides]="item" [form]="form"
+                [formlyModel]="formlyModel" [screenName]="screenName" [screenId]="screenId"
+                [mappingId]="mappingId"></st-carousel-crossfade-card>
+
+            <st-builder-toater *ngSwitchCase="'toastr'" [toastrData]="item"></st-builder-toater>
+
+            <!-- <st-rang-inputs *ngSwitchCase="'rangeSlider'" [rangSlider]="item"></st-rang-inputs> -->
+
+            <!-- <st-editor-js *ngSwitchCase="'editor_js'"></st-editor-js> -->
+
+            <ng-container *ngSwitchCase="'imageUpload'">
+                <div class="image-preview">
+                    <button class="mb-2" nz-button nzType="primary" *ngIf="item.imagePreview"
+                        (click)="imagePreview(item)">Preview</button>
+                    <img *ngIf="item.image ; else secondImage" nz-image
+                        [class]="item.innerClass + ' ' + item?.applicationThemeClasses + ' ' + item?.innerClass"
+                        [nzSrc]='item.image' [alt]='item.alt' [nzDisablePreview]="false" [nzFallback]="item.fallback"
+                        [nzDisablePreview]="true" />
+                    <ng-template #secondImage>
+                        <img nz-image
+                            [class]="item.innerClass + ' ' + item?.applicationThemeClasses + ' ' + item?.appGlobalClass"
+                            [nzSrc]='item.source' [alt]='item.alt' [nzDisablePreview]="false"
+                            [nzFallback]="item.fallback" [nzDisablePreview]="true" />
+                    </ng-template>
+                </div>
+            </ng-container>
+            <st-invoice-template *ngSwitchCase="'invoice'" [invoiceData]="item"></st-invoice-template>
+
+            <st-affix *ngSwitchCase="'affix'" [affixData]="item"></st-affix>
+
+            <st-transfer *ngSwitchCase="'transfer'" [transferData]="item"></st-transfer>
+
+            <st-tree-select *ngSwitchCase="'treeSelect'" [treeSelectData]="item"></st-tree-select>
+
+            <st-cascader *ngSwitchCase="'cascader'" [cascaderData]="item"></st-cascader>
+
+            <st-avatar *ngSwitchCase="'avatar'" [avatarData]="item"></st-avatar>
+
+            <st-badge *ngSwitchCase="'badge'" [badgeData]="item"></st-badge>
+
+            <st-comment *ngSwitchCase="'comment'" [commentData]="item" [formlyModel]="formlyModel" ></st-comment>
+
+            <button *ngSwitchCase="'popOver'" [nzPopoverArrowPointAtCenter]="item.arrowPointAtCenter"
+                [nzPopoverTrigger]="item.trigger" [nzPopoverPlacement]="item.placement"
+                [nzPopoverVisible]="item.visible" [nzPopoverMouseEnterDelay]="item.mouseEnterDelay"
+                [nzPopoverMouseLeaveDelay]="item.mouseLeaveDelay" nz-button nz-popover nzType="primary"
+                [nzPopoverTitle]="item.title | translate" [nzPopoverContent]="item.content">{{item.btnLabel}}</button>
+
+            <st-segmented *ngSwitchCase="'segmented'" [item]="item" [mappingId]="mappingId"></st-segmented>
+
+            <st-tags *ngSwitchCase="'tag'" [item]="item" [mappingId]="mappingId"></st-tags>
+
+            <nz-spin *ngSwitchCase="'spin'" [nzSimple]="item.simple" [nzSpinning]="item.spinning" [nzSize]='item.size'
+                [nzDelay]="item.delayTime" [nzTip]='item.loaderText'></nz-spin>
+
+            <st-rate *ngSwitchCase="'rate'" [rateData]="item"></st-rate>
+
+            <st-modal *ngSwitchCase="'modal'" [screenId]="screenId" [screenName]="screenName" [modalData]="item"
+                [formlyModel]="formlyModel" [form]="form" [mappingId]="mappingId"></st-modal>
+
+            <st-popconfirm *ngSwitchCase="'popConfirm'" [popConfirmData]="item"></st-popconfirm>
+
+            <st-description *ngSwitchCase="'description'" [descriptionData]="item"></st-description>
+
+            <st-result *ngSwitchCase="'result'" [resulData]="item"></st-result>
+
+            <st-anchor *ngSwitchCase="'anchor'" [anchorData]="item"></st-anchor>
+
+            <st-back-top *ngSwitchCase="'backTop'" [backTopData]="item"></st-back-top>
+
+            <st-statistic *ngSwitchCase="'statistic'" [statisticData]="item"></st-statistic>
+
+            <st-drawer *ngSwitchCase="'drawer'" [screenName]="screenName" [screenId]="screenId"
+                [formlyModel]="formlyModel" [form]="form" [drawerData]="item" [mappingId]="mappingId"></st-drawer>
+
+            <st-skeleton [skeltonData]="item" *ngSwitchCase="'skeleton'"></st-skeleton>
+
+            <st-empty [emptyData]="item" *ngSwitchCase="'empty'"></st-empty>
+
+            <st-list [listData]="item" *ngSwitchCase="'list'"></st-list>
+
+            <st-tree-view [treeListData]="item" *ngSwitchCase="'treeView'"></st-tree-view>
+
+            <st-mention [mentionData]="item" *ngSwitchCase="'mentions'"></st-mention>
+
+            <st-message [messageData]="item" *ngSwitchCase="'message'"></st-message>
+
+            <st-notification [notificationData]="item" *ngSwitchCase="'notification'"></st-notification>
+
+            <st-tree [treeData]="item" *ngSwitchCase="'tree'"></st-tree>
+
+            <st-bar-chart *ngSwitchCase="'barChart'" [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-bar-chart>
+
+            <st-pie-chart *ngSwitchCase="'pieChart'" [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-pie-chart>
+
+            <st-bubble-chart [charts]="item" *ngSwitchCase="'bubbleChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-bubble-chart>
+
+            <st-candlestick-chart *ngSwitchCase="'candlestickChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-candlestick-chart>
+
+            <st-column-chart *ngSwitchCase="'columnChart'" [chartData]="item.chartData?item.chartData:item.tableData"
+                [charts]="item"></st-column-chart>
+
+            <st-gantt-chart-v2 *ngSwitchCase="'ganttChart'" [chartData]="item.chartData?item.chartData:item.tableData"
+                [charts]="item">
+            </st-gantt-chart-v2>
+            <!-- <st-gantt-chart *ngSwitchCase="'ganttChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-gantt-chart> -->
+            <st-geo-chart *ngSwitchCase="'geoChart'" [chartData]="item.chartData?item.chartData:item.tableData"
+                [charts]="item"></st-geo-chart>
+
+            <st-histogram-chart *ngSwitchCase="'histogramChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData" [charts]="item"></st-histogram-chart>
+
+            <st-line-chart *ngSwitchCase="'lineChart'" [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-line-chart>
+
+            <st-sankey-chart [charts]="item" *ngSwitchCase="'sankeyChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-sankey-chart>
+
+            <st-scatter-chart [charts]="item" *ngSwitchCase="'scatterChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-scatter-chart>
+
+            <st-area-chart [charts]="item" *ngSwitchCase="'areaChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-area-chart>
+
+            <div *ngSwitchCase="'div'" (click)="routeLink(item)" (dblclick)="patchValue(item)"
+                [style.border-radius.px]="item['radius']"
+                [class]="item.divClass + ' ' + item?.innerClass+ ' ' + item?.appGlobalInnerClass" [ngStyle]="{
+                'height': item.height && item.height !== 0 ? item.height + 'px' : 'auto',
+                'width': item.width && item.width !== 0 && item.imageSrc ? item.width + 'px' : 'auto',
+                'background-image': (item.imageSrc ||  item.image) ? 'url(' + (item.imageSrc ? item.imageSrc : item.image)+ ')' : 'none',
+                'background-repeat': 'no-repeat',
+                'background-size': '100% 100%',
+                'overflow-y': (item.height && item.height !== 0) ? 'auto' : 'hidden'}">
+                <st-main [mappingId]="mappingId" [isDrawer]="isDrawer" [mainData]="item" [formlyModel]="formlyModel"
+                    [screenName]="screenName" [screenId]="screenId" [form]="form"></st-main>
+            </div>
+
+            <st-combo-chart *ngSwitchCase="'comboChart'" [charts]="item"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-combo-chart>
+
+            <st-stepped-area-chart [charts]="item" *ngSwitchCase="'steppedAreaChart'"
+                [chartData]="item.chartData?item.chartData:item.tableData"></st-stepped-area-chart>
+
+            <st-timeline-chart *ngSwitchCase="'timelineChart'"
+                [chartData]="item.chartData ? item.chartData : item.tableData" [charts]="item"></st-timeline-chart>
+
+            <st-org-chart *ngSwitchCase="'orgChart'" [chartData]="item.chartData?item.chartData:item.tableData"
+                [charts]="item"></st-org-chart>
+
+            <st-table-chart *ngSwitchCase="'tableChart'" [chartData]="item.chartData?item.chartData:item.tableData"
+                [charts]="item"></st-table-chart>
+
+            <st-list-with-components *ngSwitchCase="'listWithComponents'" class="overflow-x-auto" [listData]="item"
+                [formlyModel]="formlyModel" [screenName]="screenName" [mappingId]="mappingId" [form]="form"
+                [screenId]="screenId"></st-list-with-components>
+
+            <st-tree-map *ngSwitchCase="'treeMapChart'" [chartData]="item.chartData ? item.chartData : item.tableData"
+                [charts]="item"></st-tree-map>
+
+            <div class="flex flex-wrap" *ngSwitchCase="'mainDiv'">
+                <div class={{itemChild.className}} *ngFor="let itemChild of item.children">
+                    <div *ngIf="itemChild.type == 'div'" [class]="itemChild.divClass" [ngStyle]="{
+                            'height': itemChild.height && item.height != 0 ? itemChild.height + 'px' : 'auto',
+                            'width': itemChild.width && itemChild.width != 0 && itemChild.imageSrc ? itemChild.width + 'px' : 'auto'
+                        }"
+                        style="background-image: url({{itemChild.imageSrc}}); background-repeat: no-repeat; background-size: cover; overflow-y: auto;">
+                        <st-mains [screenId]="screenId" [screenName]="screenName" [mappingId]="mappingId"
+                            [item]="itemChild"></st-mains>
+                    </div>
+                </div>
+            </div>
+
+            <st-menu-controll class="desktop-toggle" *ngSwitchCase="'menu'"></st-menu-controll>
+            <st-google-map *ngSwitchCase="'map'"></st-google-map>
+
+            <st-downloadbutton *ngSwitchCase="'downloadButton'" [screenId]="screenId" [formlyModel]="formlyModel"
+                [form]="form" [screenName]="screenName" [mappingId]="mappingId" [tableRowId]="''" [buttonData]="item"
+                [title]="''" [screenId]="screenId"></st-downloadbutton>
+
+            <st-contact-list *ngSwitchCase="'contactList'" [accordionData]="item"
+                (accordingEmit)="accordingList($event)" [form]="form" [screenId]="screenId" [screenName]="screenName"
+                [mappingId]="mappingId" [formlyModel]="formlyModel"></st-contact-list>
+
+            <st-recycle [charts]="item" *ngSwitchCase="'recycleChart'"></st-recycle>
+            <st-diff-checker *ngSwitchCase="'diffChecker'" [item]="item" [mappingId]="mappingId"></st-diff-checker>
+            <st-builder-menu [data]="item" *ngSwitchCase="'buildermenu'"></st-builder-menu>
+            <st-debug-log *ngSwitchCase="'debuglog'"></st-debug-log>
+            <ng-container *ngSwitchDefault>
+                <p>sorry</p>
+            </ng-container>
+        </ng-container>
+    </ng-template>
+
+    <!-- <span class="tooltip-icon" *ngIf="item?.tooltipPosition == 'right'">
+        <span
+            *ngIf="item.type != 'progressBar' && item.type != 'alert'
+                  && item.type != 'switch' && item.type != 'rangeSlider' && item.type != 'editor_js' && item?.formlyType != 'input' && item.tooltip && !item?.tooltipWithoutIcon || false "
+            nz-tooltip [nzTooltipTitle]="item.tooltip">
+            <span nz-icon nzType="question-circle" [style.color]="item['toolTipColor']" nzTheme="outline"></span>
+        </span>
+    </span> -->
+
+</div>

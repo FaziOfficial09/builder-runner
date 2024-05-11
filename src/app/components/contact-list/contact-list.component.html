@@ -1,0 +1,60 @@
+
+<button nz-button nzType="primary" class="btn mb-4" (click)="openModal()"><span nz-icon
+        nzType="plus" nzTheme="outline"></span>Add
+    Department</button>
+<div [processData]="processData" [appConfigurableSelect]="accordionData?.appConfigurableEvent"
+    [loadAction]="accordionData?.eventActionconfig" style="padding:30px;">
+    <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="8" *ngFor="let conatct of contactList">
+            <nz-card style="width:300px; margin-bottom: 10px;" [nzCover]="coverTemplate"
+                [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+                <nz-card-meta [nzTitle]="conatct.name" [nzDescription]="conatct.designation"
+                    [nzAvatar]="avatarTemplate"></nz-card-meta>
+            </nz-card>
+            <ng-template #avatarTemplate>
+                <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+            </ng-template>
+            <ng-template #coverTemplate>
+                <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+            </ng-template>
+            <ng-template #actionSetting>
+                <span nz-icon nzType="setting"></span>
+            </ng-template>
+            <ng-template #actionEdit>
+                <span nz-icon nzType="edit"></span>
+            </ng-template>
+            <ng-template #actionEllipsis>
+                <span nz-icon nzType="ellipsis"></span>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<nz-drawer nzWidth="80%" [nzClosable]="true" [nzVisible]="isVisible" [nzFooter]="footerTpl" nzPlacement="right"
+    [nzTitle]="'Add Contact'" (nzOnClose)="handleCancel()">
+    <ng-container *nzDrawerContent>
+        <form [formGroup]="form">
+            <div class="flex flex-wrap">
+                <div class="w-1/2" *ngFor="let item of fields">
+                    <div class="theme-body">
+                        <div *ngIf="item">
+                            <formly-form [model]="model" [fields]="item.fieldGroup" [options]="options"
+                                [form]="form"></formly-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</nz-drawer>
+<ng-template #footerTpl>
+    <div class="flex justify-end">
+        <button class="mr-2 btn-no  !bg-red-600 !text-white hover:!bg-red-500 !border-none" nz-button nzDanger
+            (click)="handleCancel()"><i class="fa-regular fa-x mr-1.5"></i>Close</button>
+        <button nz-button [ngClass]="{ 'btn-no' : !form.valid , 'btn' : form.valid }" *ngIf="isSubmit"
+            (click)="submit()" [disabled]="!form.valid"><i class="fa-regular fa-database mr-1.5"></i>Submit</button>
+        <button nz-button [ngClass]="{ 'btn-no' : !form.valid , 'btn' : form.valid }" *ngIf="!isSubmit" nzType="primary"
+            (click)="submit()" [disabled]="!form.valid"><span><i
+                    class="fa-regular fa-arrows-rotate mr-2"></i></span>Update</button>
+    </div>
+</ng-template>

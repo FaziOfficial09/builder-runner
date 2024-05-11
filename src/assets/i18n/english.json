@@ -1,0 +1,82 @@
+{
+  "Dashboards": "Dashboards",
+  "Sales": "Sales",
+  "Analytics": "Analytics",
+  "Applications": "Applications",
+  "Calendar": "Calendar",
+  "Chat": "Chat",
+  "Kanban Board": "Kanban Board",
+  "File Manager": "File Manager",
+  "Email": "Email",
+  "Contacts": "Contacts",
+  "Gallery": "Gallery",
+  "Projects": "Projects",
+  "Pages": "Pages",
+  "Authentication": "Authentication",
+  "Error Pages": "Error Pages",
+  "Utility": "Utility",
+  "Pricing": "Pricing",
+  "Invoices": "Invoices",
+  "Timeline": "Timeline",
+  "Components": "Components",
+  "UI Elements": "UI Elements",
+  "Extended UI": "Extended UI",
+  "Widgets": "Widgets",
+  "Forms": "Forms",
+  "Tables": "Tables",
+  "Apex Charts": "Apex Charts",
+  "Icons": "Icons",
+  "Maps": "Maps",
+  "Multi Levels": "Multi Levels",
+  "User Grid": "User Grid",
+  "User List": "User List",
+  "User Setting": "User Setting",
+  "Inbox": "Inbox",
+  "Read Email": "Read Email",
+  "Project Grid": "Project Grid",
+  "Project List": "Project List",
+  "Project Overview": "Project Overview",
+  "Create New": "Create New",
+  "404 Basic": "404 Basic",
+  "404 Cover": "404 Cover",
+  "500 Cover": "500 Cover",
+  "500 Basic": "500 Basic",
+  "Starter Page": "Starter Page",
+  "Profile": "Profile",
+  "Maintanence": "Maintanence",
+  "Coming Soon": "Coming Soon",
+  "FAQs": "FAQs",
+  "Basic": "Basic",
+  "Table": "Table",
+  "Invoice List": "Invoice List",
+  "Manager": "Manager",
+  "Build your portfolio": "Build your portfolio",
+  "The simplest way to keep your portfolio always up-to-date.": "The simplest way to keep your portfolio always up-to-date.",
+  "Get freelance work": "Get freelance work",
+  "New design projects delivered to your inbox each morning.": "New design projects delivered to your inbox each morning.",
+  "Sell your goods": "Sell your goods",
+  "Get your goods in front of millions of potential customers with ease.": "Get your goods in front of millions of potential customers with ease.",
+  "CRMAPP": {
+    "Input": "weew"
+  },
+  "Demo Application": {
+    "CRMAPP": {
+      "Input": "1",
+      "heading": "English"
+    },
+    "CRMAPP1": {
+      "Input": "1"
+    },
+    "Demo Template": {
+      "General": "342",
+      "input fields": {
+        "heading": "23"
+      }
+    }
+  },
+  "Demo Application1": {
+    "CRMAPP1": {
+      "Input": "1"
+    }
+  }
+}

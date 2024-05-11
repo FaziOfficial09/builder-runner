@@ -1,0 +1,13 @@
+<nz-mention [nzSuggestions]="suggestion" (nzOnSearchChange)="onSearchChange($event)" [nzLoading]="mentionData.loading"
+  [nzNotFoundContent]="mentionData.noneData" [nzStatus]="mentionData.status" [nzPlacement]="mentionData.position">
+  <textarea [rows]="mentionData.rows" [placeholder]="mentionData.placeholder" nzMentionTrigger nz-input></textarea>
+</nz-mention>
+<!-- <nz-mention [nzSuggestions]="suggestion" (nzOnSelect)="onSelect($event)" (nzOnSearchChange)="onSearchChange($event)">
+    <textarea
+      rows="1"
+      [formControl]="formControl"
+      nzMentionTrigger
+      nz-input
+      
+    ></textarea>
+  </nz-mention> -->

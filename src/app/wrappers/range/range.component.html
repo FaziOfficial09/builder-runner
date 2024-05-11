@@ -1,0 +1,52 @@
+<div [class]="to['additionalProperties']?.wrapper=='floating_standard' ? 'relative z-0' : ''">
+  <nz-input-group [ngClass]="showError ? 'input-border' : ''"
+    [style.border]="to['additionalProperties']?.border? '0px': ''"
+    *ngIf="!to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon"
+    [nzSuffix]="(to['additionalProperties']?.addonRight   || to['additionalProperties']?.suffixicon) ? suffixTemplateInfo : undefined"
+    [nzPrefix]="(to['additionalProperties']?.addonLeft || to['additionalProperties']?.prefixicon) ? prefixTemplateUser : undefined"
+    [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size">
+    <nz-range-picker [class]="to['additionalProperties']?.innerInputClass"
+      (ngModelChange)="onModelChange($event, field)" [style.border-radius]="to['additionalProperties']?.borderRadius"
+      [ngClass]="showError && !to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon && !to['additionalProperties']?.addonLeft && !to['additionalProperties']?.addonRight ? 'input-border' : ''"
+      [ngClass]="to['additionalProperties']?.wrapper=='floating_filled' || to['additionalProperties']?.wrapper=='floating_standard'
+    || to['additionalProperties']?.wrapper=='floating_outlined' ? to['additionalProperties']?.floatFieldClass.replace('block','') : ''"
+      *ngIf="to.type == 'date'" [nzDisabled]="to.disabled" style="width:100%" [formControl]="formControl"
+      [formlyAttributes]="field" [nzStatus]="to['additionalProperties']?.status"
+      [nzSize]="to['additionalProperties']?.size"></nz-range-picker>
+    <nz-range-picker [formlyAttributes]="field"
+      [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+      (ngModelChange)="onModelChange($event, field)" [style.border-radius]="to['additionalProperties']?.borderRadius"
+      [ngClass]="showError && !to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon && !to['additionalProperties']?.addonLeft && !to['additionalProperties']?.addonRight ? 'input-border' : ''"
+      [ngClass]="to['additionalProperties']?.wrapper=='floating_filled' || to['additionalProperties']?.wrapper=='floating_standard'
+    || to['additionalProperties']?.wrapper=='floating_outlined' ? to['additionalProperties']?.floatFieldClass.replace('block','') : ''"
+      *ngIf="to.type != 'date'" [nzDisabled]="to.disabled" style="width:100%" [nzMode]="to.type"
+      [formControl]="formControl" [nzStatus]="to['additionalProperties']?.status"
+      [nzSize]="to['additionalProperties']?.size"></nz-range-picker>
+    <label *ngIf="to['additionalProperties']?.wrapper == 'floating_filled' ||to['additionalProperties']?.wrapper=='floating_standard'
+            ||to['additionalProperties']?.wrapper == 'floating_outlined'"
+      [ngClass]="to['additionalProperties']?.floatLabelClass">{{ to.label ?? '' | translate }}
+    </label>
+  </nz-input-group>
+  <ng-template #suffixTemplateInfo>
+    <ng-container *ngIf="to['additionalProperties']?.suffixicon ; else addonLeftText">
+      <st-icon [type]="to['additionalProperties']?.iconType || 'outline'"
+        [icon]="to['additionalProperties']?.suffixicon" [size]="to['additionalProperties']?.iconSize"
+        [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+        [color]="to['additionalProperties']?.iconColor" [iconClass]="to['additionalProperties']?.iconClass"></st-icon>
+    </ng-container>
+    <ng-template #addonLeftText>
+      {{to['additionalProperties']?.addonRight}}
+    </ng-template>
+  </ng-template>
+  <ng-template #prefixTemplateUser>
+    <ng-container *ngIf="to['additionalProperties']?.prefixicon ; else addonRightText">
+      <st-icon [type]="to['additionalProperties']?.iconType || 'outline'"
+        [icon]="to['additionalProperties']?.prefixicon" [size]="to['additionalProperties']?.iconSize"
+        [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+        [color]="to['additionalProperties']?.iconColor" [iconClass]="to['additionalProperties']?.iconClass"></st-icon>
+    </ng-container>
+    <ng-template #addonRightText>
+      {{to['additionalProperties']?.addonLeft}}
+    </ng-template>
+  </ng-template>
+</div>

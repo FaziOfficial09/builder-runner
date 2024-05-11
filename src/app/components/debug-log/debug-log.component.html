@@ -1,0 +1,13 @@
+<div class="nav-item">
+  <button nz-button nzType="primary" class="actions-btn" nz-dropdown [nzDropdownMenu]="debug">
+    Debug
+    <span nz-icon nzType="down"></span>
+  </button>
+  <nz-dropdown-menu #debug="nzDropdownMenu" class="action-drop-down-list">
+    <ul nz-menu class="!p-2">
+      <li nz-menu-item *ngFor="let item of options" >
+        <a [href]="getLink(item.value)" target="_blank" class="block px-2 py-1 text-gray-800 hover:bg-gray-200">{{ item.label }}: {{ item.value }}</a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

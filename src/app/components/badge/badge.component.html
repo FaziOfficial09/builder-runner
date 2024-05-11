@@ -1,0 +1,53 @@
+<div [ngClass]="badgeData.nztype != 'ribbon' ? 'flex flex-wrap' : ''">
+ <p *ngIf="badgeData.title " class="pr-2">{{badgeData.title | translate}}</p>
+ <div>
+  <nz-badge *ngIf="badgeData.nztype == 'count'"
+[nzCount]="badgeData.count"
+[nzColor]='badgeData.nzColor' 
+[nzStatus]='badgeData.status == true? badgeData.nzStatus:""'
+[nzStandalone]="badgeData.standAlone"
+[nzShowZero]="badgeData.showZero"
+[nzSize]="badgeData.size"
+[nzText]="badgeData.nzText"
+[nzTitle]="badgeData.title | translate"
+></nz-badge>
+
+<nz-badge  *ngIf="badgeData.nztype == 'icon'"
+[nzCount]="iconTemplate"
+[nzColor]='badgeData.nzColor' 
+[nzStatus]='badgeData.status == true? badgeData.nzStatus:""'
+[nzStandalone]="badgeData.standAlone"
+[nzOverflowCount]="badgeData.overflowCount"
+[nzShowZero]="badgeData.showZero"
+[nzSize]="badgeData.size"
+[nzTitle]="badgeData.title | translate"
+[nzText]="badgeData.nzText"
+></nz-badge>
+
+  <ng-template #iconTemplate>
+    <span *ngIf="badgeData.icon" class="ant-scroll-number-custom-component">
+      <st-icon  [type]="badgeData.iconType || 'outline'" [icon]="badgeData.icon"
+        [size]="badgeData.iconSize" [hoverIconColor]="badgeData?.hoverIconColor || ''" [color]="badgeData.iconColor"></st-icon>
+    </span>
+  </ng-template>
+
+
+<nz-badge  *ngIf="badgeData.nztype == 'dot'"
+nzDot
+[nzColor]='badgeData.nzColor' 
+[nzText]="badgeData.nzText"
+[nzStatus]='badgeData.status == true? badgeData.nzStatus:""'
+[nzStandalone]="badgeData.standAlone"
+[nzOverflowCount]="badgeData.overflowCount"
+[nzShowZero]="badgeData.showZero"
+[nzSize]="badgeData.size"
+[nzTitle]="badgeData.title | translate"
+nzShowDot
+></nz-badge>
+
+  <nz-ribbon  *ngIf="badgeData.nztype == 'ribbon'" 
+  [nzText]="badgeData.nzText" 
+  [nzColor]='badgeData.nzColor'>
+  </nz-ribbon>
+ </div>
+</div>

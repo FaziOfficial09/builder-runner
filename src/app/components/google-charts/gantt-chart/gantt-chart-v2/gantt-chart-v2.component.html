@@ -1,0 +1,22 @@
+<!-- <div id="gantt"></div> -->
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+<div #gantt></div>
+</div>
+<!-- {{charts | json}} -->
+
+
+<!-- select name as id,  label as name,
+CASE
+    WHEN startdate::date IS NOT NULL AND TRIM(startdate) != ''
+        THEN TO_CHAR(startdate::date, 'YYYY-MM-DD')
+    ELSE NULL
+	END AS startdate,
+  CASE
+    WHEN enddate::date IS NOT NULL AND TRIM(enddate) != ''
+        THEN TO_CHAR(enddate::date, 'YYYY-MM-DD')
+    ELSE NULL
+	END AS enddate,
+totalprojects as progress,manager as dependencies
+
+  From dev_test.sample -->

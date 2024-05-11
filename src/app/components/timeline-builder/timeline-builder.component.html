@@ -1,0 +1,30 @@
+<nz-timeline [nzPending]="timelineData.pendingText" [nzPendingDot]="pendingIcon" [nzReverse]="timelineData.reverse" class="timelineDiv"
+    [nzMode]="timelineData.mode">
+    <ng-container *ngIf="timelineData.children.length > 0">
+        <ng-container *ngFor="let item of timelineData.children">
+            <nz-timeline-item [nzDot]="characterIcon">
+                <ng-container *ngIf="item.children">
+                    <st-main [mainData]="item" [screenName]="screenName" [form]="form"
+                        [formlyModel]="formlyModel"></st-main>
+                </ng-container>
+            </nz-timeline-item>
+            <ng-template #characterIcon>
+                <span *ngIf="item?.icon">
+                    <st-icon [type]="item?.iconType || 'outline'" [icon]="item?.icon"
+                        [hoverIconColor]="item?.hoverIconColor || ''" [size]="item?.iconSize"
+                        [color]="item?.iconColor" [iconClass]="item?.iconClass  + ' ' + item?.appGlobalInnerIconClass" [applicationThemeClasses]="item?.applicationThemeClasses" [appGlobalClass]="item?.appGlobalClass"></st-icon>
+                </span>
+            </ng-template>
+        </ng-container>
+    </ng-container>
+
+
+</nz-timeline>
+
+<ng-template #pendingIcon>
+    <span *ngIf="timelineData?.mainIcon" [class]="timelineData.classForIcon">
+        <st-icon [type]="timelineData?.iconType || 'outline'" [icon]="timelineData?.mainIcon"
+            [hoverIconColor]="timelineData?.hoverIconColor || ''" [size]="timelineData?.iconSize"
+            [color]="timelineData?.iconColor" >[applicationThemeClasses]="timelineData?.applicationThemeClasses" [appGlobalClass]="timelineData?.appGlobalClass"</st-icon>
+    </span>
+</ng-template>

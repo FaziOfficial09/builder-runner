@@ -1,0 +1,243 @@
+<!-- {{this.formlyModel | json}} -->
+<button
+  *ngIf="buttonData.type != 'linkbutton' && buttonData.type != 'dropdownButton'"
+  nz-button
+  [disabled]="buttonData.disabled" [nzBlock]="buttonData.nzBlock"
+  [nzDanger]="buttonData.nzDanger"
+  [nzGhost]="buttonData.nzGhost" [nzLoading]="buttonData.nzLoading"
+  [nzShape]="buttonData.nzShape"
+  [class]="(!isActionExist ? '!cursor-auto ' : '!cursor-pointer ')+ buttonData.buttonClass + ' ' + buttonData.applicationthemeClasses + ' ' + buttonData?.innerClass + ' ' + buttonData?.appGlobalInnerClass"
+  [nzSize]="buttonData.nzSize" [nzType]="buttonData.nztype"
+  [type]="buttonData.isSubmit ? 'submit' : 'button'"
+  [style.border-radius.px]="buttonData.nzShape == 'default' ? buttonData.radius : ''"
+  [style.opacity]="hoverOpacity ? hoverOpacity :  buttonData.btnopacity ? buttonData.btnopacity : '1'"
+  [style.background]="(bgColor || GridRuleColor ? GridRuleColor : buttonData.color) + ' !important'"
+  [style.color]="(hoverTextColor || buttonData.textColor) + ' !important'"
+  [style.border-color]="(borderColor || buttonData.borderColor) + ' !important'"
+  (click)="handleButtonClick(buttonData)"
+  (mouseover)="handleButtonMouseOver(buttonData)"
+  (mouseout)="handleButtonMouseOut(buttonData)">
+  <span>
+    <st-icon
+      [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+      *ngIf="buttonData.btnIcon" [icon]="buttonData.btnIcon"
+      [color]="buttonData.iconColor"
+      [hoverIconColor]="buttonData?.hoverIconColor || ''"
+      [size]="buttonData.iconSize"
+      [type]="buttonData.iconType"></st-icon>
+    <span [class]="buttonData.btnLabelPaddingClass" *ngIf="buttonData.title">
+      {{ (buttonData?.title) ? (title || buttonData?.title | translate) : ''
+      }}
+
+    </span>
+    <st-icon
+      [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+      *ngIf="buttonData.rightbtnIcon" [icon]="buttonData.rightbtnIcon"
+      [color]="buttonData.iconColor"
+      [size]="buttonData.iconSize"
+      [hoverIconColor]="buttonData?.hoverIconColor || ''"
+      [type]="buttonData.iconType"></st-icon>
+  </span>
+</button>
+
+<!-- link  -->
+<div *ngIf="buttonData.type == 'linkbutton'">
+  <a nz-button nzType="link" [nzGhost]="buttonData.nzGhost"
+    [disabled]="buttonData.disabled"
+    [nzDanger]="buttonData.nzDanger" [nzSize]="buttonData.nzSize"
+    [nzBlock]="buttonData.nzBlock"
+    [nzLoading]="buttonData.nzLoading"
+    [style.border-radius.px]="buttonData.radius || 0"
+    [style.background]="(bgColor || GridRuleColor ? GridRuleColor : buttonData.color) + ' !important'"
+    [style.color]="(hoverTextColor || buttonData.textColor) + ' !important'"
+    [style.border-color]="(borderColor || buttonData.borderColor) + ' !important'"
+    [class]="(!isActionExist ? '!cursor-auto ' : '!cursor-pointer ')+ buttonData.buttonClass + ' ' + buttonData.applicationthemeClasses + ' ' + buttonData?.innerClass + ' ' + buttonData?.appGlobalInnerClass"
+    (mouseover)="bgColor = buttonData?.hoverColor"
+    (mouseout)="bgColor = buttonData?.color"
+    (click)="pagesRoute(buttonData)"
+    (mouseover)="handleButtonMouseOver(buttonData)"
+    (mouseout)="handleButtonMouseOut(buttonData)">
+    <span
+      [style]="borderColor || buttonData.borderColor ? 'padding-left: 10px; padding-right: 10px;' : ''">
+      <st-icon
+        [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+        *ngIf="buttonData.btnIcon" [icon]="buttonData.btnIcon"
+        [color]="buttonData.iconColor"
+        [hoverIconColor]="buttonData?.hoverIconColor || ''"
+        [size]="buttonData.iconSize"
+        [type]="buttonData.iconType"></st-icon>
+      <span [class]="buttonData.btnLabelPaddingClass" *ngIf="buttonData.title">
+        {{ (buttonData?.title) ? (title || buttonData?.title | translate) : ''
+        }}
+      </span>
+      <st-icon
+        [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+        *ngIf="buttonData.rightbtnIcon" [icon]="buttonData.rightbtnIcon"
+        [color]="buttonData.iconColor"
+        [size]="buttonData.iconSize"
+        [hoverIconColor]="buttonData?.hoverIconColor || ''"
+        [type]="buttonData.iconType"></st-icon>
+    </span>
+  </a>
+</div>
+
+<!-- dropdown  -->
+<button *ngIf="buttonData.type == 'dropdownButton'" nz-button nz-dropdown
+  [nzDropdownMenu]="menu"
+  [nzType]="buttonData.nztype" [nzGhost]="buttonData.nzGhost"
+  [nzSize]="buttonData.nzSize"
+  [disabled]="buttonData.disabled" [nzLoading]="buttonData.nzLoading"
+  [class]="(!isActionExist ? '!cursor-auto ' : '!cursor-pointer ')+ buttonData.buttonClass + ' ' + buttonData.applicationthemeClasses + ' ' + buttonData?.innerClass + ' ' + buttonData?.appGlobalInnerClass"
+  [nzBlock]="buttonData.nzBlock" [nzTrigger]="buttonData.trigger"
+  [nzPlacement]="buttonData.placement"
+  [nzClickHide]="buttonData.clickHide" [nzVisible]="buttonData.visible"
+  [nzDanger]="buttonData.nzDanger"
+  [nzShape]="buttonData.nzShape"
+  [style.border-radius.px]="buttonData.radius || 0"
+  [style.background]="(bgColor || GridRuleColor ? GridRuleColor : buttonData.color) + ' !important'"
+  [style.color]="(hoverTextColor || buttonData.textColor) + ' !important'"
+  [style.border-color]="(borderColor || buttonData.borderColor) + ' !important'"
+  (mouseover)="handleButtonMouseOver(buttonData)"
+  (mouseout)="handleButtonMouseOut(buttonData)">
+  <span>
+    <st-icon
+      [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+      *ngIf="buttonData.btnIcon" [icon]="buttonData.btnIcon"
+      [color]="buttonData.iconColor"
+      [hoverIconColor]="buttonData?.hoverIconColor || ''"
+      [size]="buttonData.iconSize"
+      [type]="buttonData.iconType"></st-icon>
+    <span [class]="buttonData.btnLabelPaddingClass" *ngIf="buttonData.title">
+      {{ (buttonData?.title) ? (title || buttonData?.title | translate) : ''
+      }}
+    </span>
+    <span>
+      <st-icon
+        [iconClass]="buttonData?.iconClass + ' ' + buttonData?.appGlobalInnerIconClass"
+        *ngIf="buttonData.rightbtnIcon" [icon]="buttonData.rightbtnIcon"
+        [color]="buttonData.iconColor"
+        [size]="buttonData.iconSize"
+        [hoverIconColor]="buttonData?.hoverIconColor || ''"
+        [type]="buttonData.iconType"></st-icon>
+    </span>
+  </span>
+</button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul [class]="buttonData?.optionMainClass" nz-menu
+    *ngIf="buttonData && (buttonData.dropdownOptions?.length > 0 || buttonData.logoutAllow || policyList?.length > 0)">
+    <ng-container *ngIf="buttonData && buttonData.dropdownOptions?.length > 0">
+      <li [class]="buttonData?.optionSubClass" nz-menu-item
+        *ngFor="let option of buttonData.dropdownOptions">
+        <a [class]="buttonData?.optionLabelClass" *ngIf="option.link"
+          [routerLink]="option.link">{{ option.label }}</a>
+        <a [class]="buttonData?.optionLabelClass" *ngIf="!option.link">{{
+          option.label }}</a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="buttonData && buttonData.logoutAllow">
+      <li [class]="buttonData?.optionSubClass" nz-menu-item>
+        <a [class]="buttonData?.optionLabelClass" (click)="logout()">Logout</a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="policyList?.length > 0">
+      <ng-container *ngFor="let policyItem of policyList">
+        <li
+          *ngIf="policyId != policyItem?.id && buttonData?.showPolicies"
+          nz-menu-item
+          [class]="buttonData?.optionSubClass"
+          (click)="switchPolicy(policyItem)">
+          <a [class]="buttonData?.optionLabelClass">{{ policyItem?.name
+            }}</a>
+        </li>
+        <ng-container
+          *ngIf="buttonData?.dropdownProperties == 'policyTheme' && policyItem?.applicationtheme ">
+          <ng-container
+            *ngIf="policyTheme != policyItem?.applicationtheme">
+            <li nz-menu-item [class]="buttonData?.optionSubClass"
+              (click)="switchPolicyTheme(policyItem)">
+              <a [class]="buttonData?.optionLabelClass">{{
+                policyItem?.applicationtheme }}</a>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ul>
+</nz-dropdown-menu>
+
+<!-- Modal -->
+<div
+  *ngIf="buttonData?.redirect == 'modal' || buttonData?.redirect == '1200px' || buttonData?.redirect == '800px'">
+  <nz-modal
+    [nzWidth]="buttonData?.redirect == 'modal' ? '' : buttonData.redirect"
+    [(nzVisible)]="isVisible"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <nz-spin [nzSpinning]="loader" [nzSize]="'large'">
+        <st-pages [data]="nodes" [navigation]="drawScreenId ? drawScreenId : screenId" [form]="form"
+          *ngIf="nodes.length > 0"></st-pages>
+      </nz-spin>
+
+    </ng-container>
+  </nz-modal>
+</div>
+<!-- save modal -->
+<div class="saveModal" *ngIf="buttonData?.saveredirect == 'modal'">
+  <nz-modal
+    [nzWidth]="buttonData?.saveredirect == 'modal' ? '' : buttonData.saveredirect"
+    [nzClassName]="'save-modal-class'"
+    [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()"
+    [nzClosable]="buttonData.modalclosable" [nzFooter]="saveRedirectFooter"
+    [nzKeyboard]="buttonData.modalclosable">
+    <ng-container *nzModalContent>
+      <nz-spin [nzSpinning]="loader" [nzSize]="'large'">
+        <st-pages [data]="nodes" [navigation]="drawScreenId ? drawScreenId : screenId" [form]="form"
+          *ngIf="nodes.length > 0"></st-pages>
+      </nz-spin>
+
+    </ng-container>
+  </nz-modal>
+  <ng-template #saveRedirectFooter>
+    <div></div>
+  </ng-template>
+</div>
+
+<div
+  *ngIf="buttonData?.redirect == 'drawer' || buttonData?.redirect == 'largeDrawer'  || buttonData?.redirect == 'extraLargeDrawer'">
+  <nz-drawer [nzWrapClassName]="'button-drawer'" [nzClosable]="false"
+    [nzTitle]="buttonData?.hideHeader == false ||  buttonData?.hideHeader == undefined ? (hostUrl.includes('spectrum') ? 'Request Detail' + ' - ' +  (drawerTiltle ? drawerTiltle :  title): (drawerTiltle ? drawerTiltle :  (title ? title : buttonData.title))) : ''"
+    [nzExtra]="buttonData?.hideHeader == false ||  buttonData?.hideHeader == undefined ? extra : ''"
+    [nzWidth]="buttonData?.redirect == 'drawer' ? '60%' : (buttonData?.redirect == 'largeDrawer' ? '70%' : '80%') "
+    [nzVisible]="isVisible" (nzOnClose)="handleClose()">
+    <ng-container *nzDrawerContent>
+      <nz-spin [nzSpinning]="loader">
+        <st-pages [mappingId]="mappingId" [mappingId]="tableRowId"
+          [isDrawer]="true" [data]="nodes"
+          [navigation]="drawScreenId ? drawScreenId : screenId" [form]="form"
+          *ngIf="nodes.length > 0"></st-pages>
+      </nz-spin>
+    </ng-container>
+  </nz-drawer>
+</div>
+
+<ng-template #extra>
+  <!-- Buttons with Font Awesome icons -->
+  <button
+    *ngIf="buttonData?.showHideButton == 'showPreviousButton' || buttonData?.showHideButton == undefined || buttonData?.showHideButton == 'showBoth'"
+    nz-button
+    nzType="primary" class="btn mb-4"
+    (click)="getNextOrPreviousObjectById('previous')">
+    <i class="fas fa-arrow-left mr-2"></i> Previous
+  </button>
+
+  <button
+    *ngIf="buttonData?.showHideButton == 'showNextButton' || buttonData?.showHideButton == undefined || buttonData?.showHideButton == 'showBoth'"
+    nz-button
+    nzType="primary" class="btn mb-4 ml-2 mr-2"
+    (click)="getNextOrPreviousObjectById('next')">
+    Next <i class="fas fa-arrow-right ml-1"></i>
+  </button>
+  <i class="fas fa-times text-lg text-red-500 cursor-pointer"
+    (click)="handleClose()"></i>
+</ng-template>

@@ -1,0 +1,71 @@
+<button nz-button *ngIf="drawerData?.notvisible || drawerData?.notvisible == undefined" [nzSize]="'large'"
+    [class]="drawerData.buttonClass" (click)="open($event)"><span>
+        <st-icon *ngIf="drawerData.btnIcon" [icon]="drawerData.btnIcon" [color]="drawerData.iconColor"
+            [hoverIconColor]="drawerData?.hoverIconColor || ''" [size]="drawerData.iconSize"
+            [type]="drawerData.iconType"></st-icon>
+        <span [class]="drawerData.btnLabelPaddingClass" *ngIf="drawerData.title">
+            {{ drawerData.btnText | translate}}
+        </span>
+        <st-icon *ngIf="drawerData.rightbtnIcon" [icon]="drawerData.rightbtnIcon" [color]="drawerData.iconColor"
+            [size]="drawerData.iconSize" [hoverIconColor]="drawerData?.hoverIconColor || ''"
+            [type]="drawerData.iconType"></st-icon>
+    </span></button>
+<!-- <button nz-button  (click)="open()" style="margin-top: 28px;">{{drawerData.btnText}}</button> -->
+<nz-drawer [processData]="processData"
+    [appConfigurableSelect]="drawerData?.appConfigurableEvent ? drawerData?.appConfigurableEvent : []"
+    [loadAction]="drawerData?.eventActionconfig ? drawerData?.eventActionconfig : {}"
+    [nzClosable]="drawerData.isClosable" [nzVisible]="drawerData?.visible || false" [nzPlacement]="drawerData.placement"
+    [nzTitle]="drawerData.title | translate" (nzOnClose)="close()"
+    [nzClosable]="drawerData?.closeIconPlacement == 'left' || drawerData?.closeIconPlacement == '' || drawerData?.closeIconPlacement == undefined ? true : false "
+    [nzCloseIcon]="iconTemplate" [nzExtra]="extra" [nzKeyboard]="drawerData.isKeyboard"
+    [nzFooter]="drawerData.footerText" [nzSize]="drawerData.size" [nzSize]="drawerData.size"
+    [nzWidth]="drawerData.width" [nzHeight]="drawerData.height" [nzOffsetX]="drawerData.offsetX"
+    [nzOffsetY]="drawerData.offsetY">
+    <ng-container *nzDrawerContent>
+        <nz-spin [nzSpinning]="loader" [nzSize]="'large'">
+            <div *ngIf="drawerData.link == undefined || drawerData.link == '' ; else screen">
+                <P>{{drawerData.content}}</P>
+                <st-main *ngIf="showChild"
+                 [mainData]="drawerData" 
+                 [screenName]="screenName" 
+                 [form]="form"
+                    [formlyModel]="formlyModel"
+                    [mappingId]="mappingId"
+                    [screenId]="screenId"></st-main>
+            </div>
+            <ng-template #screen>
+
+                <ng-container *ngIf="nodes">
+                    <st-pages [data]="nodes" [screenName]="screenName" [navigation]="screenId" [form]="form"
+                        [formlyModel]="formlyModel" *ngIf="nodes.length  > 0 && screenId"></st-pages>
+                </ng-container>
+            </ng-template>
+        </nz-spin>
+    </ng-container>
+</nz-drawer>
+
+<ng-template #extra>
+    <span *ngIf="drawerData.icon && drawerData?.closeIconPlacement == 'right'" class="ant-scroll-number-custom-component">
+        <st-icon class="cursor-pointer" (click)="close()" [type]="drawerData.iconType || 'outline'"
+            [icon]="drawerData.icon" [hoverIconColor]="drawerData?.hoverIconColor || ''" [size]="drawerData.iconSize"
+            [color]="drawerData.iconColor || 'red'"></st-icon>
+    </span>
+    <button *ngIf="drawerData.closevisible" nz-button nzType="default" (click)="close()">Cancel</button>
+    &nbsp;
+    <button *ngIf="drawerData.okvisible" nz-button nzType="primary" (click)="close()">OK</button>
+</ng-template>
+<ng-template #extra2>
+    <button nz-button nzType="primary" (click)="close()">OK</button>
+</ng-template>
+
+
+<ng-template #iconTemplate>
+    <span *ngIf="drawerData.icon" class="ant-scroll-number-custom-component">
+        <st-icon [type]="drawerData.iconType || 'outline'" [icon]="drawerData.icon"
+            [hoverIconColor]="drawerData?.hoverIconColor || ''" [size]="drawerData.iconSize"
+            [color]="drawerData.iconColor"></st-icon>
+    </span>
+</ng-template>
+<div *ngIf="!showModal">
+    <st-main [mainData]="drawerData" [screenName]="screenName" [form]="form" [formlyModel]="formlyModel"></st-main>
+</div>

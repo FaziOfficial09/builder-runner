@@ -1,0 +1,43 @@
+<!-- <nz-tree [nzData]="treeListData.nodes" [nzBlockNode]="treeListData.isBlockNode"
+[nzDraggable]="treeListData.isDraggable" [nzShowLine]="treeListData.isShowLine"
+[nzCheckable]="treeListData.isCheckable" [nzMultiple]="treeListData.isMultiple"
+[nzExpandAll]="treeListData.isExpandAll"
+(nzClick)="nzEvent($event)"></nz-tree> -->
+<!-- <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
+  <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
+    {{ node.label }}
+  </nz-tree-node>
+
+  <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding>
+    <nz-tree-node-toggle *ngIf="!node.loading">
+      <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+    </nz-tree-node-toggle>
+    <nz-tree-node-toggle *ngIf="node.loading" nzTreeNodeNoopToggle>
+      <span nz-icon nzType="loading" nzTreeNodeToggleActiveIcon></span>
+    </nz-tree-node-toggle>
+    {{ node.label }}
+  </nz-tree-node>
+</nz-tree-view> -->
+
+
+
+
+<nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource"
+  [appConfigurableSelect]="treeListData['appConfigurableEvent']" [loadAction]="treeListData['eventActionconfig']"
+  [processData]="processData">
+  <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding  >
+    <span (click)="selectedNode(node)" [ngClass]="selectedNodes == node.id ? 'searchigh' : ''" >
+      {{ node.label }}
+    </span>
+  </nz-tree-node>
+
+  <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding  (click)="selectedNode(node)"  [ngClass]="selectedNodes == node.id ? 'searchigh' : ''">
+    <nz-tree-node-toggle *ngIf="!node.loading">
+      <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+    </nz-tree-node-toggle>
+    <nz-tree-node-toggle *ngIf="node.loading" nzTreeNodeNoopToggle>
+      <span nz-icon nzType="loading" nzTreeNodeToggleActiveIcon></span>
+    </nz-tree-node-toggle>
+    {{ node.label }}
+  </nz-tree-node>
+</nz-tree-view>

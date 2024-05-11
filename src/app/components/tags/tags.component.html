@@ -1,0 +1,11 @@
+<div [processData]="processData" [appConfigurableSelect]="item['appConfigurableEvent']"
+    [loadAction]="item['eventActionconfig']">
+    <nz-tag *ngFor="let child of item.options ; index as i" [nzColor]='child.tagColor' [nzMode]="item.mode"
+        [nzChecked]="item.checked" (nzOnClose)="onClose(item , i)">
+        <span *ngIf="child?.icon">
+            <st-icon [type]="item?.iconType || 'outline'" [icon]="child?.icon" [size]="item?.iconSize"
+                [hoverIconColor]="item?.hoverIconColor || ''" [color]="child.tagColor"></st-icon>
+        </span>
+        <span>{{child.title | translate}}</span>
+    </nz-tag>
+</div>

@@ -1,0 +1,7 @@
+<button nz-popconfirm [nzPopconfirmTitle]="popConfirmData.content" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" nz-button
+    nzType="primary" [nzPopconfirmArrowPointAtCenter]="" [nzPopconfirmTrigger]="popConfirmData.trigger"
+    [nzPopconfirmPlacement]="popConfirmData.placement" [nzPopconfirmVisible]="popConfirmData.visible"
+    [nzPopconfirmMouseEnterDelay]="popConfirmData.mouseEnterDelay"
+    [nzPopconfirmMouseLeaveDelay]="popConfirmData.mouseLeaveDelay">
+    {{popConfirmData.btnLabel}}
+</button>

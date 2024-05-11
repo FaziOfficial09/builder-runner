@@ -1,0 +1,171 @@
+<div>
+    <form [formGroup]="form">
+        <div class="flex flex-wrap">
+            <div class="invoice-body-outer">
+                <div class="right">
+                    <div class="mb-2">
+                        <input nz-input type="file" class="img-up2" id="imageUpload" style="display:none"
+                            (change)="displayImage($event)" />
+                        <nz-card *ngIf="!image" class="card" onclick="document.getElementById('imageUpload').click()"
+                            style="height: 150px; width: 252px;">
+                            <img src="path/to/your/logo.png" alt="Logo" style="max-height: 100%; max-width: 100%;">
+                            <h3 class="logo-text"><span nz-icon nzType="plus" nzTheme="outline"></span>Add Your Logo
+                            </h3>
+                        </nz-card>
+                        <div *ngIf="image">
+                            <span nz-icon nzType="close" nzTheme="outline" (click)="removeImage()"></span>
+                            <img [src]="image" style="height: 150px; width: 252px;">
+                        </div>
+                    </div>
+                    <textarea nz-input id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Who is this invoice from? (required)" formControlName="from"></textarea>
+                    <div class="w-1/2">
+                        <nz-form-label nzFor="exampleFormControlTextarea1">{{invoiceData.billToLabel}}</nz-form-label>
+                        <textarea class="pr-1" nz-input id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Who is this invoice to? (required)" formControlName="to"></textarea>
+                    </div>
+                    <div class="w-1/2">
+                        <nz-form-label nzFor="exampleFormControlTextarea1">{{invoiceData.shipToLabel}}</nz-form-label>
+                        <textarea nz-input id="exampleFormControlTextarea1" rows="3" placeholder="(optional)"
+                            formControlName="shipTo"></textarea>
+                    </div>
+                </div>
+                <div class="left">
+                    <div *ngFor="let item of invoiceData.children">
+                        <div [class]="item.className">
+                            <st-heading *ngIf="item.type == 'heading'" [headingData]="item"></st-heading>
+                        </div>
+                    </div>
+                    <nz-input-group nzPrefix="#">
+                        <input type="text" formControlName="invoiceNumber" nz-input />
+                    </nz-input-group>
+                    <div class="w-2/5 mt-2">
+                        <nz-form-label>{{invoiceData.datelabel}}</nz-form-label>
+                    </div>
+                    <div class="w-3/5 mt-2">
+                        <input nz-input type="date" formControlName="date" />
+                    </div>
+                    <br>
+                    <div class="w-2/5 mt-2">
+                        <nz-form-label [nzSm]="6" [nzXs]="24">{{invoiceData.paymentTermsLabel}}</nz-form-label>
+                    </div>
+                    <div class="w-3/5 mt-2">
+                        <input nz-input formControlName="paymentTerms" />
+                    </div>
+                    <div class="w-2/5 mt-2">
+                        <nz-form-label>{{invoiceData.dueDateLabel}}</nz-form-label>
+                    </div>
+                    <div class="w-3/5 mt-2">
+                        <input nz-input type="date" formControlName="dueDate" />
+                    </div>
+                    <div class="w-2/5 mt-2">
+                        <label for="staticEmail">{{invoiceData.poNumber}}</label>
+                    </div>
+                    <div class="w-3/5 mt-2">
+                        <input nz-input formControlName="poNumber" />
+                    </div>
+                </div>
+            </div>
+
+            <div *ngFor="let item of invoiceData.children">
+                <div *ngIf="item.type =='gridList'">
+                    <div class="flex flex-wrap">
+                        <div [class]="item.className">
+                            <dynamic-table [tableId]='item.tableId' [checkType]="false" [tableData]='item.tableData'
+                                [tableHeaders]='item.tableHeaders' [displayData]="item.displayData" [data]="item"></dynamic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice-body-outer">
+                <div class="right">
+                    <label class="mt-2">{{invoiceData.notesLabel}}</label>
+                    <textarea nz-input id="exampleFormControlTextarea1"
+                        placeholder="Notes - any relevant information not already covered"
+                        formControlName="notes"></textarea>
+                    <label class="mt-2">{{invoiceData.termsLabel}}</label>
+                    <textarea nz-input id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Terms and conditions - late fees, payment methods, delivery schedule"
+                        formControlName="termsAndConditions">></textarea>
+                </div>
+                <div class="left">
+                    <div class="flex flex-wrap">
+                        <div class="w-1/3">
+                            <label>
+                                {{invoiceData.subtotalLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3">
+                            {{subTotal}}
+                        </div>
+                        <div class="w-1/3">
+                            <label style="margin-top: 2%;">
+                                {{invoiceData.dicountLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3 mb-2">
+                            <nz-input-group nzSuffix="%">
+                                <input type="number" formControlName="discount" nz-input (keyup)="applyDisount()" />
+                            </nz-input-group>
+                        </div>
+                        <div class="w-1/3">
+                            <label style="margin-top: 2%;">
+                                {{invoiceData.shippingLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3 mb-2">
+                            <nz-input-group nzSuffix="%">
+                                <input type="number" formControlName="shipping" nz-input />
+                            </nz-input-group>
+                        </div>
+                        <div class="w-1/3">
+                            <label style="margin-top: 2%;">
+                                {{invoiceData.taxLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3 mb-2">
+                            <nz-input-group nzSuffix="%">
+                                <input type="number" formControlName="tax" nz-input (keyup)="findtax()" />
+                            </nz-input-group>
+                        </div>
+                        <div class="w-1/3 mb-2">
+                            <label style="margin-top: 2%;">
+                                {{invoiceData.totalLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3">
+                            {{total}}
+                        </div>
+                        <div class="w-1/3 mb-2">
+                            <label style="margin-top: 2%;">
+                                {{invoiceData.amountpaidLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3 mb-2">
+                            <input type="number" formControlName="amountPaid" nz-input (keyup)="findDueBalance()" />
+                        </div>
+                        <div class="w-1/3 mb-2">
+                            <label>
+                                {{invoiceData.balanceDueLabel}}
+                            </label>
+                        </div>
+                        <div class="w-2/3">
+                            {{balanceDue}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+</div>
+<button nz-button nzType="primary" (click)="openModal()">Generate PDF</button>
+<nz-modal [nzWidth]="'80%'" [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <st-print-invoice [printInvoiceData]="invoiceObject"></st-print-invoice>
+    </ng-container>
+</nz-modal>

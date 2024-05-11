@@ -1,0 +1,9 @@
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+[processData]="processData">
+<google-chart id="google-charts" [type]="chartType" [data]="chartData" [options]="charts.options"
+ [height]="charts.height"></google-chart>
+</div>
+
+<!-- Sanmple Query -->
+<!-- select label , value ,  CONCAT(EXTRACT(YEAR FROM startdate), ', ', EXTRACT(MONTH FROM startdate), ', ', EXTRACT(DAY FROM startdate)) AS startdate,
+    CONCAT(EXTRACT(YEAR FROM enddate), ', ', EXTRACT(MONTH FROM enddate), ', ', EXTRACT(DAY FROM enddate)) AS enddate  from dev_test.sample -->

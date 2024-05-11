@@ -1,0 +1,159 @@
+<nz-spin [nzSpinning]="showLoader" nzSize="large">
+
+    <div class="!w-full !flex !flex-wrap !h-screen !overflow-hidden">
+        <!-- poster -->
+        <div class="lg:w-1/2 !hidden lg:!inline-block !h-full !relative !box-border !bg-[#ffd300] !text-black">
+            <!-- logo -->
+            <div class="flex items-center absolute space-x-[14px] top-5 left-6">
+                <img src="assets/images/expo/icons/Layout=Horizontal, Language=English, Type=Solid Black, Text colour=Black.png"
+                    class="!w-auto !h-full object-fill max-w-[100px]" alt="ExpoCity_Logo" />
+                <!-- <p class="text-[28px] not-italic font-bold leading-[35px] tracking-[-0.346px] mb-0">
+                    Fastify
+                </p> -->
+            </div>
+    
+            <div class="w-full h-fit flex justify-center absolute space-x-[14px] top-[30px]">
+                <h1 class="!text-3xl font-bold !mb-0 !text-slate-900">PMO Governance Managment</h1>
+            </div>
+            <div class="w-full h-screen pt-24">
+                <div
+                    class="!flex !justify-center !items-center img-div !bg-center !bg-no-repeat !bg-contain !px-[70px]">
+                    <img src="assets/images/expo/Image1st.png"
+                        class="max-w-[50%] max-h-[50%] rounded-full w-auto m-auto object-contain"
+                        alt="Expo City View" />
+                </div>
+            </div>
+            <div class="!h-fit bottom-div !absolute bottom-2 w-full !flex !flex-col !items-center !text-center">
+                <p class="!text-[24px] !mb-1.5 !text-black !not-italic !font-bold !leading-[30px] !tracking-[0.2px]">
+                    Expo City Dubai
+                </p>
+                <p class="!text-[14px] !text-black !opacity-60 !not-italic !font-normal !leading-[22px]">
+                    The human-centric city of the future.
+                </p>
+            </div>
+        </div>
+        <!-- poster -->
+
+        <!-- Form -->
+        <div class="w-full lg:w-1/2 h-full flex justify-center box-border items-center">
+            <div class="w-full flex items-center flex-col">
+                <div class="w-full flex justify-center mb-2 md:my-5 items px-5 md:px-7">
+                    <p
+                        class="text-3xl sm:text-4xl mb-3 !text-left not-italic font-bold leading-[30px] tracking-[0.2px] text-[#0F172A]">
+                        Sign In To Your Account
+                    </p>
+                </div>
+                <div class="w-full flex justify-center items-center">
+                    <nz-alert nzType="warning" nzMessage="Warning" nzDescription="You are not human" nzShowIcon
+                        class="w-full rechateAlert" *ngIf="showRecaptcha"></nz-alert>
+                </div>
+
+                <form action="" class="flex flex-col px-5 md:px-7 items-center w-full" [formGroup]="form"
+                    (ngSubmit)="submitForm()">
+                    <div class="flex items-center w-full flex-col">
+
+                        <div class="w-full flex justify-center items-center relative py-4">
+                            <nz-input-group [nzPrefix]="prefixTemplatemail" 
+                                class="!w-full  sm:!w-[360px] !rounded-md py-2 px-4 !h-[46px]">
+                                <input type="email" formControlName="email" nz-input placeholder="Email" />
+                                <app-error [form_control]="f['email']" class="absolute left-0 bottom-[-25px]"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </nz-input-group>
+                            <ng-template #prefixTemplatemail>
+                                <i class="fa-light fa-envelope mr-3 text-lg"></i>
+                            </ng-template>
+                        </div>
+
+                        <div class="w-full flex justify-center items-center relative py-4">
+                            <nz-input-group [nzPrefix]="prefixTemplatepass" [nzSuffix]="suffixTemplateInfo"
+                                class="!w-full sm:!w-[360px] relative !rounded-md py-2 px-4 !h-[46px]">
+                                <input [type]="passwordType" formControlName="password" nz-input
+                                    placeholder="Password" />
+                                <app-error class="absolute left-0 bottom-[-25px]" [form_control]="f['password']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </nz-input-group>
+                            <ng-template #prefixTemplatepass>
+                                <i class="fa-regular fa-lock-keyhole mr-3 text-lg"></i>
+                            </ng-template>
+                            <ng-template #suffixTemplateInfo>
+                                <i (click)="showPassword()" [class]="passwordIcon"></i>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div #captchaContainer class="my-5">
+                        <div class="reCaptcha" id="recaptcha" class="g-recaptcha"
+                            data-sitekey="6LcZ59MnAAAAAEFG5x2mJoJ_ptOFR7O2hSX0HHx3"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="inline-flex w-fit ">
+                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"
+                                class="!w-4 border mt-[1px] mr-2 !border-[#E2E8F0] !h-4" />
+                            <label for="vehicle1"
+                                class="text-xs h-fit text-[#64748B] not-italic font-normal leading-[19.2px]">Remember Me
+                            </label>
+                        </div>
+                        <div>
+                            <a routerLink="/auth/forgot"
+                                class="text-xs h-fit text-left ml-1 inline-block text-[#ffd300] hover:text-[#ffd300] not-italic font-bold leading-[19.2px]">
+                                Forgot Password
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex w-full justify-center">
+                        <button type="submit"
+                            class="w-full sm:!w-[350px] bg-[#ffd300]  !rounded-md text-black font-bold py-2 mt-4 px-4 !h-[46px]">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+                <div>
+                      
+                    <div class="toolbar-spacer"></div>
+                  
+                    <button class="w-full sm:!w-[350px] bg-[#ffd300]  !rounded-md text-black font-bold py-2 mt-4 px-4 !h-[46px]" 
+                     (click)="login()">Microsoft Login</button>
+                    <!-- <button class="w-full sm:!w-[350px] bg-[#ffd300]  !rounded-md text-black font-bold py-2 mt-4 px-4 !h-[46px]" *ngIf="loginDisplay" (click)="logout()">Logout</button> -->
+                  <div class="container">
+                    <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+                    <router-outlet *ngIf="!isIframe"></router-outlet>
+                  </div>
+                  
+                  <footer *ngIf="loginDisplay">
+                      <div class="footer-text">
+                        How did we do? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOU5PNlM4MzRRV0lETkk2ODBPT0NBTEY5MCQlQCN0PWcu" target="_blank"> Share your experience with us!</a>
+                      </div>
+                  </footer>
+                 </div>
+                <nz-divider nzText="Or Sign Up with"
+                    class="!text-xs not-italic font-normal leading-[19.2px]"></nz-divider>
+
+                <!-- <div class="w-full flex justify-evenly ">
+                    <div
+                        class="rounded border flex justify-center items-center w-[50%] bg-white cursor-pointer hover:bg-gray-100 font-bold py-2 px-4 !h-[46px]">
+                        <img src="assets/images/5847f9cbcef1014c0b5e48c8.png" class="w-4 mr-2.5 h-4"
+                            alt="Google logo" />
+                        <p class="text-[16px] not-italic font-semibold tracking-[0.2px] !mb-0">
+                            Google
+                        </p>
+                    </div>
+                    <div
+                        class="rounded border flex justify-center items-center w-[50%] bg-white cursor-pointer hover:bg-gray-100 font-bold py-2 px-4 !h-[46px]">
+                        <img src="assets/images/logo-facebookpng-32240.png" class="w-4 mr-2.5 h-4"
+                            alt="Facebook logo" />
+                        <p class="text-[16px] not-italic font-semibold tracking-[0.2px] !mb-0">
+                            Facebook
+                        </p>
+                    </div>
+                </div> -->
+                <div class="my-4">
+                    <p class="text-[14px] not-italic font-normal leading-[22.4px]">
+                        Don't have account?<a class="font-bold text-[#ffd300] hover:text-[#ffd300] ml-1" routerLink="/auth/register">Sign Up</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Form -->
+    </div>
+
+</nz-spin>

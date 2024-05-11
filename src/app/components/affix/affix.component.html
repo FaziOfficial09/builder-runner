@@ -1,0 +1,31 @@
+<!-- WHEN DIV IS TARGET -->
+<div class="scrollable-container" #target *ngIf="affixData.target">
+  <div class="background">
+    <nz-affix *ngIf="affixData.affixType == 'affix-top'" [nzOffsetTop]="offsetTop" [nzTarget]="target"
+      (nzChange)="onChange($event)">
+      <button nz-button nzType="primary" (click)="setOffsetTop()">
+        <span>{{affixData.title | translate}}</span>
+      </button>
+    </nz-affix>
+    <nz-affix *ngIf="affixData.affixType == 'affix-bottom'" [nzOffsetBottom]="nzOffsetBottom" [nzTarget]="target"
+      (click)="setOffsetBottom()" (nzChange)="onChange($event)">
+      <button nz-button nzType="primary">
+        <span>{{affixData.title | translate}}</span>
+      </button>
+    </nz-affix>
+  </div>
+</div>
+<!-- WHEN DIV IS NOT TARGET -->
+<div *ngIf="!affixData.target">
+  <nz-affix *ngIf="affixData.affixType == 'affix-top'" [nzOffsetTop]="offsetTop" (nzChange)="onChange($event)">
+    <button nz-button nzType="primary" (click)="setOffsetTop()">
+      <span>{{affixData.title | translate}}</span>
+    </button>
+  </nz-affix>
+  <nz-affix *ngIf="affixData.affixType == 'affix-bottom'" [nzOffsetBottom]="nzOffsetBottom" (click)="setOffsetBottom()"
+    (nzChange)="onChange($event)">
+    <button nz-button nzType="primary">
+      <span>{{affixData.title | translate}}</span>
+    </button>
+  </nz-affix>
+</div>

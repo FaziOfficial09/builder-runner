@@ -1,0 +1,41 @@
+<button nz-button [class]="modalData?.btnClass" [nzType]="'primary'" (click)="showModal()"><span>{{modalData.btnLabel}}</span></button>
+<nz-modal *ngIf="modalData.width && modalData.width != 0 && modalData.width != '0' ; else responsiveModal"
+  [nzClassName]="modalData?.modalClass" [(nzVisible)]="isVisible" [nzTitle]='modalData.modalTitle'
+  [nzClosable]="modalData.showCloseIcon" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="modalData.okBtnLoading" [nzCancelLoading]="modalData.cancelBtnLoading"
+  [nzOkDisabled]="modalData.okBtnDisabled" [nzCancelDisabled]="modalData.cancelDisabled"
+  [nzKeyboard]="modalData.ecsModalCancel" [nzMask]="true" [nzMaskClosable]="true" [nzOkText]="modalData.okBtnText"
+  [nzCloseIcon]="iconTemplate" [nzWidth]="modalData.width" [nzZIndex]="modalData.zIndex"
+  [nzCancelText]="modalData.cancalButtontext" [nzCentered]="modalData.centered">
+  <ng-container *nzModalContent>
+    <div>
+      {{modalData.modalContent}}
+      <st-main [mainData]="modalData" [screenName]="screenName" [form]="form" [formlyModel]="formlyModel"></st-main>
+    </div>
+  </ng-container>
+</nz-modal>
+<ng-template #responsiveModal>
+  <nz-modal *ngIf="modalData.width || modalData.width != 0 || modalData.width != '0' ; else responsiveModal"
+    [nzClassName]="modalData?.modalClass" [(nzVisible)]="isVisible" [nzTitle]='modalData.modalTitle'
+    [nzClosable]="modalData.showCloseIcon" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzOkLoading]="modalData.okBtnLoading" [nzCancelLoading]="modalData.cancelBtnLoading"
+    [nzOkDisabled]="modalData.okBtnDisabled" [nzCancelDisabled]="modalData.cancelDisabled"
+    [nzKeyboard]="modalData.ecsModalCancel" [nzMask]="true" [nzMaskClosable]="true" [nzOkText]="modalData.okBtnText"
+    [nzCloseIcon]="iconTemplate" [nzZIndex]="modalData.zIndex" [nzCancelText]="modalData.cancalButtontext"
+    [nzCentered]="modalData.centered">
+    <ng-container *nzModalContent>
+      <div>
+        {{modalData.modalContent}}
+        <st-main [mainData]="modalData" [screenName]="screenName" [form]="form" [formlyModel]="formlyModel"></st-main>
+      </div>
+    </ng-container>
+  </nz-modal>
+</ng-template>
+
+<ng-template #iconTemplate>
+  <span *ngIf="modalData.closeIcon" class="ant-scroll-number-custom-component">
+    <st-icon [type]="modalData.iconType || 'outline'" [icon]="modalData.closeIcon"
+      [hoverIconColor]="modalData?.hoverIconColor || ''" [size]="modalData.iconSize"
+      [color]="modalData.iconColor"></st-icon>
+  </span>
+</ng-template>

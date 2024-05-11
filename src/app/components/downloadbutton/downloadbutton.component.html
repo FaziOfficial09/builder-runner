@@ -1,0 +1,27 @@
+<button nz-button [disabled]="buttonData.disabled" [nzBlock]="buttonData.nzBlock" [nzDanger]="buttonData.nzDanger"
+    [nzGhost]="buttonData.nzGhost" [nzLoading]="buttonData.nzLoading" [nzShape]="buttonData.nzShape"
+    [class]="buttonData.buttonClass" [nzSize]="buttonData.nzSize" [nzType]="buttonData.nztype"
+    [type]="buttonData.isSubmit ? 'submit' : 'button'"
+    [style.border-radius.px]="buttonData.nzShape == 'default' ? buttonData.radius : ''"
+    [style.opacity]="hoverOpacity ? hoverOpacity :  buttonData.btnopacity ? buttonData.btnopacity : '1'"
+    [style.background]="(bgColor || buttonData.color) + ' !important'"
+    [style.color]="(hoverTextColor || buttonData.textColor) + ' !important'"
+    [style.border-color]="(borderColor || buttonData.borderColor) + ' !important'"
+    (mouseover)="handleButtonMouseOver(buttonData)" (mouseout)="handleButtonMouseOut(buttonData)"
+    (click)="downloadReport(buttonData)">
+    <span>
+        <st-icon *ngIf="buttonData.btnIcon" [icon]="buttonData.btnIcon" [color]="buttonData.iconColor"
+            [hoverIconColor]="buttonData?.hoverIconColor || ''" [size]="buttonData.iconSize"
+            [type]="buttonData.iconType"></st-icon>
+        <span [class]="buttonData.btnLabelPaddingClass" *ngIf="buttonData.title">
+            {{ title ? title : buttonData.title | translate}}
+        </span>
+        <st-icon *ngIf="buttonData.rightbtnIcon" [icon]="buttonData.rightbtnIcon" [color]="buttonData.iconColor"
+            [size]="buttonData.iconSize" [hoverIconColor]="buttonData?.hoverIconColor || ''"
+            [type]="buttonData.iconType"></st-icon>
+    </span>
+</button>
+
+<!-- <a href="assets/images/menu/image_2.avif" download="w3logo">
+    <img src="assets/images/menu/image_2.avif" alt="W3Schools" width="104" height="142">
+</a> -->

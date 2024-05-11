@@ -1,0 +1,26 @@
+<p [class]="data.link ? 'cursor-pointer' : ''" (mouseover)="linkColor(true)" (mouseleave)="linkColor(false)"
+  (click)="pageRoute(data.link)" nz-typography [nzContent]="data.text | translate" [nzEditable]="data.editable"
+  [nzEditIcon]="editIcon" [nzEditTooltip]="data.editableTooltip" [nzCopyable]="data.copyable"
+  [nzCopyIcons]="[beforecopiedIcon, 'step-backward']" [nzCopyTooltips]="data.copyTooltips" [nzEllipsis]="data.ellipsis"
+  [nzSuffix]="data.suffix" [nzDisabled]="data.disabled" [nzExpandable]="data.expandable"
+  [nzEllipsisRows]="data.ellipsisRows" [nzType]="data.nztype"
+  [class]="  data.innerClass + ' ' +data.fontstyle + ' !' + data.fontweight + ' !' +data.textAlign + ' ' + ' ' + data?.applicationThemeClasses + ' ' + data?.innerClass + ' ' + data?.appGlobalInnerClass"
+  [style.color]="data.color || undefined"></p>
+<ng-template #beforecopiedIcon>
+  <span>
+    <st-icon *ngIf="data?.beforecopyIcon" [type]="data?.iconType || 'outline'" [icon]="data?.beforecopyIcon"
+      [hoverIconColor]="data?.hoverIconColor || ''" [size]="data?.iconSize" [color]="data?.iconColor"></st-icon>
+  </span>
+</ng-template>
+<ng-template #aftercopiedIcon>
+  <span>
+    <st-icon *ngIf="data?.aftercopyIcon" [type]="data?.iconType || 'outline'" [icon]="data?.aftercopyIcon"
+      [hoverIconColor]="data?.hoverIconColor || ''" [size]="data?.iconSize" [color]="data?.iconColor"></st-icon>
+  </span>
+</ng-template>
+<ng-template #editIcon>
+  <span>
+    <st-icon *ngIf="data?.editableIcon" [type]="data?.iconType || 'outline'" [icon]="data?.editableIcon"
+      [hoverIconColor]="data?.hoverIconColor || ''" [size]="data?.iconSize" [color]="data?.iconColor"></st-icon>
+  </span>
+</ng-template>

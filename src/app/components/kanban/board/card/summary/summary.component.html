@@ -1,0 +1,18 @@
+<div class="issue-wrap">
+  <div class="issue">
+    <st-mains [item]="issue" [formlyModel]="formlyModel" [form]="form" [screenName]="screenName"
+      [draggable]="'false'"></st-mains>
+    <div *ngIf="kanbanData?.allowEdit || kanbanData?.allowDelete || kanbanData?.allowDetail"
+      class="flex justify-between border-gray-300 border-t">
+      <div *ngIf="kanbanData?.allowEdit" (click)="edit(issue , 'edit')"
+        class="!cursor-pointer w-fit h-fit py-1 px-2 hover:scale-110 transition-all"><i
+          class="fa-regular fa-pen-to-square text-blue-500"></i></div>
+      <div (click)="delete(issue)" *ngIf="kanbanData?.allowDelete"
+        class=" !cursor-pointer mr-2 w-fit h-fit px-2 py-1 hover:scale-110 transition-all"><i
+          class="fa-regular fa-trash text-red-500"></i></div>
+      <div *ngIf="kanbanData?.allowDetail" (click)="edit(issue , 'detail')"
+        class=" !cursor-pointermr-2 w-fit h-fit px-2 py-1 hover:scale-110 transition-all"><i
+          class="fa-regular fa-comment text-gray-400"></i></div>
+    </div>
+  </div>
+</div>

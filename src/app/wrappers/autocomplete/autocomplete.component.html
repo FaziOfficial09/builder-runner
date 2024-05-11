@@ -1,0 +1,51 @@
+<div [class]="to['additionalProperties']?.wrapper=='floating_standard' ? 'relative z-0' : ''">
+    <nz-input-group [style.border]="to['additionalProperties']?.border? '0px': ''"
+        [ngClass]="showError ? 'input-border' : ''"
+        [nzSuffix]="(to['additionalProperties']?.addonRight   || to['additionalProperties']?.suffixicon) ? suffixTemplateInfo : undefined"
+        [nzPrefix]="(to['additionalProperties']?.addonLeft || to['additionalProperties']?.prefixicon) ? prefixTemplateUser : undefined"
+        [nzSize]="to['additionalProperties']?.size" [nzStatus]="to['additionalProperties']?.status">
+        <div>
+            <input
+                [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+                [(ngModel)]="inputValue" [appConfigurableSelect]="to['appConfigurableEvent']"
+                [loadAction]="to['eventActionconfig']" [processData]="processData"
+                (ngModelChange)="onModelChange($event, field)"
+                [ngClass]="showError && !to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon && !to['additionalProperties']?.addonLeft && !to['additionalProperties']?.addonRight ? 'input-border' : ''"
+                [style.border-radius]="to['additionalProperties']?.borderRadius" [ngClass]="to['additionalProperties']?.wrapper=='floating_filled' || to['additionalProperties']?.wrapper=='floating_standard'
+    || to['additionalProperties']?.wrapper=='floating_outlined' ? to['additionalProperties']?.floatFieldClass : ''"
+                [placeholder]="to.placeholder" [formControl]="formControl" nz-input [nzAutocomplete]="auto"
+                [nzBorderless]="to['additionalProperties']?.border" [nzSize]="to['additionalProperties']?.size"
+                [nzStatus]="to['additionalProperties']?.status" />
+            <nz-autocomplete [nzWidth]="to['additionalProperties']?.optionWidth" [nzDataSource]="list"
+                [nzDefaultActiveFirstOption]="true" [nzBackfill]="false" #auto></nz-autocomplete>
+            <label *ngIf="to['additionalProperties']?.wrapper == 'floating_filled' ||to['additionalProperties']?.wrapper=='floating_standard'
+                ||to['additionalProperties']?.wrapper == 'floating_outlined'"
+                [ngClass]="to['additionalProperties']?.floatLabelClass">{{ to.label ?? '' | translate }}
+            </label>
+        </div>
+    </nz-input-group>
+    <ng-template #suffixTemplateInfo>
+        <ng-container *ngIf="to['additionalProperties']?.suffixicon ; else addonLeftText">
+            <st-icon [type]="to['additionalProperties']?.iconType || 'outline'"
+                [icon]="to['additionalProperties']?.suffixicon" [size]="to['additionalProperties']?.iconSize"
+                [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+                [color]="to['additionalProperties']?.iconColor"
+                [iconClass]="to['additionalProperties']?.iconClass"></st-icon>
+        </ng-container>
+        <ng-template #addonLeftText>
+            {{to['additionalProperties']?.addonRight}}
+        </ng-template>
+    </ng-template>
+    <ng-template #prefixTemplateUser>
+        <ng-container *ngIf="to['additionalProperties']?.prefixicon ; else addonRightText">
+            <st-icon [type]="to['additionalProperties']?.iconType || 'outline'"
+                [icon]="to['additionalProperties']?.prefixicon" [size]="to['additionalProperties']?.iconSize"
+                [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+                [color]="to['additionalProperties']?.iconColor"
+                [iconClass]="to['additionalProperties']?.iconClass"></st-icon>
+        </ng-container>
+        <ng-template #addonRightText>
+            {{to['additionalProperties']?.addonLeft}}
+        </ng-template>
+    </ng-template>
+</div>

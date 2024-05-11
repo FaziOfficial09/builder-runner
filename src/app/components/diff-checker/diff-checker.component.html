@@ -1,0 +1,13 @@
+<p [processData]="processData"
+[appConfigurableSelect]="item['appConfigurableEvent']" [loadAction]="item['eventActionconfig']">Difference checker</p>
+<div class="flex flex-wrap" *ngFor="let cont of item.content">
+    <div class="w-1/2 p-1">
+        <p>JSON</p>
+        <json-editor id="inputJsonDataa085f" [(ngModel)]="cont.currentFileContent" ></json-editor>
+
+    </div>
+    <div class="w-1/2 p-1">
+        <p>Difference</p>
+        <json-editor id="inputJsonDataa085f" [(ngModel)]="cont.changeContent" ></json-editor>
+    </div>
+</div>

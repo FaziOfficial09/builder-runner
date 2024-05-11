@@ -1,0 +1,202 @@
+<nz-collapse>
+    <nz-collapse-panel [nzHeader]="'Task manager'">
+        <div class="m-3">
+            <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'" class="builder-design">
+                <nz-table [processData]="processData" [appConfigurableSelect]="taskManagerData?.appConfigurableEvent "
+                    [loadAction]="taskManagerData?.eventActionconfig " #editRowTable nzBordered
+                    [nzData]="listOfDisplayData" nzTableLayout="fixed" [nzFrontPagination]="false">
+                    <thead>
+                        <tr>
+                            <ng-container *ngFor="let column of taskManagerData['tableHeaders']">
+                                <th *ngIf="column?.show || column?.show == undefined">{{column.name}}
+                                    <nz-filter-trigger *ngIf="column?.sorting" [(nzVisible)]="column['visible']"
+                                        [nzDropdownMenu]="filterMenu">
+                                        <a>
+                                            <i [class]="'fa-regular fa-filter mx-1'"></i>
+                                        </a>
+                                    </nz-filter-trigger>
+                                    <nz-dropdown-menu #filterMenu="nzDropdownMenu">
+                                        <ul nz-menu nzSelectable class="!rounded-md !text-sm !font-medium dyname">
+                                            <div *ngIf="column?.sorting">
+                                                <p (click)="sortingData(column , 'asc')"
+                                                    class="p-1.5 !px-5 hover:bg-gray-100 tracking-[0.2px] leading-5">
+                                                    <i class="fa-regular fa-arrow-down-a-z mr-1"></i>
+                                                    Sort A to Z
+                                                </p>
+                                                <p class="p-1.5 !px-5 hover:bg-gray-100 tracking-[0.2px] leading-5"
+                                                    (click)="sortingData(column , 'desc')">
+                                                    <i class="fa-solid fa-arrow-up-z-a mr-1"></i>
+                                                    Sort Z to A
+                                                </p>
+                                                <hr class="mt-2 mx-5">
+                                            </div>
+                                        </ul>
+                                    </nz-dropdown-menu>
+                                </th>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of editRowTable.data; let index = index" class="table-cursor">
+                            <tr>
+                                <ng-container *ngFor="let head of taskManagerData['tableHeaders']">
+                                    <td *ngIf="head.key == 'expand' && (head?.show || head?.show == undefined)"
+                                        [nzExpand]="item.expand" (click)="expand(item, head)">
+                                    </td>
+                                    <td (click)="tdFunc(head, item)"
+                                        *ngIf="head.key != 'expand' && (head?.show || head?.show == undefined)">
+                                        {{item[head.key]}}
+                                    </td>
+                                </ng-container>
+                            </tr>
+                            <ng-container *ngIf="item.expand">
+                                <span *ngIf="item.children.length > 0">Child Tasks</span>
+                                <tr *ngFor="let child of item.children">
+                                    <ng-container *ngFor="let head of taskManagerData['tableHeaders']">
+                                        <td *ngIf="head.key == 'expand' && (head?.show || head?.show == undefined)"
+                                            [nzExpand]="child.expand" (click)="expand(child, head)">
+                                        </td>
+                                        <td (click)="tdFunc(head, child)"
+                                            *ngIf="head.key != 'expand' && (head?.show || head?.show == undefined)">
+                                            {{child[head.key]}}
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                                <div *ngIf="item.addTask">
+                                    <st-main [mappingId]="mappingId" [screenName]="screenName"
+                                        [mainData]="taskManagerData" [formlyModel]="formlyModel" [form]="form"
+                                        [screenId]="screenId"></st-main>
+                                </div>
+                                <div (click)="showAddTask(item)">
+                                    <span nz-icon nzType="plus" nzTheme="outline"></span>Add task...
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </nz-table>
+                <st-main *ngIf="addSection" [mappingId]="mappingId" class="!w-full" [screenName]="screenName"
+                    [mainData]="taskManagerData" [formlyModel]="formlyModel" [form]="form"
+                    [screenId]="screenId"></st-main>
+                <button nz-button nzType="primary" class="btn mb-4" (click)="addSectionFunc()"><span nz-icon
+                        nzType="plus" nzTheme="outline"></span>Add
+                    Section</button>
+                <nz-drawer [nzExtra]="extra" [nzClosable]="false" [nzWidth]="'60%'" [nzVisible]="visible"
+                    nzPlacement="right" nzTitle="Add task" (nzOnClose)="close()">
+                    <ng-container *nzDrawerContent>
+                        <nz-spin [nzSpinning]="drawerLoader" [nzSize]="'large'" class="builder-design">
+                            <input [(ngModel)]="drawerData.task" type="text" id="first_name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <div class="flex flex-wrap mt-2">
+                                <div class="w-1/2">
+                                    <div class="flex flex-wrap">
+                                        <div class="w-1/2 mb-1">Assignee</div>
+                                        <div class="w-1/2 mb-1"> <nz-select [(ngModel)]="drawerData.assignee">
+                                                <nz-option nzValue="test@gmail.com"
+                                                    nzLabel="test@gmail.com"></nz-option>
+                                                <nz-option nzValue="test1@gmail.com"
+                                                    nzLabel="test1@gmail.com"></nz-option>
+                                                <nz-option nzValue="test2@gmail.com"
+                                                    nzLabel="test2@gmail.com"></nz-option>
+                                            </nz-select></div>
+                                        <div class="w-1/2 mb-1">Due date</div>
+                                        <div class="w-1/2 mb-1"><nz-date-picker (ngModelChange)="formatDate($event)"
+                                                [(ngModel)]="drawerData.date" class="w-full"></nz-date-picker></div>
+                                        <div class="w-1/2 mb-1">Projects</div>
+                                    </div>
+                                </div>
+                                <div class="w-1/2"></div>
+                            </div>
+                            <div class="mt-4 mb-2">Description</div>
+                            <div><textarea id="message" rows="4"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            </div>
+                            <button nz-button nzType="primary" class="btn mb-4 mt-4"
+                                (click)="updateTask()">Update</button>
+                            <div class="mt-2 mb-1">Subtasks
+                            </div>
+                            <div *ngIf="this.drawerData?.data">
+                                <div *ngIf="this.drawerData.data.length > 0">
+                                    <div class="flex justify-between" *ngFor="let sub of this.drawerData.data">
+                                        <div>
+                                            <span class="mr-2" nz-icon nzType="check-circle" nzTheme="outline"></span>
+                                            <input *ngIf="subTaskEditId === sub.id" [(ngModel)]="sub.task"
+                                                class="!w-100">
+                                            <span *ngIf="subTaskEditId !== sub.id">{{sub.task}}</span>
+                                        </div>
+                                        <div>
+                                            <span class="mr-2" nz-icon nzType="windows" nzTheme="outline"></span>
+                                            <span class="mr-2" nz-icon nzType="user" nzTheme="outline"></span>
+                                            <span (click)="tdFunc(null , sub , true)" class="mr-2" nz-icon
+                                                nzType="comment" nzTheme="outline"></span>
+                                            <span *ngIf="subTaskEditId !== sub.id" (click)="edit(sub)" class="mr-2"
+                                                nz-icon nzType="edit" nzTheme="outline"></span>
+                                            <span (click)="cancelEdit(sub)" *ngIf="subTaskEditId===sub.id" class="mr-2"
+                                                nz-icon nzType="close-circle" nzTheme="outline"></span>
+                                            <span (click)="saveInlineEdit(sub)" *ngIf="subTaskEditId === sub.id"
+                                                class="mr-2" nz-icon nzType="save" nzTheme="outline"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="addSubtask" class="flex justify-between">
+                                <div>
+                                    <span class="mr-2" nz-icon nzType="check-circle" nzTheme="outline"></span>
+                                    <input [(ngModel)]="subTask.task" class="!w-100">
+                                </div>
+                                <div>
+                                    <span class="mr-2" nz-icon nzType="windows" nzTheme="outline"></span>
+                                    <span class="mr-2" nz-icon nzType="user" nzTheme="outline"></span>
+                                    <span class="mr-2" nz-icon nzType="comment" nzTheme="outline"></span>
+                                </div>
+                            </div>
+                            <div class="mt-2" (click)="addSubTask()"><span nz-icon nzType="plus"
+                                    nzTheme="outline"></span>Add
+                                Sub Task...</div>
+                            <button nz-button nzType="primary" class="btn mb-4 mt-4" (click)="save()">Save</button>
+                            <div *ngIf="comments.length > 0">
+                                <div *ngFor="let comm of comments" class="!border !border-gray-300 rounded-sm p-2 mb-2">
+                                    <div class="flex flex-wrap">
+                                        <p class="w-1/2">
+                                            {{comm.createdby}}
+                                        </p>
+                                        <p class="w-1/2">
+                                            {{comm.currentdate}}
+                                        </p>
+                                        <p class="w-full">
+                                            {{comm.comment}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="taskManagerData.children.length > 0">
+                                <div *ngFor="let child of taskManagerData.children">
+                                    <div *ngIf="child.type == 'taskManagerComment'">
+                                        <div *ngIf="child.children.length > 0">
+                                            <st-main [mappingId]="mappingId" [mainData]="child"
+                                                [formlyModel]="formlyModel" [screenName]="screenName"
+                                                [screenId]="screenId" [form]="form"></st-main>
+                                        </div>
+                                        <button nz-button nzType="primary" class="btn mb-4 mt-4"
+                                            (click)="saveComments()">Comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="taskManagerData.children.length > 0">
+                                <div *ngFor="let child of taskManagerData.children">
+                                    <div *ngIf="child.type == 'chat'">
+                                        <st-support-chat [mappingId]="mappingId" [formlyModel]="formlyModel"
+                                            [form]="form" [screenId]="screenId" [screenName]="screenName"
+                                            [data]="child"></st-support-chat>
+                                    </div>
+                                </div>
+                            </div>
+                        </nz-spin>
+                    </ng-container>
+                </nz-drawer>
+            </nz-spin>
+        </div>
+    </nz-collapse-panel>
+</nz-collapse>
+<ng-template #extra>
+    <i class="fas fa-times text-lg text-red-500 cursor-pointer" (click)="close()"></i>
+</ng-template>

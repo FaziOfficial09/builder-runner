@@ -1,0 +1,78 @@
+<!-- {{this.formlyModel  | json}} -->
+<nz-spin class="site-pages" [nzSpinning]="saveLoader" [nzSize]="'large'">
+  <div style="height: 100vh;" *ngIf="saveLoader && resData.length == 0"></div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div id='Content'
+      class="bg-white shadow-md boxed-layout  {{resData[0].highLight ? 'highLight' : ''}} {{resData?.[0]?.className}}"
+      *ngIf="resData.length">
+      <!-- PAGE HEADER -->
+      <!-- <span [contextMenu]="oneContextMenuPage" *ngIf="isPageContextShow">
+        <context-menu #oneContextMenuPage>
+          <ng-template contextMenuItem (execute)="copyPageJson(resData)" [visible]="true">Copy
+            Page</ng-template>
+        </context-menu>
+        <st-page [resData]="resData" [form]="form"></st-page>
+      </span> -->
+      <st-page [resData]="resData" [form]="form"></st-page>
+      <!-- <st-page [resData]="resData" *ngIf="!isPageContextShow" [form]="form"></st-page> -->
+
+      <!-- SECTION -->
+      <div class="flex flex-wrap" [ngClass]="{'highLight': resData[0].children[1].highLight}">
+        <ng-container *ngFor="let sections of resData[0].children[1].children ; index as i">
+          <div *ngIf="!sections.hideExpression" [class]="sections.className"
+            [ngClass]="{'highLight': sections.highLight}" [ngStyle]="{
+                'padding-left': ((sections.className === 'w-full sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/3' || sections.className === 'w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2') && i % 2 !== 0) ? '3px' : ((sections.className === 'w-full sm:w-full md:w-1/2 lg:w-1/4 xl:w-1/4') ? '3px' : ''),
+                'padding-right': (sections.className === 'w-full sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/3' && i % 2 !== 0) ? '3px' : '',
+                'border-color': sections.borderColor + '!important'
+              }">
+            <!-- <span [contextMenu]="oneContextMenu">
+              <context-menu #oneContextMenu>
+                <ng-template contextMenuItem (execute)="copySectionJson(resData[0].children[1].children)"
+                  [visible]="true">Copy
+                  Section</ng-template>
+              </context-menu>
+              <st-sections [resData]="resData" [sections]="sections" [form]="form" [screenName]="screenName"
+                [joiValidationData]="joiValidationData" [screenId]="screenId" [formlyModel]="formlyModel"
+                (traverseChangeEmit)="traverseAndChange($event , '')"
+                (sectionRepeatEmit)="sectionRepeat($event)"></st-sections>
+            </span> -->
+            <st-sections [mappingId]="mappingId" [isDrawer]="isDrawer" [resData]="resData" [sections]="sections" [form]="form" [screenName]="screenName"
+              [joiValidationData]="joiValidationData" [screenId]="screenId" [formlyModel]="this.formlyModel?.[this.screenId]"
+              (traverseChangeEmit)="traverseAndChange($event, '')"
+              (sectionRepeatEmit)="sectionRepeat($event)"></st-sections>
+
+            <!-- <st-sections [resData]="resData" [screenName]="screenName" [form]="form" [sections]="sections"
+            [screenId]="screenId" [formlyModel]="formlyModel" *ngIf="!isPageContextShow"
+            (traverseChangeEmit)="traverseAndChange($event)" (sectionRepeatEmit)="sectionRepeat($event)"></st-sections> -->
+          </div>
+        </ng-container>
+      </div>
+      <!-- PAGE FOOTER -->
+      <div [ngStyle]="{'border-top': resData[0].children[0].isBordered ? '1px solid #e5e7eb' : 'none'}"
+        class="py-3 px-6 text-black font-semibold text-lg {{resData[0].children[2].highLight ? 'highLight' : ''}}"
+        *ngIf="resData[0].children[2].footer" class="ng-subheading">
+        {{resData[0].children[2].title}}
+        <div *ngFor="let item of resData[0].children[2].children">
+          <st-block-buttons-card [softIconList]="item"></st-block-buttons-card>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  <!-- Comment -->
+  <!-- <div *ngIf="screenName">
+  <button nz-button nzType="primary" nzShape="circle" (click)="openComment()" class="fixed bottom-4 right-4"
+    style="display: flex; justify-content: center; align-items: center">
+    <span nz-icon nzType="setting" nzSpin style="margin-right: 0; "></span>
+  </button>
+  <div class="comment-drawer">
+    <nz-drawer nzWidth="500px" [nzClosable]="true" [nzVisible]="isVisible" nzPlacement="right" [nzTitle]="'Comments'"
+      (nzOnClose)="handleCancel()">
+      <ng-container *nzDrawerContent>
+        <st-comment-list *ngIf="resData.length > 0" [screenName]="screenName" [data]="resData[0]"></st-comment-list>
+      </ng-container>
+    </nz-drawer>
+  </div>
+</div> -->
+</nz-spin>

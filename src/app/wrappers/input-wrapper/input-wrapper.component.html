@@ -1,0 +1,54 @@
+<div [class]="to['additionalProperties']?.wrapper=='floating_standard' ? 'relative z-0' : ''"
+  *ngIf="to.type != 'number'">
+  <nz-input-group [style.border]="to['additionalProperties']?.border? '0px': ''"
+    [style.border-radius]="to['additionalProperties']?.borderRadius"
+    [class]="to['additionalProperties']?.InputGroupClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+    [ngClass]="showError ? 'input-border' : ''"
+    [nzSuffix]="(to['additionalProperties']?.addonRight   || to['additionalProperties']?.suffixicon) ? suffixTemplateInfo : undefined"
+    [nzPrefix]="(to['additionalProperties']?.addonLeft || to['additionalProperties']?.prefixicon) ? prefixTemplateUser : undefined"
+    [nzSize]="to['additionalProperties']?.size" [nzStatus]="to['additionalProperties']?.status">
+    <input class="!text-left" (ngModelChange)="onModelChange($event, field)"
+      [class]="to['additionalProperties']?.innerInputClass + ' ' +to['additionalProperties']?.applicationThemeClasses + ' ' +to['additionalProperties']?.appGlobalInnerClass"
+      [style.border-radius]="to['additionalProperties']?.borderRadius" [ngClass]=" showError && !to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon
+&& !to['additionalProperties']?.addonLeft && !to['additionalProperties']?.addonRight ? 'input-border' : ''"
+      *ngIf=" to.type !='textarea'" [ngClass]="to['additionalProperties']?.wrapper=='floating_filled' || to['additionalProperties']?.wrapper=='floating_standard'
+|| to['additionalProperties']?.wrapper=='floating_outlined' ? to['additionalProperties']?.floatFieldClass : ''"
+      [formlyAttributes]="field" nz-input [type]="to.type" [placeholder]="to.placeholder"
+      [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size"
+      [formControl]="formControl" [nzBorderless]="to['additionalProperties']?.border" />
+    <textarea
+      [class]="to['additionalProperties']?.innerInputClass + ' ' + '!'+to['additionalProperties']?.applicationThemeClasses + ' ' + '!'+to['additionalProperties']?.appGlobalInnerClass"
+      [ngClass]="to['additionalProperties']?.wrapper=='floating_filled' || to['additionalProperties']?.wrapper=='floating_standard'
+    || to['additionalProperties']?.wrapper=='floating_outlined' ? to['additionalProperties']?.floatFieldClass : ''"
+      [ngClass]="showError && !to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon && !to['additionalProperties']?.addonLeft && !to['additionalProperties']?.addonRight ? 'input-border' : ''"
+      *ngIf="to.type == 'textarea'" [style.border-radius]="to['additionalProperties']?.borderRadius" nz-input
+      [rows]="to.rows" [formlyAttributes]="field" [placeholder]="to.placeholder" [formControl]="formControl"></textarea>
+    <label *ngIf="to['additionalProperties']?.wrapper == 'floating_filled' ||to['additionalProperties']?.wrapper=='floating_standard'
+          ||to['additionalProperties']?.wrapper == 'floating_outlined'"
+      [ngClass]="to['additionalProperties']?.floatLabelClass">{{ to.label ?? '' | translate }}
+    </label>
+  </nz-input-group>
+</div>
+<nz-input-number *ngIf="to.type == 'number'" style="width:100%" [formControl]="formControl"
+  [nzStep]="1"></nz-input-number>
+<ng-template #suffixTemplateInfo>
+  <ng-container *ngIf="to['additionalProperties']?.suffixicon ; else addonLeftText">
+    <st-icon [type]="to['additionalProperties']?.iconType || 'outline'" [icon]="to['additionalProperties']?.suffixicon"
+      [size]="to['additionalProperties']?.iconSize" [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+      [color]="to['additionalProperties']?.iconColor" [iconClass]="to['additionalProperties']?.iconClass"
+      (click)="showPassword(to)"></st-icon>
+  </ng-container>
+  <ng-template #addonLeftText>
+    {{to['additionalProperties']?.addonRight}}
+  </ng-template>
+</ng-template>
+<ng-template #prefixTemplateUser>
+  <ng-container *ngIf="to['additionalProperties']?.prefixicon ; else addonRightText">
+    <st-icon [type]="to['additionalProperties']?.iconType || 'outline'" [icon]="to['additionalProperties']?.prefixicon"
+      [size]="to['additionalProperties']?.iconSize" [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+      [color]="to['additionalProperties']?.iconColor" [iconClass]="to['additionalProperties']?.iconClass"></st-icon>
+  </ng-container>
+  <ng-template #addonRightText>
+    {{to['additionalProperties']?.addonLeft}}
+  </ng-template>
+</ng-template>

@@ -1,0 +1,45 @@
+<ng-container *ngIf="to['additionalProperties']?.wrapper != 'floating_standard'">
+    <nz-input-group [style.border]="to['additionalProperties']?.border? '0px': ''" *ngIf="!to['additionalProperties']?.suffixicon && !to['additionalProperties']?.prefixicon" [nzSuffix]="to['additionalProperties']?.addonRight"
+        [nzPrefix]="to['additionalProperties']?.addonLeft" [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size">
+        <nz-time-picker [(ngModel)]="time" (ngModelChange)="log($event)"
+            [ngClass]="to['additionalProperties']?.wrapper && to['additionalProperties']?.wrapper == 'floating_filled' || to['additionalProperties']?.wrapper == 'floating_outlined' || to['additionalProperties']?.wrapper == 'floating_standard' ? to['additionalProperties']?.floatFieldClass : ''"
+           [style.border-radius]="to['additionalProperties']?.borderRadius"  [nzAddOn]="customAddon" [nzAllowEmpty]="to['additionalProperties']?.allowClear"
+            [nzStatus]="to['additionalProperties']?.status" [nzNowText]="to['additionalProperties']?.firstBtnText" [nzOkText]="to['additionalProperties']?.secondBtnText"
+            [nzMinuteStep]="to['additionalProperties']?.minuteStep" [nzSecondStep]="to['additionalProperties']?.secondStep"
+            [nzHourStep]="to['additionalProperties']?.hoursStep" [nzDisabled]="to.disabled" [nzStatus]="to['additionalProperties']?.status"
+            [nzSize]="to['additionalProperties']?.size" [nzBorderless]="to['additionalProperties']?.border" [nzPlaceHolder]="to.placeholder || ''"
+            [nzUse12Hours]="to['additionalProperties']?.use12Hours" [nzSuffixIcon]="customAddon || ''"></nz-time-picker>
+        <label *ngIf="to['additionalProperties']?.wrapper == 'floating_filled' || to['additionalProperties']?.wrapper == 'floating_outlined'"
+            [ngClass]="to['additionalProperties']?.floatLabelClass">{{ to.label ?? '' | translate }}</label>
+    </nz-input-group>
+    <nz-input-group [style.border]="to['additionalProperties']?.border? '0px': ''" *ngIf="to['additionalProperties']?.suffixicon || to['additionalProperties']?.prefixicon" [(ngModel)]="time" [nzSuffix]="suffixTemplateInfo"
+        [nzPrefix]="prefixTemplateUser" [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size">
+        <nz-time-picker [nzAddOn]="customAddon" [nzAllowEmpty]="to['additionalProperties']?.allowClear"  (ngModelChange)="log($event)"
+           [style.border-radius]="to['additionalProperties']?.borderRadius"  [nzStatus]="to['additionalProperties']?.status" [nzNowText]="to['additionalProperties']?.firstBtnText" [nzOkText]="to['additionalProperties']?.secondBtnText"
+            [nzMinuteStep]="to['additionalProperties']?.minuteStep" [nzSecondStep]="to['additionalProperties']?.secondStep"
+            [nzHourStep]="to['additionalProperties']?.hoursStep" [nzDisabled]="to.disabled" [nzStatus]="to['additionalProperties']?.status"
+            [nzSize]="to['additionalProperties']?.size" [nzBorderless]="to['additionalProperties']?.border" [nzPlaceHolder]="to.placeholder || ''"
+            [nzUse12Hours]="to['additionalProperties']?.use12Hours" [nzSuffixIcon]="customAddon || ''"></nz-time-picker>
+    </nz-input-group>
+
+    <ng-template #customAddon>
+        <span nz-icon [nzType]="to['additionalProperties']?.icon" nzTheme="outline"></span>
+    </ng-template>
+    <ng-template #prefixTemplateUser><span nz-icon [nzType]="to['additionalProperties']?.suffixicon"></span></ng-template>
+    <ng-template #suffixTemplateInfo>
+        <span nz-icon [nzType]="to['additionalProperties']?.prefixicon"></span>
+    </ng-template>
+</ng-container>
+<div class="relative z-0" *ngIf="to['additionalProperties']?.wrapper == 'floating_standard'">
+<nz-time-picker class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" [nzAddOn]="customAddon" [nzAllowEmpty]="to['additionalProperties']?.allowClear"
+ [nzStatus]="to['additionalProperties']?.status" [nzNowText]="to['additionalProperties']?.firstBtnText"
+[nzOkText]="to['additionalProperties']?.secondBtnText" [nzMinuteStep]="to['additionalProperties']?.minuteStep" [(ngModel)]="time" (ngModelChange)="log($event)"
+[style.border-radius]="to['additionalProperties']?.borderRadius" [nzSecondStep]="to['additionalProperties']?.secondStep" [nzHourStep]="to['additionalProperties']?.hoursStep" [nzDisabled]="to.disabled"
+[nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size" [nzBorderless]="to['additionalProperties']?.border"
+[nzPlaceHolder]="to.placeholder || ''" [nzUse12Hours]="to['additionalProperties']?.use12Hours"
+[nzSuffixIcon]="customAddon || ''"></nz-time-picker>
+<label
+class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">{{ to.label ?? '' | translate }}</label>
+<ng-template #customAddon>
+    <span nz-icon [nzType]="to['additionalProperties']?.icon" nzTheme="outline"></span>
+</ng-template>

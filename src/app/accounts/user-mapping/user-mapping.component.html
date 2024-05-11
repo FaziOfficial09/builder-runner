@@ -1,0 +1,113 @@
+<nz-spin [nzSpinning]="loader" [nzSize]="'large'">
+    <div class="b-card p-3 mb-2">
+        <div class="flex flex-wrap">
+            <div class="w-1/4 flex mr-2">
+                <label style="width: 30%;" class="mt-2 font-bold">User name</label>
+                <nz-select style="width: 70%;" nzShowSearch nzAllowClear class="temp-modal-select"
+                    [(ngModel)]="userName">
+                    <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.username"
+                        *ngFor="let item of userList"></nz-option>
+                </nz-select>
+            </div>
+            <div class="w-1/4 flex mr-2">
+                <label style="width: 30%;" class="mt-2 font-bold">User Policy</label>
+                <nz-select style="width: 70%;" nzShowSearch nzAllowClear class="temp-modal-select"
+                    [(ngModel)]="policyName">
+                    <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.name"
+                        *ngFor="let item of policyList"></nz-option>
+                </nz-select>
+            </div>
+            <div class="w-1/6 flex mr-2 mt-2">
+                <label style="width: 80%;" class="font-bold"> Default Policy</label>
+                <label style="width: 20%;" nz-checkbox [(ngModel)]="defaultPolicy"></label>
+            </div>
+            <div class="w-1/6 flex mr-2">
+                <button [hidden]="!isSubmit" nz-button nzType="primary" (click)="onSubmit()"
+                    class="btn !rounded !bg-amber-300 hover:!bg-amber-300 !text-slate-900 hover:text-white !border !border-transparent !font-md">
+                    <i class="fa-regular fa-floppy-disk mr-1.5"></i> Save
+                </button>
+                <button [hidden]="!isSubmit" nz-button nzType="primary" (click)="UserMappingCommit()"
+                    class="btn !rounded !bg-amber-300 hover:!bg-amber-300 !text-slate-900 hover:text-white !border !border-transparent !font-md ml-1">
+                    <i class="fab fa-github mr-1"></i>Commit
+                </button>
+                <button [hidden]="isSubmit" nz-button nzType="primary" (click)="onSubmit()"
+                    class="!rounded !bg-green-600 hover:!bg-green-500 !text-white border-green-600 !h-10 !border hover:!border-transparent !font-md">
+                    <i class="fa-regular fa-floppy-disk mr-1.5"></i> Update
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <nz-card nzTitle="User Policy List">
+        <nz-table class="Policy-builder-table" [nzShowPagination]="false" [nzScroll]="{ x: '1200px', y: null }"
+            #filterTable [nzLoading]="loading" [nzData]="listOfDisplayData" [nzPageSize]="pageSize" class="border">
+            <thead>
+                <tr>
+                    <ng-container *ngFor="let column of listOfColumns">
+                        <th nzCustomFilter *ngIf="column.name != 'Action'">{{column.name}}
+                            <nz-filter-trigger [hidden]="column.visible || false" [nzDropdownMenu]="menu">
+                                <span nz-icon nzType="search"></span>
+                            </nz-filter-trigger>
+                        </th>
+                        <th nzWidth="120px" *ngIf="column.name == 'Action'" class="w-1/12">
+                            {{column.name}}
+                        </th>
+
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                                <div class="search-box">
+                                    <input type="text" nz-input nzClear (keyup)="search()" placeholder="Search here..."
+                                        [(ngModel)]="column.searchValue" />
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of filterTable.data; index as i">
+                    <!-- <td>{{ i+1 }}</td> -->
+                    <td>{{ data.username }}</td>
+                    <td>{{ data.policyname }}</td>
+                    <td><label nz-checkbox [(ngModel)]="data.defaultpolicy" [nzDisabled]="true"></label></td>
+                    <td>
+                        <i class="fa-regular fa-pen-to-square !text-blue-600 hover:cursor-pointer" nzTooltipTitle="Edit"
+                            nz-tooltip (click)="[editItem(data)]"></i>
+
+                        <i class="fa-regular fa-trash !text-[#fd3636] pl-2 hover:cursor-pointer" nzTooltipTitle="Delete"
+                            nz-tooltip nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                            (nzOnConfirm)="deleteRow(data.id)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+
+        <div class="paginatio-bottom flex justify-between items-center my-3">
+            <div>
+                <p class="showing">Showing <span class="primary-color">{{startIndex}} - {{endIndex <
+                            listOfDisplayData.length ? endIndex : listOfDisplayData.length}}</span> from
+                            <span class="primary-color">{{searchData.length > 0 ? searchData.length
+                                :listOfData.length}}</span> data
+                </p>
+            </div>
+
+            <div class="flex items-center justify-end">
+                <div class="pagination mr-4">
+                    <label class="label">Pagination</label>
+                    <div class="input-container">
+                        <nz-input-number [(ngModel)]="pageSize" (ngModelChange)="search(1)" [nzStep]="1"
+                            [nzMin]="1"></nz-input-number>
+                    </div>
+                </div>
+                <div>
+                    <nz-pagination [nzPageIndex]="pageIndex"
+                        [nzTotal]="searchData.length > 0 ? searchData.length :listOfData.length" [nzPageSize]="pageSize"
+                        (nzPageIndexChange)="search($event)"></nz-pagination>
+                </div>
+            </div>
+        </div>
+
+    </nz-card>
+</nz-spin>

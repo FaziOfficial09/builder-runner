@@ -1,0 +1,38 @@
+<!-- <div class="salesdata p-2" *ngFor="let data of salesdata">
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded" *ngFor="let item of data.section">
+        <div class="card-body" *ngFor="let item1 of item.filterData">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h6 class="font-size-xs text-uppercase label-style" style="font-size: .9rem;">{{item1.heading}}<span
+                            *ngIf="data.tooltip && data.tooltip!=''" style="text-align: right;"></span> </h6>
+                    <h4 class="mt-4 font-weight-bold mb-2 d-flex align-items-center">
+                        {{item1.price}}
+                    </h4>
+                    <div class="text-muted">{{item1.subheading}}</div>
+                </div>
+                <div>
+                    <div class="dropdown" ngbDropdown>
+                        <a class="dropdown-toggle btn btn-light btn-sm" href="javascript:void(0);"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle><span
+                                class="text-muted">{{item1.defaultfilter}}<i
+                                    class="mdi mdi-chevron-down ms-1"></i></span>
+                        </a>
+
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                click="defaultFilter(item,$event)">{{item.filtertype}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                {{item1.refundsChart.colors | json}}
+                <apx-chart class="apex-charts" dir="ltr" [series]="item1.refundsChart.series"
+                    [chart]="item1.refundsChart.chart" [colors]="item1.refundsChart.colors"
+                    [stroke]="item1.refundsChart.stroke" [tooltip]="item1.refundsChart.tooltip">
+                </apx-chart>
+
+            </div>
+        </div>
+    </div>
+</div> -->

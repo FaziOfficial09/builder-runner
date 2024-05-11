@@ -1,0 +1,7 @@
+export * from  './auth-container/auth-container.component'
+export * from  './forgot-password/forgot-password.component'
+export * from  './login/login.component'
+export * from  './not-found/not-found.component'
+export * from  './permission-denied/permission-denied.component'
+export * from  './register/register.component'
+export * from  './reset-password/reset-password.component'

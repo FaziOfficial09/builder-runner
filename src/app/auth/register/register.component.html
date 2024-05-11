@@ -1,0 +1,260 @@
+<nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
+    <div class="w-full flex flex-wrap h-fit register !overflow-hidden">
+
+        <!-- poster -->
+        <div [hidden]="userAddDrawer"
+            class="lg:w-1/2 !hidden lg:!inline-block h-screen !relative !box-border !bg-[#ffd300] !text-black">
+            <!-- logo -->
+            <div class="flex items-center absolute space-x-[14px] top-5 left-6">
+                <img src="assets/images/expo/icons/Layout=Horizontal, Language=English, Type=Solid Black, Text colour=Black.png"
+                    class="!w-auto !h-full object-fill max-w-[100px]" alt="ExpoCity_Logo" />
+                <!-- <p class="text-[28px] not-italic font-bold leading-[35px] tracking-[-0.346px] mb-0">
+                Fastify
+            </p> -->
+            </div>
+            <!-- logo -->
+            <div class="w-full h-fit flex justify-center absolute space-x-[14px] top-6 ">
+                <h1 class="!text-3xl font-bold !mb-0 !text-slate-900">PMO Governance Managment</h1>
+            </div>
+            <div class="w-full h-full pt-24">
+                <div
+                    class="!flex !justify-center !items-center img-div !bg-center !bg-no-repeat !bg-contain !px-[70px]">
+                    <img src="assets/images/expo/Image1st.png"
+                        class="max-w-[50%] max-h-[50%] rounded-full w-auto m-auto object-contain"
+                        alt="Expo City View" />
+                </div>
+            </div>
+            <div class="!h-fit bottom-div !absolute bottom-2 w-full !flex !flex-col !items-center !text-center">
+                <p class="!text-[24px] !mb-1.5 !text-black !not-italic !font-bold !leading-[30px] !tracking-[0.2px]">
+                    Expo City Dubai
+                </p>
+                <p class="!text-[14px] !text-black !opacity-60 !not-italic !font-normal !leading-[22px]">
+                    The human-centric city of the future.
+                </p>
+            </div>
+        </div>
+        <!-- poster -->
+
+        <!-- Form -->
+        <div
+            [class]="!userAddDrawer ? ' w-full lg:w-1/2 ' : ' ' + 'w-full h-auto py-16 md:py-0 md:min-h-auto flex justify-center box-border items-center'">
+            <div class="w-full flex flex-col items-center h-auto overflow-auto py-16 md:py-0">
+                <div [class]="showRecaptcha ? 'mb-20 mt-6' : 'my-4 md:my-6'"
+                    class="w-full flex justify-center relative items-center px-5 md:px-7">
+                    <p class="text-3xl sm:text-4xl not-italic font-bold leading-[30px] tracking-[0.2px] text-[#0F172A]">
+                        {{userAddDrawer ? 'Add user account' : 'Sign Up for an Account'}}
+                    </p>
+                    <nz-alert nzType="warning" nzMessage="Warning" nzDescription="You are not human" nzShowIcon
+                        class="w-full rechateAlert absolute top-14" *ngIf="showRecaptcha"></nz-alert>
+                </div>
+
+                <form [ngClass]="{'mt-4' : showRecaptcha}" class="flex flex-col px-5 md:px-7 items-center w-full"
+                    [formGroup]="form" (ngSubmit)="submitForm()">
+                    <div class="flex flex-col w-full">
+                        <!-- <nz-input-group [nzPrefix]="prefixTemplateUser"
+                        class="!w-[350px] !rounded-md py-2 mt-4 px-4 !h-[46px]">
+                        <input type="text" nz-input placeholder="Username" />
+                    </nz-input-group>
+                    <ng-template #prefixTemplateUser>
+                        <i class="fa-light fa-user mr-3 text-lg"></i>
+                    </ng-template> -->
+                        <div
+                            class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6 relative md:py-3 pt-5 pb-3">
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplatfirstname"
+                                    class=" !rounded-md py-2 px-4 !h-[46px]">
+                                    <input type="text" formControlName="firstname" nz-input placeholder="First Name" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplatfirstname>
+                                    <i class="fa-light fa-user mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['firstname']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+
+                            <div class="!w-full md:w-1/2 relative">
+
+                                <nz-input-group [nzPrefix]="prefixTemplatlastname" class=" !rounded-md px-4 !h-[46px]">
+                                    <input type="text" formControlName="lastname" nz-input placeholder="Last Name" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplatlastname>
+                                    <i class="fa-light fa-user mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['lastname']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6 relative md:py-3 pt-5 pb-3">
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplatcompanyname"
+                                    class="!rounded-md px-4 py-2  !h-[46px]">
+                                    <input type="text" formControlName="companyname" nz-input
+                                        placeholder="Company Name" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplatcompanyname>
+                                    <i class="fa-light fa-buildings mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['companyname']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplateContactNumber" class="!rounded-md px-4 py-2  !h-[46px]">
+                                  <input
+                                    type="text"
+                                    formControlName="contactnumber"
+                                    nz-input
+                                    placeholder="Contact Number"
+                                  />
+                                </nz-input-group>
+                                <!-- <nz-input-group [nzPrefix]="prefixTemplateContactNumber" class="!rounded-md px-4 py-2  !h-[46px]">
+                                  <input
+                                    type="text"
+                                    formControlName="contactnumber"
+                                    nz-input
+                                    placeholder="Contact Number"
+                                    mask="00-0000000000"
+                                  />
+                                </nz-input-group> -->
+                                <ng-template #prefixTemplateContactNumber>
+                                  <i class="fa-light fa-phone-alt mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['contactnumber']" [isSubmitted]="isFormSubmit"></app-error>
+                              </div>
+                        </div>
+                        <div
+                            class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6 relative md:py-3 pt-5 pb-3">
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplataccreditationNumber"
+                                    class="!rounded-md px-4 py-2  !h-[46px]">
+                                    <input type="text" formControlName="accreditationNumber" nz-input
+                                        placeholder="Accreditation Number" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplataccreditationNumber>
+                                    <i class="fa-light fa-id-card mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]"
+                                    [form_control]="f['accreditationNumber']" [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplatemail" class="!rounded-md px-4 !h-[46px]">
+                                    <input type="email" formControlName="email" nz-input placeholder="Email" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplatemail>
+                                    <i class="fa-light fa-envelope mr-3 text-lg"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['email']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-6 relative md:py-4 pt-5 pb-3">
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplatepass" [nzSuffix]="suffixTemplateInfo"
+                                    class="!rounded-md  py-2 px-4 !h-[46px]">
+                                    <input [type]="passwordType" formControlName="password" nz-input
+                                        placeholder="Password" />
+                                </nz-input-group>
+                                <ng-template #prefixTemplatepass>
+                                    <i class="fa-regular fa-lock-keyhole mr-3 text-lg"></i>
+                                </ng-template>
+                                <ng-template #suffixTemplateInfo>
+                                    <i (click)="showPassword()" [class]="passwordIcon"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['password']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+
+                            <div class="!w-full md:w-1/2 relative">
+                                <nz-input-group [nzPrefix]="prefixTemplateconfirmpass" [nzSuffix]="suffixTemplatecInfo"
+                                    class="!rounded-md px-4 py-2 !h-[46px]">
+                                    <input [type]="confirmpasswordType" formControlName="confirmpassword" nz-input
+                                        placeholder="Confirm Password" />
+                                </nz-input-group>
+
+                                <ng-template #prefixTemplateconfirmpass>
+                                    <i class="fa-regular fa-lock-keyhole mr-3 text-lg"></i>
+                                </ng-template>
+                                <ng-template #suffixTemplatecInfo>
+                                    <i (click)="showConfirmPassword()" [class]="confirmpasswordIcon"></i>
+                                </ng-template>
+                                <app-error class="absolute left-0 bottom-[-20px]" [form_control]="f['confirmpassword']"
+                                    [isSubmitted]="isFormSubmit"></app-error>
+                            </div>
+                        </div>
+                        <div *ngIf="form.get('confirmpassword')?.hasError('passwordMatch')"
+                            class="text-red-500 !ml-0 relative left-0 bottom-[-10px]">
+                            Password and Confirm Password did not match.
+                        </div>
+
+                        <!-- <nz-form-control nzErrorTip="Please Select Page" class="!w-1/2 mb-4" >
+                            <nz-cascader formControlName="application" nzChangeOnSelect [nzAllowClear]="true" style="width: 100%"
+                                [(ngModel)]="cascaderValue" [nzLoadData]="loadData.bind(this)"
+                                [nzOptions]="cascaderData" placeholder="Select Application"
+                                (ngModelChange)="onDepartmentChange($event)">
+                            </nz-cascader>
+                        </nz-form-control> -->
+
+
+                        <app-error [form_control]="f['application']" [isSubmitted]="isFormSubmit"></app-error>
+                    </div>
+                    <div class="my-4">
+                        <div class="reCaptcha" id="recaptcha" class="g-recaptcha"
+                            data-sitekey="6LcZ59MnAAAAAEFG5x2mJoJ_ptOFR7O2hSX0HHx3"></div>
+                    </div>
+                    <!-- <p
+                        class="text-xs h-fit text-left mb-3 ml-1 inline-block text-[#64748B] not-italic font-normal leading-[19.2px]">
+                        Your password must have at least 8 characters
+                    </p> -->
+
+                    <div [hidden]="userAddDrawer" class="w-full flex justify-center items-start mb-4 ">
+                        <input type="checkbox" id="vehicle1" formControlName="remember"
+                            class="!w-4 border mt-1.5 mr-2 !border-[#E2E8F0] !h-4" />
+                        <label for="vehicle1"
+                            class="text-xs h-fit inline-block !w-[340px] text-[#64748B] not-italic font-normal leading-[19.2px]">By
+                            creating an account means you agree to the
+                            <a class="font-semibold text-[#0F172A]">Terms & Conditions</a>
+                            and our
+                            <span class="font-semibold text-[#0F172A]">Privacy Policy</span>
+                        </label>
+                    </div>
+                    <app-error [form_control]="f['remember']" [isSubmitted]="isFormSubmit"></app-error>
+                    <div class="flex justify-center w-full">
+                        <button
+                            class="w-full sm:!w-[360px] bg-[#ffd300] !rounded-md text-black font-bold py-2 px-4 !h-[46px]">
+                            {{userAddDrawer ? 'Save user' : 'Sign Up'}}
+                        </button>
+                    </div>
+                </form>
+
+                <nz-divider [hidden]="userAddDrawer" nzText="Or Sign In with"
+                    class="!text-xs not-italic font-normal my-4 leading-[19.2px]"></nz-divider>
+
+                <!-- <div class="w-full flex justify-evenly">
+                <div
+                    class="rounded border flex justify-center items-center w-[50%] bg-white cursor-pointer hover:bg-gray-100 font-bold py-2 px-4 !h-[46px]">
+                    <img src="assets/images/5847f9cbcef1014c0b5e48c8.png" class="w-4 mr-2.5 h-4" alt="Google logo" />
+                    <p class="text-[16px] not-italic font-semibold tracking-[0.2px] mb-0">
+                        Google
+                    </p>
+                </div>
+                <div
+                    class="rounded border flex justify-center items-center w-[50%] bg-white cursor-pointer hover:bg-gray-100 font-bold py-2 px-4 !h-[46px]">
+                    <img src="assets/images/logo-facebookpng-32240.png" class="w-4 mr-2.5 h-4" alt="Facebook logo" />
+                    <p class="text-[16px] not-italic font-semibold tracking-[0.2px] mb-0">
+                        Facebook
+                    </p>
+                </div>
+            </div> -->
+                <div [hidden]="userAddDrawer" class="mb-4">
+                    <p class="text-[14px] not-italic font-normal leading-[22.4px]">
+                        Already have an account?<a class="font-bold text-[#ffd300] hover:text-[#ffd300] ml-1"
+                            routerLink="/auth/login">Log In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Form -->
+    </div>
+</nz-spin>

@@ -1,0 +1,23 @@
+:host ::ng-deep .ant-list-item {
+    display: block !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0;
+    color: rgba(0, 0, 0, .85);
+}
+
+.scroll-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    // white-space: nowrap !important;
+}
+
+.demo-infinite-container {
+    height: 300px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+}
+
+nz-list {
+    padding: 0px;
+}

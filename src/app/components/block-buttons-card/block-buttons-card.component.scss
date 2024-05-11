@@ -1,0 +1,9 @@
+// .builder-btns-row {
+//     padding: 10px;
+//     .active {
+//         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+//     }
+// }
+.ant-btn>span+.anticon {
+    margin-left: 0px !important;
+}

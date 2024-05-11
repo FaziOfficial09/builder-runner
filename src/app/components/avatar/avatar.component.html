@@ -1,0 +1,18 @@
+<ng-container class="text-right">
+    <nz-avatar [nzIcon]='avatarData.icon' [nzText]='avatarData.text'
+        [nzSrc]='avatarData.src' [nzGap]='avatarData.gap'
+        [nzAlt]='avatarData.alt' [nzShape]="avatarData.shape"
+        [nzSize]="avatarData.size" [nzSrcSet]
+        (nzError)="handleAvatarError($event)"
+        [ngStyle]="{'background-color':avatarData.bgColor , 'color':avatarData.color}"
+        style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+    <p class="font-semibold">{{avatarData.title | translate}}</p>
+</ng-container>
+
+<ng-template #icon>
+    <st-icon [type]="avatarData?.iconType || 'outline'"
+        [icon]="avatarData?.icon"
+        [size]="avatarData?.iconSize"
+        [hoverIconColor]="avatarData?.hoverIconColor || ''"
+        [color]="avatarData?.iconColor"></st-icon>
+</ng-template>

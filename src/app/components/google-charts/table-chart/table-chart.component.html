@@ -1,0 +1,19 @@
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+  <google-chart id="google-charts" [type]="chartType" [columns]="charts?.columnNames"  [data]="chartData" [height]="charts.height"></google-chart>
+</div>
+
+
+<!-- select name as "Employee Name",manager as "Manager Name", label as "Project Name", value as "Project Description",
+totalprojects as "Total Project", count as "Total Count",
+CASE
+    WHEN startdate::date IS NOT NULL AND TRIM(startdate) != ''
+        THEN TO_CHAR(startdate::date, 'YYYY-MM-DD')
+    ELSE NULL
+	END AS "Start Date",
+  CASE
+    WHEN enddate::date IS NOT NULL AND TRIM(enddate) != ''
+        THEN TO_CHAR(enddate::date, 'YYYY-MM-DD')
+    ELSE NULL
+	END AS "End Date"
+  From dev_test.sample -->

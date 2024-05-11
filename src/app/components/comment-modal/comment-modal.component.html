@@ -1,0 +1,18 @@
+<nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
+    <form [formGroup]="form" >
+        <textarea rows="2" formControlName="message" class="!rounded-md" placeholder="Write a message here..."
+            nz-input></textarea>
+            <div class="mt-2">
+            <st-voice-recorder  [audioData]="voiceissue"></st-voice-recorder>
+            </div>
+        <div class="mt-2">
+            <button (click)="onSubmit()" class="comment-save-button btn" *ngIf="!update" nz-button nzType="primary">
+                <i class="fa-regular fa-floppy-disk mr-1.5"></i>
+                Save</button>
+            <button (click)="onSubmit()" class="comment-save-button btn-no !border-none !bg-green-500 hover:!bg-green-400" *ngIf="update" nz-button
+                nzType="primary">
+                <i class="fa-regular fa-arrows-rotate mr-1.5"></i>
+                Update</button>
+        </div>
+    </form>
+</nz-spin>

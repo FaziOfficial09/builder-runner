@@ -1,0 +1,38 @@
+<div [processData]="processData" [appConfigurableSelect]="headingData?.appConfigurableEvent "
+    [loadAction]="headingData?.eventActionconfig ">
+    <span>
+        <div [class]="headingData.link ? 'cursor-pointer' : ''">
+            <div [class]="headingData.textAlign" (click)="pageRoute(headingData.link)">
+                <div *ngIf="headingData.heading >= 1 && headingData.heading <= 5; else paragraph">
+                    <h1 nz-typography *ngIf="headingData.heading === 1" [style.color]="headingData.color || undefined"
+                        [class]="headingData.fontstyle + ' ' + headingData.fontweight + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass">
+                        {{ headingData.text | translate }}
+                    </h1>
+                    <h2 nz-typography *ngIf="headingData.heading === 2" [style.color]="headingData.color || undefined"
+                        [class]="headingData.fontstyle + ' ' + headingData.fontweight + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass">
+                        {{ headingData.text | translate }}
+                    </h2>
+                    <h3 nz-typography *ngIf="headingData.heading === 3" [style.color]="headingData.color || undefined"
+                        [class]="headingData.fontstyle + ' ' + headingData.fontweight + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass">
+                        {{ headingData.text | translate }}
+                    </h3>
+                    <h4 nz-typography *ngIf="headingData.heading === 4" [style.color]="headingData.color || undefined"
+                        [class]="headingData.fontstyle + ' ' + headingData.fontweight + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass">
+                        {{ headingData.text | translate }}
+                    </h4>
+                    <h5 nz-typography *ngIf="headingData.heading === 5" [style.color]="headingData.color || undefined"
+                        [class]="headingData.fontstyle + ' ' + headingData.fontweight + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass">
+                        {{ headingData.text | translate }}
+                    </h5>
+                </div>
+                <ng-template #paragraph>
+                    <p nz-typography (click)="pageRoute(headingData.link)"
+                        [class]=" headingData.heading + ' ' +  headingData.fontweight + ' ' + headingData.fontstyle + ' ' + headingData?.applicationThemeClasses + ' ' + headingData?.innerClass + ' ' + headingData?.appGlobalInnerClass"
+                        [style.color]="headingData.color || undefined">
+                        {{ headingData.text | translate }}
+                    </p>
+                </ng-template>
+            </div>
+        </div>
+    </span>
+</div>

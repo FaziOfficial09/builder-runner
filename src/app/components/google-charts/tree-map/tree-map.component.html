@@ -1,0 +1,7 @@
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+  <google-chart id="google-charts" [type]="chartType" [data]="chartData" [options]="charts.options"
+    [height]="charts.height"></google-chart>
+</div>
+
+<!-- select region as id, parent as label, value1, value2 from  dev_test.treemap -->

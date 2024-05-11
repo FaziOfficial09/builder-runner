@@ -1,0 +1,41 @@
+<ng-container *ngFor="let sub of menuData.children">
+  <li nz-menu-item *ngIf="!sub.children; else submenu" (click)="menuClickChild($event , sub)"
+    [style.background]="isActiveShow == sub.id ? data['activeBackgroundColor'] : ''"
+    (mouseenter)="hoverActiveShow = sub.id" (mouseleave)="hoverActiveShow = null">
+    <div [class]="sub?.iconRight ?  'flex flex-row-reverse' : ''">
+      <span class="menu-sub-icon">
+        <span [style.font-size.px]="data['titleSize'] || 15" nz-icon [nzType]="sub.icon" [style.color]="(hoverActiveShow === sub.id) ? data['hoverTextColor'] :
+            ((isActiveShow === sub.id) ? data['activeTextColor'] : data['textColor'])"></span>
+      </span>
+      <span class="colapsed-menu-title" [class]="data?.font" [style.font-size.px]="data['titleSize'] || 15"
+        [style.color]="(hoverActiveShow === sub.id) ? data['hoverTextColor'] + ' !important' : ((isActiveShow === sub.id) ? (data['activeTextColor'] + ' !important' || data['textColor'] + ' !important') : data['textColor'] + ' !important')">
+        {{ sub.title | translate }}
+      </span>
+    </div>
+  </li>
+  <ng-template #submenu>
+    <li [style.background]="isActiveShow == sub.id ? data['activeBackgroundColor'] : ''" [nzTitle]="itemTemplate2"
+      nz-submenu (mouseenter)="hoverActiveShow = sub.id" (mouseleave)="hoverActiveShow = null"
+      (click)="subClickChild($event , sub)">
+      <ng-template #itemTemplate2>
+        <div [class]="sub?.iconRight ?  'flex flex-row-reverse' : ''">
+          <span class="menu-item-icon">
+            <span [style.font-size.px]="data['titleSize'] || 15" nz-icon [nzType]="sub.icon" [style.color]="(hoverActiveShow === sub.id) ? data['hoverTextColor'] :
+                ((isActiveShow === sub.id) ? data['activeTextColor'] : data['textColor'])"></span>
+          </span>
+          <span class="colapsed-menu-title" [class]="data?.font" [style.font-size.px]="data['titleSize'] || 15"
+            [style.color]="(hoverActiveShow === sub.id) ? data['hoverTextColor'] + ' !important' : ((isActiveShow === sub.id) ? (data['activeTextColor'] + ' !important' || data['textColor'] + ' !important') : data['textColor'] + ' !important')">
+            {{ sub.title | translate }}
+          </span>
+        </div>
+      </ng-template>
+      <ul [style.background]="data.backGroundColor" class="dynamic-sub-menu" [class]="data?.font"
+        *ngIf="sub.children.length > 0">
+        <st-builder-menu-child (mouseenter)="hoverActiveShow = null" [menuData]="sub" [data]="data"
+          (menuClick)="childMenuClick($event)" (subClick)="childMenuSubClick($event)"
+          [hoverActiveShow]="hoverActiveShow" [isActiveShow]="isActiveShow"></st-builder-menu-child>
+      </ul>
+    </li>
+  </ng-template>
+
+</ng-container>

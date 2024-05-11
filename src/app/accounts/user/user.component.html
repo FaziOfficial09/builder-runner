@@ -1,0 +1,84 @@
+<nz-spin [nzSpinning]="loading" [nzSize]="'large'">
+    <nz-card nzTitle="USER LIST" [nzExtra]="extraTemplate">
+        <nz-table [nzShowPagination]="false" #basicTable [nzData]="listOfDisplayData" [nzPageSize]="pageSize">
+            <thead>
+                <tr>
+                    <ng-container *ngFor="let column of listOfColumns">
+                        <th nzCustomFilter *ngIf="column.name != 'Action'">{{column.name}}
+                            <nz-filter-trigger [nzVisible]="column.visible || false" [nzDropdownMenu]="menu">
+                                <span nz-icon nzType="search"></span>
+                            </nz-filter-trigger>
+                        </th>
+                        <th nzWidth="120px" *ngIf="column.name == 'Action'" class="w-1/12">
+                            {{column.name}}
+                        </th>
+
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <div class="ant-table-filter-dropdown">
+                                <div class="search-box">
+                                    <input class="rounded-md" type="text" nz-input nzClear (keyup)="search()"
+                                        placeholder="Search here..." [(ngModel)]="column.searchValue" />
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>{{data?.username}}</td>
+                    <td>{{data?.accreditationnumber || 'N/A'}}</td>
+                    <td [hidden]="edit == data.id">{{data?.status ? data?.status : 'Pending' }}</td>
+                    <td [hidden]="edit != data.id">
+                        <select [(ngModel)]="data.status"
+                            class="px-3 py-1.5 rounded-[4px] bg-white border border-gray-300 hover:text-blue-600 hover:border-blue-600">
+                            <option class="text-black mx-2" value="Pending">Pending</option>
+                            <option class="text-black mx-2" value="Approved">Approved
+                        </select>
+                    </td>
+                    <td class="">
+                        <i (click)="editFunc(data)" *ngIf="edit !== data.id"
+                            class="fa-regular !text-sm fa-pencil text-blue-500"></i>
+                        <i (click)="showDeleteConfirm(data)" *ngIf="edit !== data.id"
+                            class="fa-regular !text-sm fa-trash text-red-500 ml-2"></i>
+                        <div class="flex justify-start items-center" *ngIf="edit == data.id">
+                            <i (click)="saveEdit(data)" class="fa-regular !text-sm fa-save text-blue-500 mr-2.5"></i>
+                            <!-- <i  class="fa-regular !text-sm fa-times text-red-500 "></i> -->
+                            <i (click)="cancelEdit(data)" class="fa-solid fa-circle-xmark !text-sm text-red-500"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <div class="paginatio-bottom flex justify-between items-center my-3">
+            <div>
+                <p class="showing">Showing <span class="primary-color">{{startIndex}} - {{endIndex <
+                            listOfDisplayData.length ? endIndex : listOfDisplayData.length}}</span> from
+                            <span class="primary-color">{{searchData.length > 0 ? searchData.length
+                                :listOfData.length}}</span> data
+                </p>
+            </div>
+
+            <div class="flex items-center justify-end">
+                <div class="pagination mr-4">
+                    <label class="label">Pagination</label>
+                    <div class="input-container">
+                        <nz-input-number [(ngModel)]="pageSize" (ngModelChange)="search(1)" [nzStep]="1"
+                            [nzMin]="1"></nz-input-number>
+                    </div>
+                </div>
+                <div>
+                    <nz-pagination [nzPageIndex]="pageIndex"
+                        [nzTotal]="searchData.length > 0 ? searchData.length :listOfData.length" [nzPageSize]="pageSize"
+                        (nzPageIndexChange)="search($event)"></nz-pagination>
+                </div>
+            </div>
+        </div>
+    </nz-card>
+</nz-spin>
+<ng-template #extraTemplate>
+    <button nz-button (click)="UserCommit()" nzType="primary" class="btn mr-1">
+        <i class="fab fa-github mr-1.5"></i> Commit</button>
+    <button nz-button (click)="drawer()" nzType="primary" class="btn"><i class="fa-regular fa-plus mr-1.5"></i>Add
+        user</button>
+</ng-template>

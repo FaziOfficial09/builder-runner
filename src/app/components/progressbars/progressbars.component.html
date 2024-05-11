@@ -1,0 +1,12 @@
+<div class="pt-3" *ngIf="progressBarData">
+    <div>
+        <h5 class="d-flex justify-content-between label-style">
+            {{progressBarData.title | translate}}<span style="text-align: right;" *ngIf="progressBarData.tooltip && !progressBarData?.tooltipWithoutIcon || false" nz-tooltip
+                nzTooltipTitle={{progressBarData.tooltip}}><span nz-icon nzType="question-circle"
+                    nzTheme="outline"></span></span>
+        </h5>
+        <nz-progress [nzWidth]="progressBarData.progressBarType == 'line' ? 0 : (progressBarData?.width ?  progressBarData?.width : 100)"[nzType]="progressBarData.progressBarType"
+        [nzShowInfo]="progressBarData.showInfo" [nzStatus]="progressBarData.status"
+        [nzStrokeLinecap]="progressBarData.strokeLineCap" [nzPercent]='progressBarData.percent' [nzStrokeColor]="progressBarData?.color"></nz-progress>
+    </div>
+</div>   

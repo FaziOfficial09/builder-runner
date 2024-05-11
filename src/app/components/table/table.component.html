@@ -1,0 +1,118 @@
+<!-- {{gridData | json}} -->
+
+<!-- <button nz-button (click)="addRow()" nzType="primary">Add</button>
+    <br />
+    <br />
+    <nz-table #editRowTable nzBordered [nzData]="listOfData"
+      [nzScroll]="{ x: '100vw', y: '240px' }"
+      [nzTableLayout]="'auto'"
+      [nzBordered]="true"
+      [nzSimple]="true"
+      [nzLoading]="false"
+      [nzPaginationType]="'default'"
+      [nzPaginationPosition]="'bottom'"
+      [nzShowSizeChanger]="true"
+      [nzFrontPagination]="true"
+      [nzShowPagination]="true"
+      [nzFooter]="true ? 'Here is Footer' : null"
+      [nzTitle]="true ? 'Here is Title' : null"
+      [nzSize]="'small'"
+      >
+      <thead>
+        <tr>
+          <th
+          [nzSelections]="listOfSelection"
+          [(nzChecked)]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+          (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+        ></th>
+          <th nzWidth="30%">Name</th>
+          <th>Age</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable.data" class="editable-row">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>
+            <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+              {{ data.name }}
+            </div>
+            <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
+          </td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td>
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table> -->
+    <button nz-button (click)="addRow()" nzType="primary">Add</button>
+    <nz-table
+      #rowSelectionTable
+      nzShowSizeChanger
+      [nzData]="listOfData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    >
+      <thead>
+        <tr>
+          <th
+            [nzSelections]="listOfSelection"
+            [(nzChecked)]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td>
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div *ngIf="gridData">
+      <nz-table [nzData]="gridData.rowData">
+        <ng-container nz-table-layout>
+          <th
+          [nzSelections]="listOfSelection"
+          [(nzChecked)]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+          <!-- Define the table header row -->
+          <th *ngFor="let column of gridData.columnData" [nzShowCheckbox]="false">
+            {{ column.header }}
+          </th>
+        </ng-container>
+
+        <!-- Define the table body -->
+        <tbody>
+          <ng-container *ngFor="let row of gridData.rowData">
+            <tr nz-table-row >
+              <td [nzChecked]="setOfCheckedId.has(row['id'])" (nzCheckedChange)="onItemChecked(row['id'], $event)"></td>
+              <td nz-table-cell *ngFor="let column of gridData.columnData">
+                {{ row[column.name] }}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </nz-table>
+    </div>
+

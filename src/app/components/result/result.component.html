@@ -1,0 +1,13 @@
+<nz-result [nzStatus]='resulData.status' [nzTitle]="resulData.resultTitle" [nzExtra]="resulData.extra" [nzSubTitle]='resulData.subTitle'>
+    <div nz-result-extra>
+        <button nz-button nzType="primary">{{resulData.btnLabel}}</button>
+    </div>
+</nz-result>
+
+
+<ng-template #iconTemplate>
+    <span *ngIf="resulData.icon" class="ant-scroll-number-custom-component">
+      <st-icon  [type]="'outline'" [icon]="resulData.icon"
+      [hoverIconColor]="resulData?.hoverIconColor || ''"  [size]="15" [color]="''"></st-icon>
+    </span>
+  </ng-template>

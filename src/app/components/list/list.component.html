@@ -1,0 +1,61 @@
+<nz-list [style.max-height.px]="listData.height" style="overflow-y: hidden;" [processData]="processData" [appConfigurableSelect]="listData['appConfigurableEvent']"
+    [loadAction]="listData['eventActionconfig']" class="demo-loadmore-list list-card" [nzLoading]="initLoading"
+    [nzBordered]="listData.isBordered" [nzFooter]="listData.footerText" [nzHeader]="listData.headerText"
+    [nzItemLayout]="'vertical'" [nzSize]="listData.size" [nzSplit]="listData.isSplit">
+    
+    <div class="h-[200px] overflow-y-auto">
+    <nz-list-item *ngFor="let item of list">
+        <nz-list-item-meta [nzAvatar]="item.avatar" [nzDescription]="item.description">
+            <nz-list-item-meta-title>
+                <a href="{{item.lastNameHref}}">{{item.name}}</a>
+            </nz-list-item-meta-title>
+        </nz-list-item-meta>
+        {{item.content}}
+        <!-- <ul nz-list-item-actions>
+            <nz-list-item-action *ngIf="listData.isEdit"><a (click)="edit(item)">Edit</a></nz-list-item-action>
+            <nz-list-item-action *ngIf="listData.isUpdate"><a (click)="edit(item)">Update</a></nz-list-item-action>
+            <nz-list-item-action *ngIf="listData.isDelete"><a (click)="edit(item)">Delete</a></nz-list-item-action>
+        </ul> -->
+    </nz-list-item>
+    </div>
+
+    <div class="loadmore" nz-list-load-more>
+        <button [class]="listData.innerClass" nz-button *ngIf="listData.isLoad"
+            (click)="onLoadMore()">{{listData.loadText}}</button>
+    </div>
+</nz-list>
+
+
+
+
+<!-- <nz-list nzItemLayout="horizontal">
+    <nz-list-item *ngFor="let item of list">
+        <nz-list-item-meta>
+            <nz-list-item-meta-avatar [nzSrc]="item.avatar"></nz-list-item-meta-avatar>
+            <nz-list-item-meta-title>
+                <a href="{{ item.href }}">{{ item.title }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+                {{ item.description }}
+            </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        {{ item?.content }}
+        <ul nz-list-item-actions>
+            <nz-list-item-action>
+                <span nz-icon nzType="star-o" style="margin-right: 8px;"></span>
+                156
+            </nz-list-item-action>
+            <nz-list-item-action>
+                <span nz-icon nzType="star-o" style="margin-right: 8px;"></span>
+                156
+            </nz-list-item-action>
+            <nz-list-item-action>
+                <span nz-icon nzType="star-o" style="margin-right: 8px;"></span>
+                2
+            </nz-list-item-action>
+        </ul>
+        <nz-list-item-extra>
+            <img width="272" alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+        </nz-list-item-extra>
+    </nz-list-item>
+</nz-list> -->

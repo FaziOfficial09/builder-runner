@@ -1,0 +1,18 @@
+<nz-tree [nzData]="treeData.nodes" [nzCheckable]="treeData.checkable" [nzShowExpand]="treeData.expand"
+  [appConfigurableSelect]="treeData['appConfigurableEvent']" [loadAction]="treeData['eventActionconfig']"
+  [processData]="processData" [nzExpandedIcon]="multiExpandedIconTpl" [nzBlockNode]="treeData.blockNode"
+  [nzShowLine]="treeData.showLine" [nzShowIcon]="treeData.showIcon" [nzDraggable]="treeData.draggable"
+  [nzMultiple]="treeData.multiple" [nzExpandAll]="treeData.expandAll">
+
+  <ng-template #multiExpandedIconTpl let-node let-origin="origin">
+    <span *ngIf="!origin.isLeaf" class="ant-tree-switcher-line-icon">
+      <st-icon [type]="treeData?.iconType || 'outline'" [icon]="treeData?.expandIcon" [size]="treeData?.iconSize"
+        [hoverIconColor]="treeData?.hoverIconColor || ''" [color]="treeData?.iconColor"></st-icon>
+    </span>
+    <span *ngIf="!origin.closingexpandicon" class="ant-tree-switcher-line-icon">
+      <st-icon [type]="treeData?.iconType || 'outline'" [icon]="treeData?.closingexpandicon"
+        [hoverIconColor]="treeData?.hoverIconColor || ''" [size]="treeData?.iconSize"
+        [color]="treeData?.iconColor"></st-icon>
+    </span>
+  </ng-template>
+</nz-tree>

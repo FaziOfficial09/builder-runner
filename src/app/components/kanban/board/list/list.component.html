@@ -1,0 +1,41 @@
+<nz-card  style="background-color: #f7f8fa; border-radius: 7px;"
+  class="!w-full list-card h-full overflow-hidden">
+  <div class="status-list h-full">
+    <div class="w-full !h-[18%]" *ngIf="kanbanData?.allowAdd">
+      <div class="flex justify-between items-center text-white bg-green-500 px-2">
+        <p
+          class="list-name flex items-center text-base font-semibold w-fit !text-left !h-[40px] rounded-md rounded-bl-none rounded-br-none uppercase">
+          {{lane.title}}</p>
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+      <div class="px-2">
+        <button nz-button nzType="primary" (click)="openDrawer('add')"
+          [class]="kanbanData?.addButtonClass ? kanbanData?.addButtonClass : 'actions-btn btn-no !border-none !bg-blue-600 hover:!bg-blue-500 my-2 !w-full !h-[40px]'">
+          <i class="fa-regular fa-plus mr-2"></i> Add task
+        </button>
+      </div>
+    </div>
+    <div class="issue-card-container pl-2 px-2 overflow-auto !h-[82%]" cdkDropList
+      [cdkDropListData]="lane.children" (cdkDropListDropped)="drop($event , lane.title)" [id]="lane.id">
+      <st-card-summary [recordIndex]="i" (taskDeleteEmit)="showDeleteConfirm($event)" (taskEditEmit)="edit($event)" [form]="form"
+        [kanbanData]="kanbanData" [formlyModel]="formlyModel" [screenId]="screenId" [screenName]="screenName"
+        [kanbanData]="kanbanData" *ngFor="let issue of lane.children ; let i =index" [issue]="issue"
+        [cdkDragData]="issue" cdkDrag>
+      </st-card-summary>
+    </div>
+  </div>
+</nz-card>
+
+<nz-drawer [nzExtra]="extra" [nzWrapClassName]="'button-drawer'" [nzClosable]=" false"
+  [nzTitle]="DrawerType + (mappingId && DrawerType != 'Add'? ' - ' + mappingId : '')" [nzWidth]="'60%'"
+  [nzVisible]="isVisible" (nzOnClose)="handleClose()">
+  <ng-container *nzDrawerContent>
+    <nz-spin [nzSpinning]="loader">
+      <st-pages [mappingId]="mappingId" [isDrawer]="DrawerType == 'Add' ? false : true" [data]="nodes"
+        [navigation]="screenId" [form]="form" [formlyModel]="formlyModel" *ngIf="nodes.length > 0"></st-pages>
+    </nz-spin>
+  </ng-container>
+</nz-drawer>
+<ng-template #extra>
+  <i class="fas fa-times text-lg text-red-500 cursor-pointer" (click)="handleClose()"></i>
+</ng-template>

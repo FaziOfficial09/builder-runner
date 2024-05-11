@@ -1,0 +1,48 @@
+date format query
+
+	CASE
+        WHEN TRY_CONVERT(datetime, plans.planstartdate) IS NOT NULL AND LTRIM(RTRIM(plans.planstartdate)) != ''
+            THEN FORMAT(TRY_CONVERT(datetime, plans.planstartdate), 'yyyy-MM-dd')
+        ELSE NULL
+    END AS planstartdate,
+
+
+date format query
+	CASE
+    WHEN plans.planstartdate::date IS NOT NULL AND TRIM(plans.planstartdate) != ''
+        THEN TO_CHAR(plans.planstartdate::date, 'YYYY-MM-DD')
+    ELSE NULL
+	END AS planstartdate
+
+
+	getting id from array
+
+	SELECT r.id AS id, r.resourcename AS name
+FROM admin.resourcepool p
+JOIN admin.resource r ON r.id = ANY(string_to_array(p.resources, ','))
+WHERE p.id =
+
+
+send email or for two rule
+
+		   [
+  {
+      "if": {
+          "actionRule": "post_pif",
+
+          "key": "0",
+          "compare": "==",
+          "value": "0"
+      },
+      "then": {
+        "actionRule": "post_email",
+        "key": "0",
+        "compare": "==",
+        "value": "0"
+    }
+  }
+]
+
+
+api first key
+knex-query/getexecute-rules/

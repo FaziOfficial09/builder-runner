@@ -1,0 +1,8 @@
+<button [class]="backTopData?.innerClass" [ngClass]="{'button-scroll-to-top--show': showScroll}" (click)="scrollToTop()"
+    class="button-scroll-to-top">
+    <a>{{backTopData.btnLabel}}</a> <a><st-icon
+            [iconClass]="backTopData?.iconClass + ' ' + backTopData?.appGlobalInnerIconClass"
+             [icon]="backTopData.icon" [color]="backTopData.iconColor"
+            [hoverIconColor]="backTopData?.hoverIconColor || ''" [size]="backTopData.iconSize"
+            [type]="backTopData.iconType"></st-icon></a>
+</button>

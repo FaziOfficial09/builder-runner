@@ -1,0 +1,29 @@
+.hidden {
+    display: none;
+}
+
+.container:hover .hidden {
+    display: block;
+}
+
+.hand-Cursor:hover {
+    cursor: pointer;
+}
+
+.border {
+    border: 1px solid rgb(197 187 187) !important;
+    border-radius: 5px !important;
+    padding: 2%;
+}
+
+.card {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 150px !important;
+    width: 252px !important;
+}
+
+.logo-text{
+    color: azure;
+}

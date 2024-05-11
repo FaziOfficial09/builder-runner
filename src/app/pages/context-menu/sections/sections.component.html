@@ -1,0 +1,125 @@
+<!-- {{formlyModel | json}} -->
+<!-- INCOLAPSSABLE CASE -->
+<!-- {{form?.value | json}} -->
+<nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="{{sections.isBordered?'border': ''}}" id="{{sections.id}}"
+      *ngIf="!sections.children[0]?.headerCollapse || sections.children[0]?.headerCollapse == undefined"
+      [style]="{'border-color': sections.borderColor + '!important'}">
+      <div class="site-page-header-ghost-wrapper {{sections.isBordered?'border-b': ''}}"
+        *ngIf="sections.children[0].header" [style]="{'border-color': sections.borderColor + '!important'}">
+        <nz-page-header [style.background]="sections.children[0].backGroundColor + ' !important'"
+          class="py-1 font-semibold {{sections.children[0].highLight ? 'highLight' : ''}}" [nzGhost]="false">
+          <nz-page-header-title [style.color]="sections.children[0].textColor + ' !importnat'"
+            [class]="sections.children[0].headingSize ? sections.children[0].headingSize + '' + sections.children[0].className : 'collapse-title ' + sections.children[0].className">{{sections.children[0].title}}
+          </nz-page-header-title>
+          <nz-page-header-extra>
+            <nz-space>
+              <div *ngFor="let item of sections.children[0].children">
+                <st-block-buttons-card
+                  *ngIf="item.type == 'button' || item.type == 'buttonGroup' || item.type == 'linkbutton'"
+                  [softIconList]="item">
+                </st-block-buttons-card>
+              </div>
+              <div *ngIf="sections.sectionDisabled == 'disabled-But-ditable'">
+                <a nz-button nzType="link" (click)="traverseAndChange(sections.children[1],'disabled')">Disabled</a>
+              </div>
+              <div *ngIf="sections?.repeatable">
+                <a nz-button nzType="link" (click)="sectionRepeat(sections)">Repeat
+                  Section</a>
+              </div>
+            </nz-space>
+          </nz-page-header-extra>
+        </nz-page-header>
+      </div>
+      <div class="{{sections.children[1].className}} {{sections.children[1].highLight ? 'highLight' : ''}}"
+        [style]="{'background-color': sections.children[1].backGroundColor,'color': sections.children[1].textColor}">
+        <st-main [mappingId]="mappingId" [mainData]="sections.children[1]" [formlyModel]="formlyModel" [screenId]="screenId"
+          [screenName]="screenName" [form]="form"></st-main>
+      </div>
+      <div
+        class="py-3 px-10 ng-subheading {{sections.isBordered?'border-t': ''}} {{sections.children[2].highLight ? 'highLight' : ''}}  text-black font-semibold text-lg {{sections.children[2].className}}"
+        *ngIf="sections.children[2].footer"
+        [style]="{'background-color': sections.children[2].backGroundColor,'color': sections.children[2].textColor, 'border-color': sections.borderColor + '!important'}">
+        <div>
+          {{sections.children[2].title}}
+        </div>
+        <ng-container *ngFor="let item of sections.children[2].children">
+          <st-block-buttons-card
+            *ngIf="item.type == 'button' || item.type == 'buttonGroup' || item.type == 'linkbutton'"
+            [softIconList]="item"></st-block-buttons-card>
+        </ng-container>
+      </div>
+    </div>
+    <!-- COLLAPSABLE CASE -->
+    <div class="b-content-body" *ngIf="sections.children[0]?.headerCollapse" class="b-card form-card-body">
+      <nz-collapse *ngIf="sections.children[0].header" [nzBordered]="sections.isBordered"
+        [nzExpandIconPosition]="sections.children[0].expandedIconPosition || 'left'">
+        <nz-collapse-panel [nzHeader]="collapseTitle" [nzExtra]="extraTpl" [nzActive]='false'
+          [style.background]="sections.children[0].backGroundColor +'!important'"
+          [ngStyle]="sections.isBordered?{'border-color': sections.borderColor + '!important'}:{'border-radius': '4px','border': '0px','border-color': sections.borderColor + '!important'}">
+          <div
+            class="p-2 font-normal text-base {{sections.children[1].highLight ? 'highLight' : ''}} {{sections.children[1].className}}"
+            *ngIf="resData.length > 0"
+            [style]="{'background-color': sections.children[1].backGroundColor,'color': sections.children[1].textColor}">
+            <st-main [mappingId]="mappingId" [mainData]="sections.children[1]" [formlyModel]="formlyModel" [screenName]="screenName"
+              [screenId]="screenId" [form]="form"></st-main>
+          </div>
+          <div
+            class="py-3 px-10 ng-subheading {{sections.isBordered?'border-t': ''}} {{sections.children[2].highLight ? 'highLight' : ''}}  text-black font-semibold text-lg {{sections.children[2].className}}"
+            *ngIf="sections.children[2].footer"
+            [style]="{'background-color': sections.children[2].backGroundColor,'color': sections.children[2].textColor, 'border-color': sections.borderColor + '!important'}">
+            <div>
+              {{sections.children[2].title}}
+            </div>
+            <ng-container *ngFor="let item of sections.children[2].children">
+              <st-block-buttons-card
+                *ngIf="item.type == 'button' || item.type == 'buttonGroup' || item.type == 'linkbutton'"
+                [softIconList]="item"></st-block-buttons-card>
+            </ng-container>
+          </div>
+        </nz-collapse-panel>
+        <ng-template #extraTpl>
+          <!-- <div *ngFor="let item of sections.children[0].children">
+            <st-block-buttons-card [softIconList]="item">
+            </st-block-buttons-card>
+          </div>
+          <div *ngIf="sections?.sectionDisabled == 'disabled-But-ditable'">
+            <a nz-button nzType="link"
+              (click)="traverseAndChange(sections.children[1],'disabled')">Disabled</a>
+          </div>
+          <div *ngIf="sections.repeatable">
+            <a nz-button nzType="link" (click)="sectionRepeat(sections)">Repeat
+              Section</a>
+          </div> -->
+        </ng-template>
+      </nz-collapse>
+      <ng-template #collapseTitle>
+        <div class="coll-header">
+          <div [ngStyle]="{ 'padding-top': sections.children[0].children.length > 0 ? '5px' : '0px' }">
+            <p [style.color]="sections.children[0].textColor + ' !important'"
+              [class]="sections.children[0].headingSize ? sections.children[0].headingSize + '' + sections.children[0].className : 'collapse-title ' + sections.children[0].className">
+              {{sections.children[0].title}}</p>
+          </div>
+          <div class="flex items-center !pr-6">
+            <div *ngFor="let item of sections.children[0].children">
+              <st-block-buttons-card
+                *ngIf="item.type == 'button' || item.type == 'buttonGroup' || item.type == 'linkbutton'"
+                [softIconList]="item">
+              </st-block-buttons-card>
+            </div>
+            <div *ngIf="sections.sectionDisabled == 'disabled-But-ditable'">
+              <a nz-button nzType="link" (click)="traverseAndChange(sections.children[1],'disabled')">Disabled</a>
+            </div>
+            <div *ngIf="sections?.repeatable">
+              <a nz-button nzType="link" (click)="sectionRepeat(sections)">Repeat
+                Section</a>
+            </div>
+          </div>
+        </div>
+        <!-- <p [style.color]="sections.children[0].textColor + ' !important'"
+          [class]="sections.children[0].headingSize ? sections.children[0].headingSize + '' + sections.children[0].className : 'collapse-title ' + sections.children[0].className">{{sections.children[0].title}}</p> -->
+      </ng-template>
+    </div>
+  </form>
+</nz-spin>

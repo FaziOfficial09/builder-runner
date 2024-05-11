@@ -1,0 +1,19 @@
+<ng-container class="mt-1">
+  <span *ngIf="alertData?.tooltip && !alertData?.tooltipWithoutIcon || false" nz-tooltip
+    [nzTooltipTitle]="alertData.tooltip">
+    <span nz-icon nzType="question-circle" nzTheme="twotone"></span>
+  </span>
+  <nz-alert [nzType]='alertData.alertType' style="color:red"
+    [class]="alertData.alertColor + ' ' + alertData.applicationThemeClasses + ' ' + alertData.appGlobalClass" [nzMessage]="customIcon"
+    [nzBanner]="alertData.banner" [nzShowIcon]="false" [nzCloseable]="alertData.closeable"
+    [nzCloseText]="alertData.closeText" [nzDescription]="alertData.description" [nzAction]="alertData.action">
+  </nz-alert>
+</ng-container>
+
+<ng-template #customIcon>
+  <span *ngIf="alertData.icon">
+    <st-icon [type]="alertData.iconType || 'outline'" [icon]="alertData.icon" [size]="alertData.iconSize"
+      [hoverIconColor]="alertData?.hoverIconColor || ''" [color]="alertData.iconColor"></st-icon>
+  </span>
+  {{alertData.text}}
+</ng-template>

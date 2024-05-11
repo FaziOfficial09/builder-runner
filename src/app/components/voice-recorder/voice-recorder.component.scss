@@ -1,0 +1,55 @@
+.audio-btn {
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-radius: 6px;
+}
+.start-button{
+    background-color: #2dd657;
+    &:hover{
+        background-color: #32e860;
+    }
+    &:active ,&:focus{
+        outline: none;
+        border: 0;
+    }
+}
+
+.stop-button {
+    background-color: rgba(62, 99, 247, 0.69);
+    &:hover{
+        background-color: rgba(86, 119, 251, 0.69);
+    }
+    &:active ,&:focus{
+        outline: none;
+        border: 0;
+    }
+}
+
+.cancel-button {
+    background-color: #ff7700;
+    &:hover{
+        background-color: rgb(252, 137, 35);
+    }
+    &:active ,&:focus{
+        outline: none;
+        border: 0;
+    }
+}
+
+.download-button{
+    background-color: rgb(24, 246, 231);
+    &:hover{
+        background-color: rgb(0, 255, 238);
+    }
+    &:active ,&:focus{
+        outline: none;
+        border: 0;
+    }
+}

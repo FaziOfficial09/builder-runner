@@ -1,0 +1,75 @@
+nz-badge {
+  margin-right: 20px;
+}
+
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.div_button {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  // padding: 0px 15px;
+  box-shadow: 0 -4px 5px -3px rgb(0 0 0 / 10%);
+  background: #fff;
+  width: calc(100% - 0px);
+  z-index: 5;
+}
+
+.ant-picker-range.ant-picker-small .ant-picker-active-bar,
+.ant-tag>.anticon+span,
+.ant-tag>span+.anticon {
+  margin-left: 0px !important;
+}
+
+// .d-flex {
+//     display: flex;
+//     align-items: center;
+// }
+
+// .tooltip-icon {
+//     margin: 2px;
+//     position: absolute;
+//     // left: 0;
+//     top: 5px;
+//     z-index: 99;
+//     right: -10px;
+
+// }
+
+// .component-wrapper {
+//     // flex: 1;
+//     /* Allow the component to occupy remaining space */
+//     position: relative;
+// }
+
+// .component-wrapper2 {
+//     display: flex;
+//     align-items: center;
+//     .w-100 {
+//         width: 100%;
+//     }
+// }
+:host ::ng-deep .ant-modal-footer {
+  display: none !important;
+}
+
+
+// .card-content-child {
+//   &:first-child {
+//     max-width: 20% !important;
+//     min-width: 10% !important;
+//   }
+//   &:last-child {
+//     max-width: 90% !important;
+//     min-width: 80% !important;
+//   }
+// }

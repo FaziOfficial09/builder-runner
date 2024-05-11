@@ -1,0 +1,17 @@
+<div class="px-2"></div>
+<nz-skeleton-element *ngIf="skeltonData.shapeType == 'button'" nzType="button" [nzActive]="skeltonData.isActive"
+    [nzSize]="skeltonData.size" [nzShape]="skeltonData.buttonShape"></nz-skeleton-element>
+<nz-skeleton-element *ngIf="skeltonData.shapeType == 'avatar'" nzType="avatar" [nzActive]="skeltonData.isActive"
+    [nzSize]="skeltonData.size" [nzShape]="skeltonData.avatarShape"></nz-skeleton-element>
+<nz-skeleton-element *ngIf="skeltonData.shapeType == 'input'" nzType="input" [nzActive]="skeltonData.isActive"
+    [nzSize]="skeltonData.size"></nz-skeleton-element>
+<nz-skeleton-element *ngIf="skeltonData.shapeType == 'image'" nzType="image"
+    [nzActive]="skeltonData.isActive"></nz-skeleton-element>
+<nz-skeleton *ngIf="skeltonData.shapeType == 'paragraph'"></nz-skeleton>
+<!-- <nz-divider></nz-divider> -->
+<!-- <div nz-row nzAlign="middle" [nzGutter]="8">
+    <div nz-col nzSpan="5">
+        Active:
+        <nz-switch [(ngModel)]="skeltonData.isActive"></nz-switch>
+    </div>
+</div> -->

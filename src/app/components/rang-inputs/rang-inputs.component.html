@@ -1,0 +1,33 @@
+<!-- {{to['additionalProperties'] | json}} -->
+<span *ngIf="to['additionalProperties']?.tooltip" nz-tooltip
+  [nzTooltipTitle]="to['additionalProperties']?.tooltip"><span nz-icon nzType="question-circle"
+    nzTheme="outline"></span></span>
+<span [ngClass]="{'vertical-range-slider': to['additionalProperties']?.format}">
+  <span *ngIf="to['additionalProperties']?.showValue && to['additionalProperties']?.format">{{_sliderValue}}</span>
+  <st-icon text-slate-200 *ngIf="to['additionalProperties']?.icon" [type]="to['additionalProperties']?.iconType"
+    [icon]="to['additionalProperties']?.icon"
+    [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+    [size]="to['additionalProperties']?.iconSize"
+    [color]="preHighLight ? to['additionalProperties']?.iconColor : '#929092'"></st-icon>
+  <div [ngClass]="{'pb-3' : to['additionalProperties']?.format}" [ngStyle]="{
+      'height': to['additionalProperties']?.height && to['additionalProperties']?.height != 0 ? to['additionalProperties']?.height + 'px' : 'auto'}">
+    <nz-slider *ngIf="!to['additionalProperties']?.format" [nzReverse]="to['additionalProperties']?.reverse"
+      [nzVertical]="to['additionalProperties']?.format"
+      [nzMin]="to['additionalProperties']?.min" [formControl]="formControl" 
+      (ngModelChange)="onModelChange($event, field)"
+      [nzMax]="to['additionalProperties']?.max"
+      [nzDisabled]='(to.disabled || to.readonly) ? true : false'></nz-slider>
+    <nz-slider *ngIf="to['additionalProperties']?.format" nzVertical
+      [nzReverse]="to['additionalProperties']?.reverse" [nzMin]="to['additionalProperties']?.min"
+      [formControl]="formControl"  
+      (ngModelChange)="onModelChange($event, field)"
+      [nzMax]="to['additionalProperties']?.max"
+      [nzDisabled]='(to.disabled || to.readonly) ? true : false'></nz-slider>
+  </div>
+  <st-icon [class.icon-highlight]="nextHighLight" *ngIf="to['additionalProperties']?.icon"
+    [type]="to['additionalProperties']?.iconType"
+    [icon]="to['additionalProperties']?.icon" [size]="to['additionalProperties']?.iconSize"
+    [hoverIconColor]="to['additionalProperties']?.hoverIconColor || ''"
+    [color]="nextHighLight ? to['additionalProperties']?.iconColor : '#929092'"></st-icon>
+  <span *ngIf="to['additionalProperties']?.showValue && !to['additionalProperties']?.format">{{_sliderValue}}</span>
+</span>

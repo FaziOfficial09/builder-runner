@@ -1,0 +1,37 @@
+<button nz-button (click)="addRow()" type="button" nzType="primary">Add</button>
+<button nz-button (click)="addColumn()" type="button" nzType="primary">Add Column</button>
+<br />
+<br />
+<nz-table #editRowTable [nzData]="tableData" [nzPageSize]="10">
+    <thead>
+        <tr *ngIf="data.showColumnHeader">
+            <th *ngFor="let header of tableHeaders">
+                {{header.name}}</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-template #recursiveList let-data1>
+            <ng-container *ngFor="let item of data1">
+                <tr>
+                    <ng-container *ngFor="let header of key">
+                        <td [nzEllipsis]="true"
+                            *ngIf="header.name != 'description' && header.name != 'checked' && header.name != 'expand' && header.name !='children'">
+                            <div class="editable-cell" [hidden]="editId === item.id" (click)="startEdit(item.id)">
+                                {{item[header.name]}}
+                            </div>
+                            <input [hidden]="editId !== item.id" type="text" nz-input [(ngModel)]="item[header.name]" />
+                        </td>
+                    </ng-container>
+                    <td>
+                        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(item.id)">
+                            <span class="text-red-500" nz-icon nzType="delete" nzTheme="outline"></span>
+                        </a>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: editRowTable.data }"></ng-container>
+    </tbody>
+</nz-table>
+<button nz-button (click)="save()" type="button" nzType="primary">Save</button>

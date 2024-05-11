@@ -1,0 +1,58 @@
+// .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item,
+// .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu {
+//     color: white !important;
+// }
+
+// .ant-menu {
+//     padding: 7px 0px;
+//     // background: transparent !important;
+
+//     .ant-menu-item {
+//         height: 35px;
+//         padding: 6px 12px;
+//         border-radius: 2px;
+//     }
+// }
+
+// .ant-menu-horizontal {
+//     border-bottom: none !important;
+//     line-height: revert !important;
+// }
+
+
+
+// .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item-selected {
+//     background: #1890ff !important;
+// }
+
+// .ant-menu-horizontal>.ant-menu-item:hover {
+//     background: #1890ff !important;
+// }
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: none;
+}
+
+.ant-menu-inline {
+
+    .ant-menu-item::after,
+    .ant-menu-vertical .ant-menu-item::after,
+    .ant-menu-vertical-left .ant-menu-item::after,
+    .ant-menu-vertical-right .ant-menu-item::after {
+        border-right: none !important;
+    }
+}
+
+.ant-menu-horizontal {
+    line-height: 45px !important;
+    border: none !important; 
+}
+.dropdown-icon{
+    font-size: 11px;
+    width: 0.625rem;
+    height: 0.625rem;
+    margin-left: 0.5rem;
+}
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-item, .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu {
+    border-radius: 6px;
+}

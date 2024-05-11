@@ -1,0 +1,21 @@
+
+<nz-transfer
+      [nzDataSource]="transferData.list"
+      [nzDisabled]="transferData.disabled"
+      [nzShowSearch]="transferData.showSearch"
+      [nzTitles]="[transferData.firstBoxTitle, transferData.secondBoxTitle]"
+      [nzOperations]="[transferData.leftButtonLabel, transferData.rightButtonLabel]"
+      [nzFooter]="footer"
+      (nzSearchChange)="search($event)"
+      (nzSelectChange)="select($event)"
+      (nzChange)="change($event)"
+      [nzSearchPlaceholder]="transferData.searchPlaceHolder"
+      [nzNotFoundContent]="transferData.notFoundContentLabel"
+      [nzStatus]="transferData.status"
+      (nzChange)="handleChange($event)"
+    ></nz-transfer>
+    <ng-template #footer let-direction>
+      <button nz-button (click)="reload(direction)" [nzSize]="'small'" style="float: right; margin: 5px;">
+        reload
+      </button>
+    </ng-template>

@@ -1,0 +1,57 @@
+<div class="ant-layout-sider side-bar menu-sidebar ant-layout-sider-light menu-builder"
+  [appConfigurableSelect]="data['appConfigurableEvent']" [loadAction]="data['eventActionconfig']"
+  [processData]="processData">
+  <div>
+    <div class="builder-menu-control">
+      <ul [class]="data?.font" [style.background]="data.backGroundColor" nz-menu [nzMode]="'inline'"
+        [nzInlineCollapsed]="isCollapsed">
+        <!-- <button nz-button [hidden]="data.hideCollapseBtn" nzType="primary" class="btn !px-3 w-fit !mb-2" >
+        </button> -->
+
+        <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" class="!text-yellow-500 !ml-2 !mb-2" (click)="toggleCollapsed()"></span>
+
+        <ng-container *ngFor="let item of menuData">
+          <li *ngIf="item.children.length > 0 ;else menu"
+            [style.background]="isActiveShow == item.id ? data['activeBackgroundColor'] : ''" [nzTitle]="itemTemplate2"
+            nz-submenu (mouseenter)="hoverActiveShow = item.id" (mouseleave)="hoverActiveShow = null"
+            (click)="subClick($event , item)">
+            <ng-template #itemTemplate2>
+              <div [class]="item?.iconRight ?  'flex flex-row-reverse' : ''">
+                <span class="menu-item-icon">
+                  <span [style.font-size.px]="data['titleSize'] || 15" nz-icon [nzType]="item.icon" [style.color]="(hoverActiveShow === item.id) ? data['hoverTextColor'] :
+                      ((isActiveShow === item.id) ? data['activeTextColor'] : data['textColor'])"></span>
+                </span>
+                <span class="colapsed-menu-title" [class]="data?.font" [style.font-size.px]="data['titleSize'] || 15"
+                  [style.color]="(hoverActiveShow === item.id) ? data['hoverTextColor'] + ' !important' : ((isActiveShow === item.id) ? (data['activeTextColor'] + ' !important' || data['textColor'] + ' !important') : data['textColor'] + ' !important')">
+                  {{ item.title | translate }}
+                </span>
+              </div>
+            </ng-template>
+            <ul [style.background]="data.backGroundColor" class="dynamic-sub-menu" [class]="data?.font"
+              *ngIf="item.children.length > 0">
+              <st-builder-menu-child  (mouseenter)="hoverActiveShow = null" [menuData]="item" [data]="data" (menuClick)="menuClickChild($event)" (subClick)="subClickEmit($event)"
+                [hoverActiveShow]="hoverActiveShow" [isActiveShow]="isActiveShow"></st-builder-menu-child>
+            </ul>
+          </li>
+          <ng-template #menu>
+            <li (click)="menuClick($event , item)"
+              [style.background]="isActiveShow === item.id ? data['activeBackgroundColor'] + ' !important' : ''"
+              (mouseenter)="hoverActiveShow = item.id" (mouseleave)="hoverActiveShow = null" class="nav-item"
+              nz-menu-item>
+              <div [class]="item?.iconRight ?  'flex flex-row-reverse' : ''">
+                <span class="menu-item-icon">
+                  <span [style.font-size.px]="data['titleSize'] || 15" nz-icon [nzType]="item.icon" [style.color]="(hoverActiveShow === item.id) ? data['hoverTextColor'] :
+                      ((isActiveShow === item.id) ? data['activeTextColor'] : data['textColor'])"></span>
+                </span>
+                <span class="colapsed-menu-title" [class]="data?.font" [style.font-size.px]="data['titleSize'] || 15"
+                  [style.color]="(hoverActiveShow === item.id) ? data['hoverTextColor']  + ' !important' : ((isActiveShow === item.id) ? (data['activeTextColor'] + ' !important' || data['textColor'] + ' !important') : data['textColor'] + ' !important')">
+                  {{ item.title | translate }}
+                </span>
+              </div>
+            </li>
+          </ng-template>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

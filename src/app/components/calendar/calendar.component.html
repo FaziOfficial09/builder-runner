@@ -1,0 +1,45 @@
+<div>
+  <div class='flex flex-wrap calender-card'>
+    <div class='demo-app-sidebar' *ngIf="calenderData.details" [ngClass]="calenderData.details ? 'w-1/6 pr-2' : ''">
+      <!-- <div class='demo-app-sidebar-section'>
+            <h2>calenderData.title</h2>
+            <ul>
+              <li>Select dates and you will be prompted to create a new event</li>
+              <li>Drag, drop, and resize events</li>
+              <li>Click an event to delete it</li>
+            </ul>
+          </div> -->
+      <div class='demo-app-sidebar-section !pb-[18px]'>
+        <label>
+          <input type='checkbox' [checked]='calendarVisible' (change)='handleCalendarToggle()' />
+          toggle whole calendar
+        </label>
+        <label>
+          <input type='checkbox' [checked]='calendarOptions.weekends' (change)='handleWeekendsToggle()' />
+          toggle weekends
+        </label>
+      </div>
+
+      <div class='demo-app-sidebar-section'>
+        <div class="bg-white shadow-md p-4 !rounded-lg !h-[645px] overflow-auto">
+          <h2 class="font-bold mb-2">All Events ({{currentEvents.length}})</h2>
+          <ul>
+            <li *ngFor='let event of currentEvents' class="bg-white p-4 rounded mb-2 hover:bg-gray-100">
+              <b>{{event.startStr}}</b>
+              <i class="pl-2">{{event.title}}</i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class='demo-app-main' [ngClass]="calenderData.details ? 'w-10/12 pl-1' : 'w-full'">
+      <!-- <nz-spin [nzSpinning]="loader" > -->
+        <full-calendar *ngIf='calendarVisible' [options]='calendarOptions'>
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.timeText }}</b>
+            <i>{{ arg.event.title }}</i>
+          </ng-template>
+        </full-calendar>
+      <!-- </nz-spin> -->
+    </div>
+  </div>

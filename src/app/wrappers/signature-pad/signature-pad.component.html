@@ -1,0 +1,44 @@
+<!-- <div>
+    <canvas #canvas width="400" height="200"></canvas>
+    <div (click)="add()">aad</div>
+</div> -->
+<!-- <div [class]="'signature' + (to['additionalProperties']?.wrapper=='formly-vertical-theme-wrapper' ? (to['additionalProperties']?.size == 'small' ? ' small-size' : (to['additionalProperties']?.size == 'large' ? 'large-size' : '')) : '')"
+    [class]="'w-[100%] h-[' + (to['additionalProperties']?.height|| '100') + '%]'">
+    <div>
+        <input type="text" [formControl]="formControl" [formlyAttributes]="field" style="display: none;">
+    </div>
+    <div class="flex flex-wrap justify-normal items-center canvas-div">
+        <div class="w-[calc(100%-110px)] h-full">
+            <canvas #canvas class="!h-full !w-full" style="pointer-events: none;"></canvas>
+        </div>
+        <div class="w-[110px] h-full flex justify-center items-center">
+            <button *ngIf="to['additionalProperties']?.showAddButton !== false" nz-button
+                [class]="to['additionalProperties']?.signatureAddButtonClass" (click)="add()"
+                style="margin-right: 0px !important;">
+                <i class="fa-regular fa-plus mr-1"></i> {{label}}
+            </button>
+        </div>
+    </div>
+</div> -->
+
+<div style="max-height: 46px " [class.signature]="true"
+    [class.small-size]="to['additionalProperties']?.wrapper === 'formly-vertical-theme-wrapper' && to['additionalProperties']?.size === 'small'"
+    [class.large-size]="to['additionalProperties']?.wrapper === 'formly-vertical-theme-wrapper' && to['additionalProperties']?.size === 'large'"
+    [class]="'w-[100%] h-[' + (to['additionalProperties']?.height|| '100') + '%]'">
+    <div>
+        <input type="text" [formControl]="formControl" [formlyAttributes]="field" style="display: none;">
+    </div>
+    <div class="flex flex-wrap justify-normal items-center canvas-div ">
+        <div class="w-[calc(100%-110px)] ">
+            <canvas #canvas height="40" width="250px" style="pointer-events: none; margin: 2px"></canvas>
+        </div>
+        <div class="w-[110px] h-full flex justify-center items-center" style="padding-bottom: 7px;
+    ">
+            <button *ngIf="to['additionalProperties']?.showAddButton !== false" nz-button
+                [class]="to['additionalProperties']?.signatureAddButtonClass" (click)="add()"
+                style="margin-right: 0px !important;">
+                <i class="fa-regular fa-plus mr-1"></i> {{label}}
+            </button>
+        </div>
+    </div>
+</div>

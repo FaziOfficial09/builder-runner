@@ -1,0 +1,26 @@
+<!-- <div class="card-header justify-content-between d-flex align-items-center">
+            <h4 class="label-style pt-2">{{videoData.title}}<span *ngIf="videoData.tooltip" style="text-align: right;">
+                </span><span *ngIf="videoData.tooltip" nz-tooltip nzTooltipTitle={{videoData.tooltip}}><span nz-icon
+                        nzType="question-circle" nzTheme="outline"></span></span>
+            </h4>
+        </div> -->
+<!-- 16:9 aspect ratio -->
+<!-- <div class="ratio ratio-1x1">
+    <video width="320" height="240" controls>
+                <source src={{item.src}} type="video/mp4">
+              </video>
+    <iframe [src]="videoData.videoSrc | sanitize: 'resourceUrl'" title="YouTube video"></iframe>
+</div> -->
+<iframe [class]="videoData.videoClass + ' ' + videoData?.applicationThemeClasses + ' ' + videoData?.appGlobalClass" [width]="videoData.width" [height]="videoData.height" [src]="videoData.videoSrc | sanitize: 'resourceUrl'"
+    [title]="videoData.title | translate" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen></iframe>
+<!-- <iframe [src]="videoData.videoSrc | sanitize: 'resourceUrl'" title="YouTube video"></iframe> -->
+
+
+<!-- <video width="100%" height="160" controls
+    *ngIf="this.model.url.endsWith('.mp4') || this.model.url.endsWith('.avi') || this.model.url.endsWith('.mov')">
+    <source [src]="imagePath+this.model.url.replace('
+                Resources/UploadFiles/','')" type="video/mp4">
+    Your browser does not support the video tag.
+</video> -->

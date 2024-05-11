@@ -1,0 +1,160 @@
+.editable-cell {
+  position: relative;
+  // padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 4px 11px;
+}
+
+.highlight {
+  background-color: #ffcacaa6;
+}
+
+// .data-table {
+//   width: 100%;
+//   border: 1px solid black !important;
+//   border-collapse: collapse !important;
+// }
+
+// .data-table th,
+// .data-table td {
+//   border: 1px solid black !important;
+//   padding: 10px !important;
+// }
+.responsive-checkBox {
+  // This line comment due to warning
+  // text-align: start !important;
+  text-align: flex-start !important;
+}
+
+.table-image {
+  height: 50px !important;
+  width: auto !important;
+  min-width: 100px;
+  max-width: 100px;
+  object-fit: cover;
+}
+
+.perpage {
+  display: flex;
+  justify-content: flex-end;
+
+  .paginator {
+    box-sizing: border-box;
+    height: 32px;
+    border-radius: 8px;
+    width: 85px !important;
+  }
+
+  .ant-dropdown-trigger {
+    padding: 5px !important;
+  }
+
+}
+
+
+.ant-dropdown-trigger {
+  padding: 2px !important;
+}
+
+.btn-no {
+  padding: 0px 10px !important;
+}
+
+.table-container {
+  overflow: auto;
+  max-width: 100%;
+}
+
+th,
+td {
+  position: relative;
+}
+
+.gridRotate {
+  // border-right : 4px solid gray !important;
+  position: relative;
+  //   position: absolute;
+  //   width: 6px;
+  //   height: 100%;
+  //   right: 0;
+  //   top: 0;
+  //   cursor: col-resize;
+  //   background: #f4f4f4;
+}
+
+// .gridRotate::before,
+// .gridRotate::after {
+//   content: "";
+//   display: block;
+//   width: 100%;
+//   height: 1px; /* Adjust the height as needed */
+//   background: #000;
+//   position: absolute;
+// }
+
+// .gridRotate::before {
+//   top: 0;
+// }
+
+// .gridRotate::after {
+//   bottom: 0;
+// }
+
+
+/* CSS for rotating the headers */
+.rotated-header-container {
+  transform-origin: top left;
+  white-space: nowrap;
+  width: 100px;
+  /* Adjust the width as needed */
+  position: relative;
+  transform: rotate(-45deg);
+  /* Default rotation degree */
+  // border-left: 1px solid #000;
+  /* Add left border for rotated headers */
+}
+
+.rotated-header {
+  position: relative;
+  z-index: 1;
+}
+
+// .rotated-header-container::after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: 1px;
+//   /* Adjust the border width as needed */
+//   height: 100%;
+//   background-color: #000;
+//   /* Border color */
+//   transform-origin: top right;
+//   transform: scaleY(1.5);
+//   /* Adjust scaleY to control border thickness */
+//   z-index: 0;
+// }
+
+/* CSS for headers at zero degrees rotation */
+// .rotated-header-container--zero {
+//   /* Add styles for headers at zero degrees rotation */
+//   border-left: 1px solid #000;
+//   /* Add left border for non-rotated headers */
+// }
+
+// .rotated-header--zero {
+//   /* Add styles for headers at zero degrees rotation */
+// }
+.resizable-header:hover {
+  cursor: col-resize;
+}
+
+:host ::ng-deep .dynamic-table thead tr th {
+  border-right: var(--border-right);
+  border-left: var(--border);
+}

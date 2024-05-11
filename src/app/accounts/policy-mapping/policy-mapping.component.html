@@ -1,0 +1,56 @@
+<!-- <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'" class="builder-design w-[calc(100%-262px)] !h-full "> -->
+<div class="flex flex-wrap mb-2 b-card p-3">
+    <div class="w-1/4 flex mr-2">
+        <label style="width: 25%;" class="mt-2 font-bold">Application</label>
+        <nz-cascader style="width: 75%;" nzChangeOnSelect class=" policy-cascader !h-10 !rounded-md pl-1"
+            [nzAllowClear]="true" [(ngModel)]="selectDepartmentName" [nzLoadData]="loadData.bind(this)"
+            [nzOptions]="departmentData" placeholder="Select Application" (ngModelChange)="onDepartmentChange($event)">
+        </nz-cascader>
+    </div>
+    <div class="w-1/4 flex mr-2">
+        <label style="width: 25%;" class="mt-2 font-bold">Policy</label>
+        <nz-select style="width: 75%;" nzShowSearch nzAllowClear class="temp-modal-select !h-10 !rounded-md"
+            [(ngModel)]="policyName" placeholder="Select User">
+            <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.name"
+                *ngFor="let item of policyList"></nz-option>
+        </nz-select>
+    </div>
+    <div class="w-1/4 flex">
+        <button nz-button nzType="primary" (click)="getPolicyMenu()"
+            class="btn  !rounded !bg-amber-300 hover:!bg-amber-300 !text-slate-900 hover:text-white !border !border-transparent !hover:border-transparent !font-md"><i
+                class="fa-regular mr-1.5 fa-magnifying-glass"></i> Search</button>
+    </div>
+</div>
+<div class="b-card policy_mapping p-3">
+    <nz-card nzTitle="Policy List" [nzExtra]="extraTemplate">
+        <st-policy-mapping-table [loading]="loading" [data]="menuList" [pageSize]="pageSize"
+            [listOfColumns]="listOfColumns" [menuOfDisplayData]="menuList"></st-policy-mapping-table>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <div class="src-btn flex justify-end">
+            <button nz-button nzType="primary"
+                class="btn !rounded !bg-amber-300 hover:!bg-amber-300 !text-slate-900 hover:text-white !border !border-transparent !hover:border-transparent !font-md ml-1"
+                (click)="policyMappingCommit()"> <i class="fab fa-github mr-1.5"></i>Policy Commit</button>
+            <button nz-button
+                class="btn-no !border !border-gray-300 !text-gray-800 hover:!text-blue-600 hover:!border-blue-600 mr-2"
+                (click)="selectAll()">
+                <i class="fa-regular fa-list mr-1.5"></i>
+                Select All</button>
+            <button nz-button *ngIf="isSubmit" nzType="primary"
+                class="btn !rounded !bg-amber-300 hover:!bg-amber-300 !text-slate-900 hover:text-white !border !border-transparent !hover:border-transparent !font-md"
+                (click)="onSubmit()">
+                <i class="fa-solid fa-arrow-up-from-bracket mr-1.5"></i>
+                Submit</button>
+            <button nz-button *ngIf="isSubmit" nzType="primary" nzDanger
+                class="btn-no  !border-none mx-2 !bg-red-600 hover:!bg-red-500" (click)="deleteAllPolicy()">
+                <i class="fa-solid fa-trash-xmark mr-1.5"></i>
+                Delete All</button>
+            <button nz-button *ngIf="!isSubmit" class="btn mr-1.5" nzType="primary" (click)="onSubmit()"><span nz-icon
+                    nzType="redo" nzTheme="outline"></span>Update</button>
+            <button nz-button nzType="primary" class=" btn-no !bg-green-600 !border-none  hover:!bg-green-500"
+                (click)="downloadJson()"><i class="fa-regular fa-down-to-bracket mr-1.5"></i>Download Json</button>
+        </div>
+    </ng-template>
+
+</div>
+<!-- </nz-spin> -->

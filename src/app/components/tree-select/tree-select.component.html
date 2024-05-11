@@ -1,0 +1,20 @@
+<nz-tree-select
+style="width: 250px"
+      [nzExpandedKeys]="treeSelectData.expandKeys"
+      [nzNodes]="treeSelectData.nodes"
+      [nzShowSearch]="treeSelectData.showSearch"
+      [nzPlaceHolder]="treeSelectData.placeHolder"
+      
+[nzDisabled]="treeSelectData.disabled"
+[nzShowIcon]="treeSelectData.icon"
+[nzDropdownMatchSelectWidth]="treeSelectData.width"
+[nzHideUnMatched]="treeSelectData.hideUnMatched"
+[nzStatus]="treeSelectData.status"
+[nzCheckable]="treeSelectData.checkable"
+[nzShowExpand]="treeSelectData.showExpand"
+[nzShowLine]="treeSelectData.showLine"
+[nzDefaultExpandAll]="treeSelectData.defaultExpandAll"
+[nzSize]="treeSelectData.size"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+    ></nz-tree-select>

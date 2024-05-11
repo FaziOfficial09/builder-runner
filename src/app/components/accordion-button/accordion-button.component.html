@@ -1,0 +1,56 @@
+<nz-collapse  [style]="accordionData?.style ? accordionData?.style : {}" [style.color]="'red !important'" (click)="accordionCollapse()" [nzAccordion]="true"
+  *ngIf="accordingListData.length == 0" [processData]="processData"
+  [appConfigurableSelect]="accordionData['appConfigurableEvent']" [loadAction]="accordionData['eventActionconfig']"
+  [nzBordered]='accordionData.nzBordered' [nzGhost]='accordionData.nzGhost' [nzExpandIconPosition]="'right'">
+  <nz-collapse-panel [nzActive]="accordionData.active || false" [nzDisabled]='accordionData.nzDisabled' [nzHeader]="titleTemp" 
+    [nzExtra]="tooltip" [nzShowArrow]='false' [nzExtra]="extraTpl">
+    <st-main [screenId]="screenId" 
+    [mainData]="accordionData" 
+    [formlyModel]="formlyModel" 
+    [form]="form" 
+    [screenName]="screenName"
+    [mappingId]="mappingId"
+    [screenId]="screenId"></st-main>
+  </nz-collapse-panel>
+</nz-collapse>
+<ng-container *ngIf="accordingListData.length  > 0">
+  <nz-collapse (click)="accordionCollapse()" [nzAccordion]="true" *ngFor="let list of accordingListData"
+    [nzBordered]='list.nzBordered' [nzGhost]='list.nzGhost' [nzExpandIconPosition]="'right'">
+    <nz-collapse-panel [nzDisabled]='list.nzDisabled' [nzHeader]="titlelist" [nzActive]='list.active || false' [nzExtra]="tooltip"
+      [nzShowArrow]='false' [nzExtra]="extralist">
+      <st-main [screenId]="screenId" 
+      [mainData]="list" 
+      [formlyModel]="formlyModel" 
+      [form]="form" 
+      [screenName]="screenName"
+      [mappingId]="mappingId"
+      [screenId]="screenId"></st-main>
+    </nz-collapse-panel>
+    <ng-template #extralist>
+      <st-icon *ngIf="list?.nzExpandedIcon || list?.unExpandedIcon" [type]="list?.iconType"
+        [icon]="!expand ? list?.nzExpandedIcon : (list?.unExpandedIcon ? list?.unExpandedIcon : 'caret-down')"
+        [hoverIconColor]="list?.hoverIconColor || ''" [size]="list?.iconSize" [color]="list?.iconColor"></st-icon>
+    </ng-template>
+    <ng-template #titlelist>
+      <p [class]="list.titleClass">{{list.title | translate}}</p>
+    </ng-template>
+  </nz-collapse>
+</ng-container>
+
+<ng-template #extraTpl>
+  <st-icon *ngIf="accordionData?.nzExpandedIcon || accordionData?.unExpandedIcon" [type]="accordionData?.iconType"
+    [icon]="!expand ? accordionData?.nzExpandedIcon : (accordionData?.unExpandedIcon ? accordionData?.unExpandedIcon : 'caret-down')"
+    [hoverIconColor]="accordionData?.hoverIconColor || ''" [size]="accordionData?.iconSize"
+    [color]="accordionData?.iconColor"></st-icon>
+</ng-template>
+
+<ng-template #tooltip>
+  <span *ngIf="accordionData?.tooltip" nz-tooltip [nzTooltipTitle]="accordionData.tooltip">
+    <span nz-icon nzType="question-circle" nzTheme="twotone"></span>
+  </span>
+</ng-template>
+
+<ng-template #titleTemp>
+  <p [class]="accordionData.titleClass">{{accordionData.title | translate}}</p>
+</ng-template>
+

@@ -1,0 +1,24 @@
+<span *ngIf="switchData?.tooltip && !switchData?.tooltipWithoutIcon" nz-tooltip
+        [nzTooltipTitle]="switchData.tooltip">
+        <span nz-icon nzType="question-circle" nzTheme="twotone"></span></span>
+<div style="display: flex;">
+        <p
+                *ngIf="switchData.title && (switchData.labelAlignment == 'left' || !switchData.labelAlignment) "
+                class="pr-2">
+                {{switchData.title | translate}}
+        </p>
+        <nz-switch [style.color]="'red'" [(ngModel)]="switchData.model"
+                [nzSize]="switchData.size"
+                [nzCheckedChildren]="switchData.checkedChildren"
+                [nzUnCheckedChildren]="switchData.unCheckedChildren"
+                [nzDisabled]="switchData.disabled"
+                [nzLoading]="switchData.loading"
+                [nzControl]="switchData.control"></nz-switch>
+
+        <p *ngIf="switchData.title && switchData.labelAlignment == 'right'"
+                class="pr-2">
+                {{switchData.title | translate}}
+        </p>
+</div>
+
+<!-- <span class="switch-label">{{field.props?.label}}</span> -->

@@ -1,0 +1,9 @@
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+<google-chart id="google-charts" [title]="charts.title | translate" [type]="chartType" [data]="chartData"
+    [height]="charts.height" [options]="charts.options" [columns]="charts.columnNames">
+</google-chart>
+</div>
+
+
+<!-- SELECT value AS "Project Name", totalprojects as "Progress 2022" ,summaryproject as "Progress 2023" ,count as "Progress 2024" FROM dev_test.sample -->

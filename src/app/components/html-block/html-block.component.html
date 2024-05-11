@@ -1,0 +1,5 @@
+<div  *ngIf="htmlBlockData != ''">
+    <div 
+        [innerHtml]="htmlBlockData | sanitize: 'html'">
+    </div>
+</div>

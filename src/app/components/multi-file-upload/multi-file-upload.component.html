@@ -1,0 +1,65 @@
+<nz-upload *ngIf="multiFileUploadData.multiFileUploadTypes == 'dragNDrop' || !multiFileUploadData.multiFileUploadTypes"
+  nzType="drag"
+  [nzMultiple]="multiFileUploadData.multiple"
+  [nzDisabled]="multiFileUploadData.disabled"
+  [nzOpenFileDialogOnClick]="multiFileUploadData.showDialogueBox"
+  [nzShowUploadList]="multiFileUploadData.showUploadlist"
+  [nzDirectory]="multiFileUploadData.onlyDirectoriesAllow"
+  [nzLimit]="multiFileUploadData.uploadLimit"
+  [nzSize]="multiFileUploadData.size">
+  <p class="ant-upload-drag-icon">
+    <span nz-icon nzType="inbox"></span>
+  </p>
+  <p class="ant-upload-text">{{multiFileUploadData.uploadBtnLabel}}</p>
+</nz-upload>
+
+<nz-upload *ngIf="multiFileUploadData.multiFileUploadTypes == 'button'"
+  [nzHeaders]="{ authorization: 'authorization-text' }"
+  [nzMultiple]="multiFileUploadData.multiple"
+  [nzDisabled]="multiFileUploadData.disabled"
+  [nzOpenFileDialogOnClick]="multiFileUploadData.showDialogueBox"
+  [nzShowUploadList]="multiFileUploadData.showUploadlist"
+  [nzDirectory]="multiFileUploadData.onlyDirectoriesAllow"
+  [nzLimit]="multiFileUploadData.uploadLimit"
+  [nzSize]="multiFileUploadData.size">
+  <button nz-button>
+    <span nz-icon nzType="upload"></span>
+    {{multiFileUploadData.uploadBtnLabel}}
+  </button>
+</nz-upload>
+
+<nz-upload *ngIf="multiFileUploadData.multiFileUploadTypes == 'jpg'"
+  class="avatar-uploader"
+  nzName="avatar"
+  nzListType="picture-card"
+  [nzMultiple]="multiFileUploadData.multiple"
+  [nzBeforeUpload]="beforeUpload"
+  [nzDisabled]="multiFileUploadData.disabled"
+  [nzOpenFileDialogOnClick]="multiFileUploadData.showDialogueBox"
+  [nzShowUploadList]="multiFileUploadData.showUploadlist"
+  [nzDirectory]="multiFileUploadData.onlyDirectoriesAllow"
+  [nzLimit]="multiFileUploadData.uploadLimit"
+  [nzSize]="multiFileUploadData.size">
+  <ng-container *ngIf="!avatarUrl">
+    <div class="ant-upload-text"><span class="upload-icon mr-1" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>{{multiFileUploadData.uploadBtnLabel}}</div>
+  </ng-container>
+  <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+</nz-upload>
+
+<div class="clearfix" *ngIf="multiFileUploadData.multiFileUploadTypes == 'png'">
+  <nz-upload 
+    nzListType="picture"
+    [nzMultiple]="multiFileUploadData.multiple"
+    [(nzFileList)]="fileList1"
+    [nzDisabled]="multiFileUploadData.disabled"
+    [nzOpenFileDialogOnClick]="multiFileUploadData.showDialogueBox"
+    [nzShowUploadList]="multiFileUploadData.showUploadlist"
+    [nzDirectory]="multiFileUploadData.onlyDirectoriesAllow"
+    [nzLimit]="multiFileUploadData.uploadLimit"
+    [nzSize]="multiFileUploadData.size">
+    <button nz-button>
+      <span nz-icon nzType="upload"></span>
+      {{multiFileUploadData.uploadBtnLabel}}
+    </button>
+  </nz-upload>
+</div>

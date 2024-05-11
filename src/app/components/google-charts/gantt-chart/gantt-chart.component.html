@@ -1,0 +1,31 @@
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+  <google-chart id="google-charts" *ngIf="chartData.length > 0" [type]="chartType" [data]="chartData" [options]="chartOptions"
+    [height]="charts.height" [columns]="charts.columnNames"></google-chart>
+</div>
+
+
+<!-- {{charts | json}} -->
+
+
+<!-- select name as "Employee Name", name as "Employee Name", name as "Employee Name", name as "Employee Name", name as "Employee Name",  label as "Project Name", value as "Project Description",
+CASE
+    WHEN startdate::date IS NOT NULL AND TRIM(startdate) != ''
+        THEN TO_CHAR(startdate::date, 'YYYY,MM,DD')
+    ELSE NULL
+	END AS "Start Date",
+  CASE
+    WHEN enddate::date IS NOT NULL AND TRIM(enddate) != ''
+        THEN TO_CHAR(enddate::date, 'YYYY,MM,DD')
+    ELSE NULL
+	END AS "End Date",
+totalprojects as "Total Project", count as "Total Count",manager as "Manager Name"
+
+  From dev_test.sample   -->
+
+
+  <!-- notes -->
+
+  <!-- ye hierarchy wise chalta ha first column parent ha or
+    last column child ha agr data aisy ni ho ga ni show ho ga
+   -->

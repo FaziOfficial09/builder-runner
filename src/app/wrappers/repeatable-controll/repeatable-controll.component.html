@@ -1,0 +1,84 @@
+<form [formGroup]="myForm">
+  <div formArrayName="fieldGroups">
+    <div *ngFor="let fieldGroup of fieldGroups.controls; let i = index">
+      <div [formGroupName]="i">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label>Manufacture</label>
+            <input class="h-10" [nzStatus]="to['additionalProperties']?.status"
+              [nzSize]="to['additionalProperties']?.size"
+              [style.border-radius]="to['additionalProperties']?.borderRadius"
+              (ngModelChange)="onModelChange($event, field)" nz-input [formControlName]="'manufacture'" />
+          </div>
+          <div>
+            <label>Model</label>
+            <input class="h-10" [nzStatus]="to['additionalProperties']?.status"
+              [nzSize]="to['additionalProperties']?.size" [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" (input)="onModelChange($event, field)"
+              nz-input [formControlName]="'model'" />
+          </div>
+          <div>
+            <label>Quantity</label>
+            <input class="h-10" [nzStatus]="to['additionalProperties']?.status" type="number"
+              [nzSize]="to['additionalProperties']?.size" [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" (input)="onModelChange($event, field)"
+              nz-input [formControlName]="'quantity'" />
+          </div>
+          <div>
+            <label>Serial Numbers/s</label>
+            <input class="h-10" [nzStatus]="to['additionalProperties']?.status"
+              [nzSize]="to['additionalProperties']?.size" [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses + ' ' + to['additionalProperties']?.appGlobalInnerClass"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" (input)="onModelChange($event, field)"
+              nz-input [formControlName]="'serialnumber'" />
+          </div>
+          <div>
+            <label>Equipment Broucher/Datesheet</label>
+            <nz-input-group [nzSuffix]="icons?.suffixIcon ? suffixTemplateInfo : undefined"
+              [nzPrefix]="icons?.prefixIcon ?  prefixTemplateUser : undefined">
+              <input [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size"
+                [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses"
+                [style.border-radius]="to['additionalProperties']?.borderRadius" nz-input
+                [formControlName]="'equipmentbroucher'" #fileInput type="file" (change)="onFileSelected($event, i)" />
+            </nz-input-group>
+          </div>
+          <div>
+            <label>Order id</label>
+            <nz-select [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size"
+              [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses" (input)="onModelChange($event, field)"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" nz-input [formControlName]="'orderid'">
+              <nz-option *ngFor="let item of orderIdOptions" [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+            </nz-select>
+          </div>
+          <div [hidden]="true">
+            <label>Equipment Broucher/Datesheet</label>
+            <input [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size"
+              [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" nz-input
+              [formControlName]="'equipmentbroucher_base64'" (change)="onFileSelected($event, i)" />
+          </div>
+          <ng-template #prefixTemplateUser><span nz-icon (click)="imagePreview(i)"
+              [nzType]="icons?.prefixIcon ? 'eye' : ''"></span></ng-template>
+          <ng-template #suffixTemplateInfo>
+            <span (click)="clearFile(i)" nz-icon [nzType]="icons?.suffixIcon ? 'delete' : ''"></span>
+          </ng-template>
+          <div [hidden]="true">
+            <label></label>
+            <input [nzStatus]="to['additionalProperties']?.status" [nzSize]="to['additionalProperties']?.size"
+              [class]="to['additionalProperties']?.innerInputClass + ' ' + to['additionalProperties']?.applicationThemeClasses"
+              [style.border-radius]="to['additionalProperties']?.borderRadius" nz-input
+              [formControlName]="'customeclearenceid'" />
+          </div>
+        </div>
+        <div class="flex items-center justify-start my-2">
+          <button [hidden]="i == 0 "
+            class="bg-red-600 hover:bg-red-500 px-2 py-1 text-white font-medium text-xs rounded-md mr-1.5"
+            (click)="removeFieldGroup(i)">
+            Remove Div
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<button class="bg-[#fbc231] hover:bg-[#ffc83e] px-2 py-1 text-white mb-2 font-medium text-xs rounded-md"
+  (click)="addFieldGroup()">Add Div</button>

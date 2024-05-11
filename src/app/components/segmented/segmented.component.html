@@ -1,0 +1,6 @@
+<nz-segmented [processData]="processData" [appConfigurableSelect]="item['appConfigurableEvent']"
+    [loadAction]="item['eventActionconfig']" [nzBlock]="item.block" [nzDisabled]="item.disabled" [nzSize]="item.size"
+    [(ngModel)]="item.defaultSelectedIndex " [nzOptions]="item.options"
+    (nzValueChange)="handleIndexChange($event)"></nz-segmented>
+
+<button *ngIf="item?.showLoadMore" [class]="item?.innerClass" nz-button nzType="primary" [class]="moreLoadedDisabled ? 'btn-no' : ''" [disabled]="moreLoadedDisabled" (click)="handleLoadMore()"> {{item.btnLabel}} </button>

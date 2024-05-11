@@ -1,0 +1,154 @@
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.logo-sm {
+  height: 32px;
+  margin: 24px;
+  // background: rgba(255, 255, 255, 0.3);
+
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin: 0 16px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  padding: 1rem;
+  background: #fff;
+  min-height: 360px;
+}
+
+nz-footer {
+  text-align: center;
+  background: #fff;
+}
+
+.inner-content {
+  padding: 0px !important;
+  background: #fff;
+  min-height: 360px;
+}
+
+.ant-drawer-header {
+  background: blue !important;
+}
+
+.menuColumn {
+  overflow-y: auto;
+}
+
+
+
+.selected {
+  background-color: rgba(80, 195, 230, .2);
+  ;
+  color: #50c3e6;
+}
+
+#main-menu {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  transition: top 0.3s ease-out;
+}
+
+/* Show the menu when it is open */
+#main-menu.open {
+  top: 0;
+}
+
+/* Style the toggle button */
+#menu-toggle {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#router-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+// .box {
+//   display: block;
+//   text-align: center;
+
+//   // padding: 0.45rem 0.525rem;
+//   li {
+//     display: block;
+//     text-align: center;
+
+//     p {
+//       display: block;
+//       text-align: center;
+//     }
+//   }
+// }
+
+// .ant-layout-content{
+//   margin: 0 5px !important
+// }
+::ng-deep .ant-menu-submenu.ant-menu-submenu-inline>.ant-menu {
+  background-color: inherit;
+}
+
+.menu-title {
+  padding: 12px !important;
+  letter-spacing: .08em;
+  pointer-events: none;
+  cursor: default;
+  font-size: 11px;
+  text-transform: uppercase;
+  // opacity: 0.6;
+  font-weight: 800;
+  color: #7c7f90;
+  visibility: visible;
+}
+
+.nav-item {
+  span {
+    font-size: 0.925rem;
+    // color: #7c7f90;
+    // font-weight: 500;
+    // font-family: Rubik, sans-serif;
+  }
+}
+
+// .ant-menu:not(.ant-menu-horizontal) {
+//   .ant-menu-item-selected {
+//     background-color: transparent !important;
+//   }
+// }
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: none;
+  // background: transparent !important;
+}
+
+.ant-menu-inline {
+
+  .ant-menu-item::after,
+  .ant-menu-vertical .ant-menu-item::after,
+  .ant-menu-vertical-left .ant-menu-item::after,
+  .ant-menu-vertical-right .ant-menu-item::after {
+    border-right: none !important;
+  }
+}
+

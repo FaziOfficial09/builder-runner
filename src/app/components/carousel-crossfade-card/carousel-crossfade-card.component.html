@@ -1,0 +1,8 @@
+<nz-carousel [nzEffect]="'fade'" [nzDotPosition]="carouselslides.dotPosition" [nzAutoPlay]="carouselslides.autoPlay" class="carousle"
+    [nzAutoPlaySpeed]="carouselslides.autolPlaySpeed" [nzDots]="carouselslides.showDots"
+    [nzEnableSwipe]="carouselslides.enableSwipe">
+    <div nz-carousel-content *ngFor="let item of carouselslides.children">
+        <st-main [screenName]="screenName" [mainData]="item" [formlyModel]="formlyModel" [form]="form"
+            [screenId]="screenId"></st-main>
+    </div>
+</nz-carousel>

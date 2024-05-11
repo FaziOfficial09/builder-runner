@@ -1,0 +1,82 @@
+{
+  "Dashboards": "Информационные панели",
+  "Sales": "Продажи",
+  "Analytics": "Аналитика",
+  "Applications": "Приложения",
+  "Calendar": "Календарь",
+  "Chat": "Чат",
+  "Kanban Board": "Доска Канбан",
+  "File Manager": "Файловый менеджер",
+  "Email": "Почта",
+  "Contacts": "Контакты",
+  "Gallery": "Галерея",
+  "Projects": "Проекты",
+  "Pages": "Страницы",
+  "Authentication": "Аутентификация",
+  "Error Pages": "Страницы ошибок",
+  "Utility": "Утилиты",
+  "Pricing": "Ценообразование",
+  "Invoices": "Счета",
+  "Timeline": "Хронология",
+  "Components": "Компоненты",
+  "UI Elements": "Элементы пользовательского интерфейса",
+  "Extended UI": "Расширенный пользовательский интерфейс",
+  "Widgets": "Виджеты",
+  "Forms": "Формы",
+  "Tables": "Таблицы",
+  "Apex Charts": "Диаграммы Apex",
+  "Icons": "Иконки",
+  "Maps": "Карты",
+  "Multi Levels": "Многоуровневое",
+  "User Grid": "Сетка пользователей",
+  "User List": "Список пользователей",
+  "User Setting": "Настройки пользователя",
+  "Inbox": "Входящие",
+  "Read Email": "Читать письмо",
+  "Project Grid": "Сетка проектов",
+  "Project List": "Список проектов",
+  "Project Overview": "Обзор проекта",
+  "Create New": "Создать новый",
+  "404 Basic": "404 Основной",
+  "404 Cover": "404 Обложка",
+  "500 Cover": "500 Обложка",
+  "500 Basic": "500 Основной",
+  "Starter Page": "Стартовая страница",
+  "Profile": "Профиль",
+  "Maintanence": "Обслуживание",
+  "Coming Soon": "Скоро будет",
+  "FAQs": "Часто задаваемые вопросы",
+  "Basic": "Основной",
+  "Table": "Таблица",
+  "Invoice List": "Список счетов",
+  "Manager": "Менеджер",
+  "Build your portfolio": "Создайте свой портфолио",
+  "The simplest way to keep your portfolio always up-to-date.": "Самый простой способ всегда держать свое портфолио в актуальном состоянии",
+  "Get freelance work": "Получайте фриланс-работу",
+  "New design projects delivered to your inbox each morning.": "Новые дизайн-проекты доставляются в вашу электронную почту каждое утро",
+  "Sell your goods": "Продавайте свои товары",
+  "Get your goods in front of millions of potential customers with ease.": "Легко представьте свои товары миллионам потенциальных клиентов",
+  "CRMAPP": {
+    "Input": "werwe"
+  },
+  "Demo Application": {
+    "CRMAPP": {
+      "Input": "4",
+      "heading": "Russian"
+    },
+    "CRMAPP1": {
+      "Input": "4"
+    },
+    "Demo Template": {
+      "General": "45645",
+      "input fields": {
+        "heading": "3453"
+      }
+    }
+  },
+  "Demo Application1": {
+    "CRMAPP1": {
+      "Input": "4"
+    }
+  }
+}

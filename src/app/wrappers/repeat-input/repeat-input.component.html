@@ -1,0 +1,18 @@
+<form nz-form [formGroup]="validateForm" >
+  <nz-form-item *ngFor="let control of listOfControl; let i = index">
+    <nz-form-control style="display: flex;">
+      <input class="generic-input" nz-input [placeholder]='to.placeholder +" "+ control.id' [id]="control.id"
+      [style.border-radius]="to['additionalProperties']?.borderRadius"  [formControlName]="control.controlInstance" />
+      <span nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></span>
+    </nz-form-control>
+
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+      <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+        <span nz-icon nzType="plus"></span>
+        Add field
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

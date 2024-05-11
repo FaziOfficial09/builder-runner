@@ -1,0 +1,82 @@
+<nz-spin [nzSpinning]="loader" [nzSize]="'large'">
+  <div *ngIf="loader" style="height: 100vh;"></div>
+  <div *ngIf="selectedTheme && !loader && !externalLogin" class="user-builder-layout" [dir]="this.selectedTheme?.layout"
+    [ngClass]="{
+    'boxed-menu': selectedTheme?.layoutWidth == 'boxed' &&  selectedTheme?.layout != 'horizental',
+    'horizental-boxed': selectedTheme?.layoutWidth == 'boxed' &&  selectedTheme?.layout == 'horizental',
+    'horizental-fluid': selectedTheme?.layoutWidth == 'fluid' &&  selectedTheme?.layout == 'horizental'
+  }">
+    <nz-layout class="app-layout  !bg-slate-50">
+      <div class="w-full h-fit mb-2.5" id="HEADER">
+        <nz-header #header *ngIf="!currentHeader">
+          <st-menu [selectedTheme]="selectedTheme"></st-menu>
+        </nz-header>
+        <st-pages #header *ngIf="currentHeader && !hideHeaderFooterMenu" [resData]="currentHeader"
+          [screenName]="domainData?.header?.navigation" [screenId]="domainData?.header?.screenBuilderId"></st-pages>
+      </div>
+      <nz-layout #mainContent
+        [class]="'content-container' + (selectedTheme?.layout === 'horizental' ? ' b-horizontal-menu' : '') + (selectedTheme.layout == 'rtl' ? ' rtl-layout2' : '')">
+        <ng-container *ngIf="!hideHeaderFooterMenu">
+          <div *ngIf="!selectedTheme.isCollapsed" class="backdrop"></div>
+          <nz-sider [hidden]="selectedTheme.isCollapsed && selectedTheme.sideBarSize == 'smallIconView'"
+            class="!rounded-tr-[4px] h-[calc(100vh-78px)] overflow-y-auto !rounded-br-[4px] side-bar "
+            *ngIf="currentWebsiteLayout != 'website' || fullCurrentUrl.includes('/menu-builder')" [class]="'menu-sidebar' + (selectedTheme.layout === 'twoColumn' && selectedTheme['menuChildArrayTwoColumn'].length == 0 ? ' two-column-sider' : '')+
+            (selectedTheme.sideBarSize == 'smallIconView' && (selectedTheme.layout == 'vertical' || selectedTheme.layout == 'rtl') ? ' small-icon-view-menu' : '') + (selectedTheme.layout == 'rtl' ? ' mobile-side-menu-rtl' : '')
+            " nzTheme="light" nzCollapsible [nzWidth]="selectedTheme?.menuWidth ?  selectedTheme?.menuWidth + 'px': '260px'"
+            nzBreakpoint="md" [(nzCollapsed)]="selectedTheme.isCollapsed" [nzTrigger]="null">
+            <span [contextMenu]="oneContextMenu" *ngIf="isShowContextMenu ; else nonContextMenu">
+              <context-menu #oneContextMenu>
+                <ng-template contextMenuItem (execute)="issueReportFun()" [visible]="isShowContextMenu">Issue
+                  Report</ng-template>
+              </context-menu>
+              <div class="dynamic-menu desktop-toggle">
+                <st-app-side-menu [selectedTheme]="selectedTheme" [menuItems]="menuItems" [mobileView]="false"
+                  (notify)="loadTabsAndButtons($event)"></st-app-side-menu>
+              </div>
+              <div *ngIf="!selectedTheme.isCollapsed" class="dynamic-menu mobile-toggle">
+                <st-app-side-menu [selectedTheme]="selectedTheme" [menuItems]="menuItems" [mobileView]="true"
+                  (notify)="loadTabsAndButtons($event)"></st-app-side-menu>
+              </div>
+            </span>
+            <ng-template #nonContextMenu>
+              <div class="dynamic-menu desktop-toggle">
+                <st-app-side-menu [selectedTheme]="selectedTheme" [menuItems]="menuItems" [mobileView]="false"
+                  (notify)="loadTabsAndButtons($event)"></st-app-side-menu>
+              </div>
+              <div *ngIf="!selectedTheme.isCollapsed" class="dynamic-menu mobile-toggle">
+                <st-app-side-menu [selectedTheme]="selectedTheme" [menuItems]="menuItems" [mobileView]="true"
+                  (notify)="loadTabsAndButtons($event)"></st-app-side-menu>
+              </div>
+            </ng-template>
+          </nz-sider>
+        </ng-container>
+        <nz-content class="relative site-content !bg-slate-50 ">
+          <ng-container *ngIf="tabs.length">
+            <ng-container *ngFor="let item of tabs">
+              <st-layout-tabs-dropdown *ngIf="item.type == 'mainTab'" [layoutTabsDropdownData]="item"
+                [theme]="selectedTheme['inPageMenu']"></st-layout-tabs-dropdown>
+            </ng-container>
+          </ng-container>
+          <div class="content" id='Content'
+            [style.margin-bottom]="dataSharedService.showFooter && dataSharedService.fixedFooter ? constentMarging : '0px'">
+            <router-outlet></router-outlet>
+          </div>
+          <div id="FOOTER" [ngClass]="{
+            'w-[calc(100%-68px)] , display-block': selectedTheme.isCollapsed && (this.selectedTheme.sideBarSize == 'smallHoverView' && (this.selectedTheme.layout == 'vertical' || this.selectedTheme.layout == 'rtl')) 
+            && (dataSharedService.showFooter && dataSharedService.fixedFooter && currentWebsiteLayout === 'backend_application'),
+            'w-[calc(100%-248px)]': !selectedTheme.isCollapsed && (this.selectedTheme.sideBarSize == 'smallHoverView' && (this.selectedTheme.layout == 'vertical' || this.selectedTheme.layout == 'rtl')) &&
+            (dataSharedService.showFooter && dataSharedService.fixedFooter && currentWebsiteLayout === 'backend_application'),
+            'dynamic-footer': dataSharedService.showFooter && dataSharedService.fixedFooter && currentWebsiteLayout === 'backend_application',
+            'dynamic-footer-website': dataSharedService.showFooter && dataSharedService.fixedFooter && currentWebsiteLayout === 'website'
+         }" *ngIf="currentFooter && !fullCurrentUrl.includes('/menu-builder') && !hideHeaderFooterMenu">
+            <st-pages [resData]="currentFooter" [screenName]="domainData?.footer?.navigation"
+              [screenId]="domainData?.footer?.screenBuilderId"></st-pages>
+          </div>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+  </div>
+  <div class="user-builder-layout" *ngIf="externalLogin">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- [class]="dataSharedService.checkContentForFixFooter ? (dataSharedService.checkContentForFixFooter[0].fixedFooter ? 'dynamic-footer' : '') : 'dynamic-footer'" -->

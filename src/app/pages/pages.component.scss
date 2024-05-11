@@ -1,0 +1,14 @@
+.custom-footer {
+  background-color: #f5f5f5;
+  padding: 10px;
+  text-align: center;
+}
+.border-less{
+  border:none;
+}
+:host ::ng-deep .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0px !important;
+}
+
+
+

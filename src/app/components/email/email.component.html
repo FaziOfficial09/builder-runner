@@ -1,0 +1,281 @@
+<div class="content-container w-full h-[calc(100vh-80px)] flex">
+    <!-- dashboard side -->
+    <div class="left-content w-60  border-r border-r-gray-300 h-full bg-white">
+        <div class="header h-[70px] box-border py-4 px-[18px] flex justify-center items-center flex-shrink ">
+            <button (click)="openEmail(true)"
+                class="bg-blue-600 hover:bg-blue-500 text-white text-center rounded-lg h-full w-full text-sm tracking-wider leading-3 font-semibold capitalize">compose</button>
+        </div>
+        <div class="content h-[calc(100vh-150px)] w-full overflow-x-hidden overflow-y-auto">
+            <div class="h-fit w-full">
+                <div
+                    class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between border-l-2 border-l-blue-600">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-envelope text-blue-600 text-lg mr-2.5"></i>
+                        <p class="font-medium text-base text-blue-600 ">Inbox</p>
+                    </div>
+                    <p
+                        class="w-6 flex justify-center items-center rounded-[50%] text-xs bg-blue-100 font-medium text-blue-600 h-full">
+                        4</p>
+                </div>
+                <div class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-paper-plane-top -rotate-45 text-gray-700 text-lg mr-2.5"></i>
+                        <p class="font-normal text-base text-gray-600 capitalize">Sent</p>
+                    </div>
+                    <!-- <p
+                    class="w-6 flex justify-center items-center rounded-[50%] text-xs font-semibold text-gray-700 h-full">
+                    4</p> -->
+                </div>
+                <div class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-file text-gray-700 text-lg mr-2.5"></i>
+                        <p class="font-normal text-base text-gray-500 capitalize">Draft</p>
+                    </div>
+                    <!-- <p
+                    class="w-6 flex justify-center items-center rounded-[50%] text-xs font-semibold text-gray-700 h-full">
+                    4</p> -->
+                </div>
+                <div class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-star text-gray-700 text-lg mr-2.5"></i>
+                        <p class="font-normal text-base text-gray-600 capitalize">Starred</p>
+                    </div>
+                    <p
+                        class="w-6 flex justify-center items-center rounded-[50%] text-xs font-semibold bg-orange-100 text-orange-600 h-full">
+                        10</p>
+                </div>
+                <div class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-square-exclamation text-gray-700 text-lg mr-2.5"></i>
+                        <p class="font-normal text-base text-gray-600 capitalize">spam</p>
+                    </div>
+                    <!-- <p
+                    class="w-6 flex justify-center items-center rounded-[50%] text-xs font-semibold text-gray-700 h-full">
+                    4</p> -->
+                </div>
+                <div class="inbox w-full items-center px-[18px] py-2 box-border h-10 flex justify-between">
+                    <div class="flex items-center justify-start">
+                        <i class="fa-light fa-trash-can text-gray-700 text-lg mr-2.5"></i>
+                        <p class="font-normal text-base text-gray-600 capitalize">trash</p>
+                    </div>
+                    <!-- <p
+                    class="w-6 flex justify-center items-center rounded-[50%] text-xs font-semibold text-gray-700 h-full">
+                    4</p> -->
+                </div>
+            </div>
+            <div class="h-fit w-full px-[18px] py-2">
+                <p class="font-medium text-sm text-gray-400 uppercase pb-4">Lables</p>
+                <div class="inbox w-full box-border h-fit space-y-2 ">
+                    <div class="flex justify-start items-center">
+                        <p class="color h-2 w-2 bg-green-600 rounded-[50%] mr-2"></p>
+                        <h3 class="capitalize font-normal text-base text-gray-600 mb-0">Work</h3>
+                    </div>
+                    <div class="flex justify-start items-center">
+                        <p class="color h-2 w-2 bg-blue-600 rounded-[50%] mr-2"></p>
+                        <h3 class="capitalize font-normal text-base text-gray-600 mb-0">company</h3>
+                    </div>
+                    <div class="flex justify-start items-center">
+                        <p class="color h-2 w-2 bg-purple-500 rounded-[50%] mr-2"></p>
+                        <h3 class="capitalize font-normal text-base text-gray-600 mb-0">important</h3>
+                    </div>
+                    <div class="flex justify-start items-center">
+                        <p class="color h-2 w-2 bg-red-600 rounded-[50%] mr-2"></p>
+                        <h3 class="capitalize font-normal text-base text-gray-600 mb-0">private</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- email side -->
+    <div class="right-content w-[calc(100%-15rem)] h-full bg-white">
+        <div class="header h-[70px] py-4 px-3 box-border flex items-center border-b border-b-gray-300">
+            <nz-input-group [nzPrefix]="prefixTemplateUser"
+                class="h-full !w-[calc(100%-60px)] !border-0 outline-2 outline-red-500">
+                <input type="text" nz-input placeholder="Search Email" />
+            </nz-input-group>
+            <ng-template #prefixTemplateUser><i
+                    class="fa-light text-base text-[#736b7d] pr-3 fa-magnifying-glass"></i></ng-template>
+            <p class="w-[30px] flex justify-center items-center"><i
+                    class="fa-regular text-base text-[#736b7d] fa-arrow-rotate-right"></i></p>
+            <p class="w-[30px] flex justify-center items-center"><i
+                    class="fa-regular text-lg text-[#736b7d] fa-ellipsis-vertical"></i></p>
+        </div>
+        <div class="email-container">
+            <!-- icon div -->
+            <div
+                class="w-full items-center px-5  py-2 box-border h-14 flex justify-between border-b border-b-gray-300 flex-wrap">
+                <div class="flex justify-start space-x-4 items-center">
+                    <label nz-checkbox class="mx-4"></label>
+                    <i class="fa-light fa-trash-can text-lg text-gray-600"></i>
+                    <i class="fa-light fa-envelope-open text-lg text-gray-600"></i>
+                    <i class="fa-light fa-folder text-lg text-gray-600"></i>
+                    <i class="fa-light fa-tag text-lg text-gray-600"></i>
+                </div>
+                <div class="flex">
+                    <p class="font-noraml text-base text-gray-400 capitalize"> <span>1</span>-<span>10</span> of
+                        <span>653</span>
+                    </p>
+                    <div class="flex ml-3">
+                        <i
+                            class="fa-regular flex justify-center items-center fa-chevron-left text-base w-7 h-7 rounded-sm hover:shadow-2xl hover:bg-white hover:border hover:border-gray-500 text-gray-600 "></i>
+                        <i
+                            class="fa-regular flex justify-center items-center fa-chevron-right text-base w-7 h-7 rounded-sm hover:bg-white hover:shadow-2xl hover:border hover:border-gray-500 text-gray-600 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- icon div -->
+
+            <!-- email div -->
+            <div class="h-[calc(100vh-210px)] overflow-x-hidden overflow-y-auto w-full">
+                <div
+                    class="w-full items-center px-5 py-2 box-border h-14 flex justify-between border-b border-b-gray-300 flex-wrap transition-all delay-200 ease-in transform hover:translate-y-[-2px] hover:border hover:shadow-md hover:z-50 z-10 relative hover:bg-white group cursor-pointer">
+                    <div class="flex justify-start space-x-4 items-center h-full w-[90%]">
+                        <label nz-checkbox class="mx-4"></label>
+                        <i class="fa-light fa-trash-can text-lg text-gray-600"></i>
+                        <i class="fa-light fa-star text-lg text-orange-600"></i>
+                        <img class="w-8 h-8 rounded-full"
+                            src="https://plus.unsplash.com/premium_photo-1669047670905-fa4331d07e06?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aGQlMjBwaG90b3N8ZW58MHx8MHx8fDA%3D"
+                            alt="Rounded avatar">
+                        <p
+                            class="font-medium text-base text-gray-600 capitalize w-36 overflow-hidden text-ellipsis whitespace-nowrap">
+                            TAYYAB BAIG</p>
+                        <p
+                            class="font-normal text-base text-gray-500 overflow-hidden whitespace-nowrap text-ellipsis w-full">
+                            Lorem ipsum dolor sit, amet consectetur
+                            adipisicing elit. Esse, blanditiis.</p>
+                    </div>
+                    <div class="flex h-full w-[10%] items-center justify-end">
+                        <div
+                            class="flex justify-start items-center group-hover:hidden transition-all delay-200 ease-in transform">
+                            <p class="color h-2 w-2 bg-green-600 rounded-[50%] mr-2"></p>
+                            <h3 class="time capitalize font-normal text-sm text-gray-400 mb-0">8:40 AM</h3>
+                        </div>
+                        <div
+                            class="group-hover:flex justify-start space-x-4 items-center hidden transition-all delay-200 ease-in transform">
+                            <i class="fa-light fa-envelope-open text-lg text-gray-600"></i>
+                            <i class="fa-light fa-trash-can text-lg text-gray-600"></i>
+                            <i class="fa-light fa-check-to-slot text-lg text-gray-600 rotate-180"></i>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="w-full items-center px-5 py-2 box-border h-14 flex justify-between border-b border-b-gray-300 flex-wrap transition-all delay-200 ease-in transform hover:translate-y-[-2px] hover:border hover:shadow-md hover:z-50 z-10 relative hover:bg-white group cursor-pointer">
+                    <div class="flex justify-start space-x-4 items-center h-full w-[90%]">
+                        <label nz-checkbox class="mx-4"></label>
+                        <i class="fa-light fa-trash-can text-lg text-gray-600"></i>
+                        <i class="fa-light fa-star text-lg text-gray-600"></i>
+                        <img class="w-8 h-8 rounded-full"
+                            src="https://plus.unsplash.com/premium_photo-1669047670905-fa4331d07e06?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aGQlMjBwaG90b3N8ZW58MHx8MHx8fDA%3D"
+                            alt="Rounded avatar">
+                        <p
+                            class="font-medium text-base text-gray-600 capitalize w-36 overflow-hidden text-ellipsis whitespace-nowrap">
+                            Arfan</p>
+                        <p
+                            class="font-normal text-base text-gray-500 overflow-hidden whitespace-nowrap text-ellipsis w-full">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, sint autem! Molestiae, nam
+                            eum. Culpa ullam laboriosam alias labore nulla earum voluptate nesciunt doloremque quia
+                            adipisci suscipit possimus vel sequi ipsa, eum ad illum numquam autem delectus dolorum iusto
+                            fugit dolores quo mollitia? Veritatis culpa enim optio vitae corporis ullam..</p>
+                    </div>
+                    <div class="flex h-full w-[10%] items-center justify-end">
+
+                        <div
+                            class="flex justify-start items-center group-hover:hidden transition-all delay-500 ease-in transform">
+                            <i class="fa-light fa-paperclip"></i>
+                            <p class="color h-2 w-2 bg-orange-600 rounded-[50%] mx-2"></p>
+                            <h3 class="time capitalize font-normal text-sm text-gray-400 mb-0">2:40 PM</h3>
+                        </div>
+                        <div
+                            class="group-hover:flex justify-start space-x-4 items-center hidden transition-all delay-200 ease-in transform">
+                            <i class="fa-light fa-envelope-open text-lg text-gray-600"></i>
+                            <i class="fa-light fa-trash-can text-lg text-gray-600"></i>
+                            <i class="fa-light fa-check-to-slot text-lg text-gray-600 rotate-180"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- email div -->
+
+        </div>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Compose Mail" (nzOnCancel)="openEmail(false)" (nzOnOk)="openEmail(false)">
+    <section *nzModalContent class="bg-white dark:bg-gray-900">
+        <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'" class="builder-design">
+            <div class="mb-1">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-  300">To</label>
+                <nz-select class="temp-modal-select !h-12 !rounded-md" nzMode="tags" nzPlaceHolder="Recipients"
+                    [(ngModel)]="to">
+                    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
+                        [nzValue]="option.value"></nz-option>
+                </nz-select>
+            </div>
+            <div class="mb-1">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    CC</label>
+                <nz-select class="temp-modal-select !h-10 !rounded-md" nzMode="tags" nzPlaceHolder="Cc"
+                    [(ngModel)]="cc">
+                    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
+                        [nzValue]="option.value"></nz-option>
+                </nz-select>
+            </div>
+            <div class="mb-1">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    BCC</label>
+                <nz-select class="temp-modal-select !h-10 !rounded-md" nzMode="tags" nzPlaceHolder="Bcc"
+                    [(ngModel)]="bcc">
+                    <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label"
+                        [nzValue]="option.value"></nz-option>
+                </nz-select>
+            </div>
+            <div class="mx-auto max-w-screen-md" [formGroup]="form">
+                <div class="mb-1">
+                    <label for="subject"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Subject</label>
+                    <input nz-input formControlName="subject" type="text" id="subject"
+                        class="temp-modal-input block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        required>
+                </div>
+
+
+                <div class="mb-1">
+                    <label for="attchments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Attachment</label>
+                    <input formControlName="attachments" type="file" id="fileInputRef" multiple
+                        (change)="onFileChange($event)"
+                        class="temp-modal-fileUploader shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        required>
+                    <ng-template fileInputRef><button class="temp-modal-fileUploader-button">Choose
+                            file</button></ng-template>
+                    <div *ngIf="selectedFiles.length > 0" class="mt-4">
+                        <p class="font-bold mb-2">Uploaded Files:</p>
+                        <ul>
+                            <li *ngFor="let file of selectedFiles"
+                                class="flex items-center justify-between bg-gray-100 p-2 mb-2">
+                                <span>{{ file.name }}</span>
+                                <i class="text-red-500 hover:text-red-700 cursor-pointer fas fa-trash"
+                                    (click)="removeFile(file)"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="sm:col-span-2 mb-1">
+                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your
+                        message</label>
+                    <textarea nz-input formControlName="text" id="message" rows="6"
+                        class="temp-modal-textarea"></textarea>
+                </div>
+            </div>
+        </nz-spin>
+    </section>
+    <div *nzModalFooter>
+        <button (click)="sendEmail()"
+            class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Send
+        </button>
+    </div>
+</nz-modal>

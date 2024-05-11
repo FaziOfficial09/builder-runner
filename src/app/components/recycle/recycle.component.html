@@ -1,0 +1,145 @@
+<div class="task-chart mb-6 grid grid-cols-4 gap-3 !ml-4" *ngIf="chartData.length == 0">
+  <nz-card class="flex flex-col items-center !rounded-md !ml-4">
+    <div class="chart">
+      <div class="inner"><span class="center">AGILE</span></div>
+      <div class="segment" style="--rotate: 0deg;">
+      </div>
+      <div class="segment" style="--rotate: 72deg;">
+        <span>Segment 2</span>
+      </div>
+      <div class="segment" style="--rotate: 144deg;">
+        <span>Segment 3</span>
+      </div>
+      <div class="segment" style="--rotate: 216deg;">
+        <span>Segment 4</span>
+      </div>
+      <div class="segment" style="--rotate: 288deg;">
+        <span>Segment 5</span>
+      </div>
+      <div class="">
+        <span class="first">open </span>
+        <span class="second">In Progress </span>
+        <span class="third">Completed </span>
+        <span class="fourth">Closed </span>
+        <span class="fifth">Review 0</span>
+      </div>
+    </div>
+    <div class="first-arrow ">
+      <div class="content">
+        <p>Requirment </p>
+      </div>
+    </div>
+    <div class="last-arrow ">
+      <div class="content">
+        <p> </p>
+      </div>
+    </div>
+    <div>
+      <p class="text-lg font-bold pl-20 pt-2">Agile Model</p>
+    </div>
+  </nz-card>
+
+</div>
+<div [appConfigurableSelect]="charts['appConfigurableEvent']" [loadAction]="charts['eventActionconfig']"
+  [processData]="processData">
+  <!-- <div class="task-chart mb-6 grid grid-cols-4 gap-3" *ngFor="let item of chartData">
+    <nz-card class="flex flex-col items-center !rounded-md" >
+        <div class="chart">
+
+            <div class="inner"><span class="center">AGILE</span></div>
+            <div class="segment" style="--rotate: 0deg;">
+                <span>Segment 1</span>
+            </div>
+            <div class="segment" style="--rotate: 72deg;">
+                <span>Segment 2</span>
+            </div>
+            <div class="segment" style="--rotate: 144deg;">
+                <span>Segment 3</span>
+            </div>
+            <div class="segment" style="--rotate: 216deg;">
+                <span>Segment 4</span>
+            </div>
+            <div class="segment" style="--rotate: 288deg;">
+                <span>Segment 5</span>
+            </div>
+            <div class="" *ngFor="let list of item.data">
+                <span class="first">{{item?.data?[0]?.name}}{{item?.data?[0]?.value}}</span>
+                <span class="second">{{item?.data?[0]?.name}}{{item?.data?[0]?.value}} </span>
+                <span class="third">{{item?.data?[0]?.name}}{{item?.data?[0]?.value}} </span>
+                <span class="fourth">{{item?.data?[0]?.name}}{{item?.data?[0]?.value}} </span>
+                <span class="fifth">{{item?.data?[0]?.name}}{{item?.data?[0]?.value}}</span>
+                <span class="first">{{list.label[1]}} {{list.count[0]}} </span>
+
+                <span class="second"  ></span>
+                <span class="third"  ></span>
+                <span class="fourth" ></span>
+                <span class="fifth">0</span>
+            </div>
+
+        </div>
+        <div class="first-arrow ">
+            <div class="content">
+                <p>Requirment </p>
+                <p>{{item?.data?[0]?.name}}{{item?.data?[0]?.value}} </p>
+            </div>
+        </div>
+        <div class="last-arrow ">
+            <div class="content">
+                <p>66666</p>
+            </div>
+        </div>
+        <div>
+            <p class="text-lg font-bold pl-20 pt-2">w1</p>
+        </div>
+    </nz-card>
+
+</div> -->
+
+  <div class="w-full h-fit flex justify-evenly">
+    <div class="task-chart mb-6 flex   flex-row gap-3 !mr-2" *ngFor="let item of chartData">
+      <nz-card class=" !rounded-md">
+        <!-- Your chart visualization here -->
+        <div class="chart">
+          <!-- Render chart segments here -->
+          <div class="inner"><span class="center">AGILE</span></div>
+          <div class="segment" style="--rotate: 0deg;"><span>Segment 1</span></div>
+          <div class="segment" style="--rotate: 72deg;"><span>Segment 2</span></div>
+
+          <div class="segment" style="--rotate: 144deg;"><span>Segment 3</span></div>
+          <div class="segment" style="--rotate: 216deg;"><span>Segment 4</span></div>
+          <div class="segment" style="--rotate: 288deg;"><span>Segment 5</span></div>
+
+          <!-- Iterate over item.data to display label and count -->
+          <div *ngFor="let dataItem of item.data; let i=index" class="data-item">
+            <span [ngClass]="{'first': dataItem.label.toLowerCase().trim() === 'open',
+                                'second': dataItem.label.toLowerCase().trim() === 'in progress',
+                                'third': dataItem.label.toLowerCase().trim() === 'testing',
+                                'fourth': dataItem.label.toLowerCase().trim() === 'completed',
+                                'fifth': dataItem.label.toLowerCase().trim() === 'moved'}">
+              {{ dataItem.label }} {{ dataItem.count }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Render additional elements -->
+        <div class="first-arrow">
+          <div class="content">
+            <p>Requirement</p>
+          </div>
+        </div>
+        <div class="last-arrow">
+          <div class="content">
+            <p>66666</p>
+          </div>
+        </div>
+
+        <!-- Render label -->
+        <div>
+          <p class="text-lg font-bold pl-20 pt-2">{{ item.label }}</p>
+        </div>
+      </nz-card>
+    </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="builder-dynamic-tabs" [processData]="processData" [appConfigurableSelect]="tabs['appConfigurableEvent']"
+    [loadAction]="tabs['eventActionconfig']">
+    <nz-tabset [(nzSelectedIndex)]="tabs.selectedIndex" [nzAnimated]="tabs.animated" [nzSize]="tabs.size"
+        [nzTabPosition]="tabs.tabPosition" [nzType]="tabs.tabType" [nzHideAll]="tabs.hideTabs" nzHideAdd
+        (nzClose)="closeTab($event)" [nzCentered]="tabs.centerd">
+        <div *ngIf="getData.length > 0">
+            <ng-container *ngFor="let data of getData">
+                <nz-tab [nzTitle]="titleTemplate" (nzClick)="tabClick(data)"
+                    (nzSelectChange)="handleTabSelect($event , data)" [nzForceRender]="true"
+                    [nzDisabled]="tabs.children[0].disabled" nzClosable>
+                    <ng-template #titleTemplate>
+                        <div [class]="tabs.children[0]?.innerClass + ' ' + tabs.children[0]?.appGlobalInnerClass">
+                            <span *ngIf="tabs.children[0].icon">
+                                <st-icon [type]="tabs.children[0].iconType"
+                                    [hoverIconColor]="tabs.children[0]?.hoverIconColor || ''"
+                                    [icon]="tabs.children[0].icon" [size]="tabs.children[0].iconSize"
+                                    [color]="tabs.children[0]?.iconColor"></st-icon>
+                            </span>
+                            {{data.label ? data.label : tabs.children[0].title}}
+                            <span nz-tooltip *ngIf='tabs.children[0].tooltip'
+                                [nzTooltipTitle]='tabs.children[0].tooltip'><span nz-icon nzType="question-circle"
+                                    nzTheme="twotone"></span></span>
+                        </div>
+                    </ng-template>
+                    <st-main [mappingId]="mappingId" [mainData]="tabs.children[0]" [formlyModel]="formlyModel"
+                        [screenName]="screenName" [screenId]="screenId" [form]="form"></st-main>
+
+                    <nz-divider *ngIf="tabs?.border && tabs.tabPosition != 'bottom'"></nz-divider>
+                </nz-tab>
+            </ng-container>
+        </div>
+        <div *ngIf="getData.length  == 0">
+            <nz-tab *ngFor="let items of tabs.children; let i = index ; let last = last" [nzTitle]="titleTemplate11"
+                (nzSelectChange)="handleTabSelect($event)" [nzForceRender]="true" [nzDisabled]="items.disabled"
+                nzClosable>
+                <ng-template #titleTemplate11>
+                    <div [class]="items?.innerClass + ' ' + items?.appGlobalInnerClass">
+                        <span *ngIf="items.icon">
+                            <st-icon [type]="items.iconType" [hoverIconColor]="items?.hoverIconColor || ''"
+                                [icon]="items.icon" [size]="items.iconSize" [color]="items?.iconColor"></st-icon>
+                        </span>
+                        {{items.title}}
+                        <span nz-tooltip *ngIf='items.tooltip' [nzTooltipTitle]='items.tooltip'><span nz-icon
+                                nzType="question-circle" nzTheme="twotone"></span></span>
+                    </div>
+                </ng-template>
+                <st-main [mappingId]="mappingId" [mainData]="items" [formlyModel]="formlyModel"
+                    [screenName]="screenName" [screenId]="screenId" [form]="form"></st-main>
+
+                <nz-divider *ngIf="tabs?.border && tabs.tabPosition != 'bottom'"></nz-divider>
+            </nz-tab>
+        </div>
+
+    </nz-tabset>
+</div>

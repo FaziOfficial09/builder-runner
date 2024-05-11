@@ -1,0 +1,82 @@
+{
+  "Dashboards": "لوحات القيادة",
+  "Sales": "مبيعات",
+  "Analytics": "تحليلات",
+  "Applications": "التطبيقات",
+  "Calendar": "تقويم",
+  "Chat": "محادثة",
+  "Kanban Board": "مجلس كانبان",
+  "File Manager": "مدير الملفات",
+  "Email": "بريد إلكتروني",
+  "Contacts": "جهات الاتصال",
+  "Gallery": "صالة عرض",
+  "Projects": "المشاريع",
+  "Pages": "الصفحات",
+  "Authentication": "المصادقة",
+  "Error Pages": "صفحات الخطأ",
+  "Utility": "جدوى",
+  "Pricing": "التسعير",
+  "Invoices": "الفواتير",
+  "Timeline": "الجدول الزمني",
+  "Components": "عناصر",
+  "UI Elements": "عناصر واجهة المستخدم",
+  "Extended UI": "تمديد واجهة المستخدم",
+  "Widgets": "الحاجيات",
+  "Forms": "نماذج",
+  "Tables": "الجداول",
+  "Apex Charts": "مخططات",
+  "Icons": "الأيقونات",
+  "Maps": "خرائط",
+  "Multi Levels": "مستويات متعددة",
+  "User Grid": "شبكة المستخدم",
+  "User List": "قائمة المستخدم",
+  "User Setting": "إعداد المستخدم",
+  "Inbox": "صندوق الوارد",
+  "Read Email": "قراءة البريد الإلكتروني",
+  "Project Grid": "شبكة المشروع",
+  "Project List": "قائمة المشروع",
+  "Project Overview": "ملخص المشروع",
+  "Create New": "خلق جديد إبداع جديد",
+  "404Basic": "404 الأساسية",
+  "404 Cover": "غلاف 404",
+  "500 Cover": "غلاف 500",
+  "500 Basic": "500 أساسي",
+  "Starter Page": "صفحة البداية",
+  "Profile": "حساب تعريفي",
+  "Maintanence": "صيانة",
+  "Coming Soon": "قريباً",
+  "FAQs": "أسئلة وأجوبة",
+  "Basic": "أساسي",
+  "Table": "طاولة",
+  "Invoice List": "قائمة الفاتورة",
+  "Manager": "dsf",
+  "Build your portfolio": "قم ببناء محفظتك",
+  "The simplest way to keep your portfolio always up-to-date.": "أسهل طريقة للحفاظ على محفظتك دائمًا محدثة.",
+  "Get freelance work": "احصل على عمل حر",
+  "New design projects delivered to your inbox each morning.": "مشاريع تصميم جديدة يتم تسليمها إلى صندوق الوارد الخاص بك كل صباح.",
+  "Sell your goods": "بيع سلعك",
+  "Get your goods in front of millions of potential customers with ease.": "احصل على سلعك أمام الملايين من العملاء المحتملين بسهولة.",
+  "CRMAPP": {
+    "Input": "wer"
+  },
+  "Demo Application": {
+    "CRMAPP": {
+      "Input": "2",
+      "heading": "Arabic"
+    },
+    "CRMAPP1": {
+      "Input": "2"
+    },
+    "Demo Template": {
+      "General": "324",
+      "input fields": {
+        "heading": "43123"
+      }
+    }
+  },
+  "Demo Application1": {
+    "CRMAPP1": {
+      "Input": "2"
+    }
+  }
+}

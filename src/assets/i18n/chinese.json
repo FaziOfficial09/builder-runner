@@ -1,0 +1,82 @@
+{
+  "Dashboards": "仪表盘",
+  "Sales": "销售",
+  "Analytics": "分析",
+  "Applications": "应用",
+  "Calendar": "日历",
+  "Chat": "聊天",
+  "Kanban Board": "看板",
+  "File Manager": "文件管理器",
+  "Email": "电子邮件",
+  "Contacts": "联系人",
+  "Gallery": "图库",
+  "Projects": "项目",
+  "Pages": "页面",
+  "Authentication": "认证",
+  "Error Pages": "错误页面",
+  "Utility": "实用工具",
+  "Pricing": "定价",
+  "Invoices": "发票",
+  "Timeline": "时间线",
+  "Components": "组件",
+  "UI Elements": "UI 元素",
+  "Extended UI": "扩展 UI",
+  "Widgets": "小部件",
+  "Forms": "表单",
+  "Tables": "表格",
+  "Apex Charts": "Apex 图表",
+  "Icons": "图标",
+  "Maps": "地图",
+  "Multi Levels": "多级",
+  "User Grid": "用户网格",
+  "User List": "用户列表",
+  "User Setting": "用户设置",
+  "Inbox": "收件箱",
+  "Read Email": "阅读邮件",
+  "Project Grid": "项目网格",
+  "Project List": "项目列表",
+  "Project Overview": "项目概览",
+  "Create New": "创建新项目",
+  "404 Basic": "404 基本",
+  "404 Cover": "404 封面",
+  "500 Cover": "500 封面",
+  "500 Basic": "500 基本",
+  "Starter Page": "起始页",
+  "Profile": "个人资料",
+  "Maintanence": "维护",
+  "Coming Soon": "即将推出",
+  "FAQs": "常见问题",
+  "Basic": "基础",
+  "Table": "表格",
+  "Invoice List": "发票列表",
+  "Manager": "经理",
+  "Build your portfolio": "建立您的作品集",
+  "The simplest way to keep your portfolio always up-to-date.": "保持您的作品集始终更新的最简单方法",
+  "Get freelance work": "获取自由职业工作",
+  "New design projects delivered to your inbox each morning.": "每天早上将新的设计项目发送到您的收件箱",
+  "Sell your goods": "销售您的商品",
+  "Get your goods in front of millions of potential customers with ease.": "轻松地将您的商品展示给数百万潜在客户",
+  "CRMAPP": {
+    "Input": "wer"
+  },
+  "Demo Application": {
+    "CRMAPP": {
+      "Input": "3",
+      "heading": " Chinese"
+    },
+    "CRMAPP1": {
+      "Input": "3"
+    },
+    "Demo Template": {
+      "General": "345",
+      "input fields": {
+        "heading": "4532"
+      }
+    }
+  },
+  "Demo Application1": {
+    "CRMAPP1": {
+      "Input": "3"
+    }
+  }
+}

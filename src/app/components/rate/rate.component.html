@@ -1,0 +1,15 @@
+<nz-rate [processData]="processData" [appConfigurableSelect]="rateData['appConfigurableEvent']"
+[loadAction]="rateData['eventActionconfig']" [style.color]="rateData.iconColor" [(ngModel)]="rateData.ngvalue" [nzAllowHalf]="rateData.allowHalf"
+    [nzTooltips]="rateData.options" (nzOnBlur)="onRateBlur()"
+    (nzOnKeyDown)="onRateKeyDown($event)"
+    (nzOnHoverChange)="onRateHoverChange($event)" (nzOnFocus)="onRateFocus()"
+    [nzAllowClear]="rateData.clear" [nzAutoFocus]="rateData.focus"
+    [nzCharacter]="characterIcon"
+    [nzCount]="rateData.showCount" [nzDisabled]="rateData.disabled"></nz-rate>
+<ng-template #characterIcon>
+    <span *ngIf="rateData.icon">
+        <st-icon [type]="rateData?.iconType || 'outline'"
+            [icon]="rateData?.icon"
+            [size]="rateData?.iconSize"></st-icon>
+    </span>
+</ng-template>

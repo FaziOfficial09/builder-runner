@@ -1,0 +1,32 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    width: 140px;
+}
+
+.label {
+    margin-right: 10px;
+}
+
+.input-container {
+    flex-grow: 1;
+}
+
+.search-box {
+    padding: 8px;
+}
+
+.search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+    border-radius: 2px;
+}
+
+.search-box button {
+    width: 90px;
+}
+
+.search-button {
+    margin-right: 8px;
+}

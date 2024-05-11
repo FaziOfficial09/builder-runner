@@ -1,0 +1,161 @@
+<!-- <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'"> -->
+<div [hidden]="hideChat" class="fixed bottom-4 right-4 h-[700px]" style="z-index: 1000;">
+    <div class="flex flex-row h-full w-full overflow-x-hidden">
+        <div class="flex flex-col flex-auto h-full p-6">
+
+                <div class="absolute right-3 bottom-10 shadow-xl rounded-2xl bg-gray-100 h-[70%] w-96">
+                    <div class="flex justify-end items-center h-[8%] pt-2 px-3">
+                        <i class="fas fa-times text-lg text-red-500 cursor-pointer" (click)="hideChat = !hideChat"></i>
+                    </div>
+                    <div class="flex flex-col h-[73%] overflow-x-auto mb-2 px-3">
+                        <div class="flex flex-col h-full">
+                            <div *ngFor="let userChat of data?.chatData ; let i = index" class="grid grid-cols-12 gap-y-1">
+                                <div *ngIf="userName != userChat.createdby"
+                                    class="col-start-1 col-end-13 px-2 py-1 rounded-lg">
+                                    <div class="flex flex-row items-center h-fit relative">
+                                        <div
+                                            class="flex items-center justify-center h-7 w-7 absolute top-0 rounded-full bg-amber-300 flex-shrink-0 uppercase text-sm text-white">
+                                            {{userChat.createdby | slice:0:2}}
+                                        </div>
+                                        <div
+                                            class="relative pl-9 text-sm " style="max-width: 300px !important;">
+                                            <div class="bg-white h-fit py-2 px-4 shadow rounded-xl !rounded-tl-none" >{{userChat.comment}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="userName == userChat.createdby"
+                                    [class]="!showIcon ? '!col-start-2 col-end-13 px-2 py-1 rounded-lg' : '!col-start-1 col-end-13 py-1 rounded-lg'">
+                                    <div class="flex items-center justify-between ">
+                                        <div class="flex w-14" *ngIf="i == editDeleteId">
+                                            <i (click)="showDeleteConfirm(userChat)"
+                                                class="fa-regular fa-trash hover:shadow-lg text-red-500"
+                                                nzTooltipTitle="Delete" nz-tooltip></i>
+                                            <i (click)="edit(userChat)"
+                                                class="fa-regular fa-pencil hover:shadow-lg text-blue-500 mx-2"
+                                                nzTooltipTitle="Edit" nz-tooltip></i>
+                                        </div>
+                                        <div class="flex-grow w-64 relative">
+                                            <div (click)="editIdAssign(i)"
+                                                class="flex items-center justify-start flex-row-reverse" [ngClass]="{ 'pr-1.5 ' : showIcon}">
+                                                <div
+                                                    class="flex items-center justify-center h-7 w-7 rounded-full absolute top-0 right-[2px] bg-amber-300 flex-shrink-0 uppercase text-sm text-white" [ngClass]="{ ' right-[6px]' : showIcon}">
+                                                    {{ userChat.createdby | slice: 0:2 }}
+                                                </div>
+                                                <div (click)="showicon()" class="relative pr-9 " style="max-width: 280px !important;">
+                                                    <div
+                                                        class="bg-indigo-100 py-2 px-4 text-sm  shadow rounded-xl !rounded-tr-none">
+                                                        {{
+                                                        userChat.comment }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center h-[14%] rounded-b-xl bg-white w-full px-4 mt-6">
+                        <!-- <div>
+                            <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div> -->
+                        <div class="flex-grow">
+                            <div class="relative w-full">
+                                <textarea type="text" [(ngModel)]="comment"
+                                    class="flex w-full border rounded-md focus:outline-none focus:border-indigo-300 pl-4 h-10 pt-2"></textarea>
+                                <!-- <button
+                                    class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                        </path>
+                                    </svg>
+                                </button> -->
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <button (click)="saveChat()"
+                                class="flex items-center justify-center bg-amber-300 hover:bg-amber-400 rounded-md text-white px-4 py-2 flex-shrink-0">
+                                <span>Send</span>
+                                <span class="ml-2">
+                                    <svg class="w-4 h-4 transform rotate-45 -mt-px" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div [appConfigurableSelect]="data['appConfigurableEvent']" [loadAction]="data['eventActionconfig']"
+        [processData]="processData" [hidden]="hideChat == false ? true : false" class="fixed bottom-4 right-4"
+        style="z-index: 2000;">
+        <button class="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-amber-300 text-white"
+            (click)="hideChat = !hideChat">
+            <span class="cross-icon hidden">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M0.474874 0.474874C1.10804 -0.158291 2.1346 -0.158291 2.76777 0.474874L16.5251 14.2322C17.1583 14.8654 17.1583 15.892 16.5251 16.5251C15.892 17.1583 14.8654 17.1583 14.2322 16.5251L0.474874 2.76777C-0.158291 2.1346 -0.158291 1.10804 0.474874 0.474874Z"
+                        fill="white" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M0.474874 16.5251C-0.158291 15.892 -0.158291 14.8654 0.474874 14.2322L14.2322 0.474874C14.8654 -0.158292 15.892 -0.158291 16.5251 0.474874C17.1583 1.10804 17.1583 2.1346 16.5251 2.76777L2.76777 16.5251C2.1346 17.1583 1.10804 17.1583 0.474874 16.5251Z"
+                        fill="white" />
+                </svg>
+            </span>
+            <span class="chat-icon">
+                <svg width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19.8333 14.0002V3.50016C19.8333 3.19074 19.7103 2.894 19.4915 2.6752C19.2728 2.45641 18.976 2.3335 18.6666 2.3335H3.49992C3.1905 2.3335 2.89375 2.45641 2.67496 2.6752C2.45617 2.894 2.33325 3.19074 2.33325 3.50016V19.8335L6.99992 15.1668H18.6666C18.976 15.1668 19.2728 15.0439 19.4915 14.8251C19.7103 14.6063 19.8333 14.3096 19.8333 14.0002ZM24.4999 7.00016H22.1666V17.5002H6.99992V19.8335C6.99992 20.1429 7.12284 20.4397 7.34163 20.6585C7.56042 20.8772 7.85717 21.0002 8.16659 21.0002H20.9999L25.6666 25.6668V8.16683C25.6666 7.85741 25.5437 7.56066 25.3249 7.34187C25.1061 7.12308 24.8093 7.00016 24.4999 7.00016Z"
+                        fill="white" />
+                </svg>
+            </span>
+        </button>
+    </div>
+    <!-- <div [appConfigurableSelect]="data['appConfigurableEvent']" [loadAction]="data['eventActionconfig']"
+        [processData]="processData" [hidden]="hideChat == false ? true : false"
+        class="shadow-lg z-10 h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+        <div class="flex items-center justify-center p-12">
+            <div class="w-full">
+                <div class="mx-auto mt-12 flex max-w-[550px] items-center justify-end space-x-5">
+                    <button
+                        class="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-amber-300 text-white"
+                        (click)="hideChat = !hideChat">
+                        <span class="cross-icon hidden">
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M0.474874 0.474874C1.10804 -0.158291 2.1346 -0.158291 2.76777 0.474874L16.5251 14.2322C17.1583 14.8654 17.1583 15.892 16.5251 16.5251C15.892 17.1583 14.8654 17.1583 14.2322 16.5251L0.474874 2.76777C-0.158291 2.1346 -0.158291 1.10804 0.474874 0.474874Z"
+                                    fill="white" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M0.474874 16.5251C-0.158291 15.892 -0.158291 14.8654 0.474874 14.2322L14.2322 0.474874C14.8654 -0.158292 15.892 -0.158291 16.5251 0.474874C17.1583 1.10804 17.1583 2.1346 16.5251 2.76777L2.76777 16.5251C2.1346 17.1583 1.10804 17.1583 0.474874 16.5251Z"
+                                    fill="white" />
+                            </svg>
+                        </span>
+                        <span class="chat-icon">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.8333 14.0002V3.50016C19.8333 3.19074 19.7103 2.894 19.4915 2.6752C19.2728 2.45641 18.976 2.3335 18.6666 2.3335H3.49992C3.1905 2.3335 2.89375 2.45641 2.67496 2.6752C2.45617 2.894 2.33325 3.19074 2.33325 3.50016V19.8335L6.99992 15.1668H18.6666C18.976 15.1668 19.2728 15.0439 19.4915 14.8251C19.7103 14.6063 19.8333 14.3096 19.8333 14.0002ZM24.4999 7.00016H22.1666V17.5002H6.99992V19.8335C6.99992 20.1429 7.12284 20.4397 7.34163 20.6585C7.56042 20.8772 7.85717 21.0002 8.16659 21.0002H20.9999L25.6666 25.6668V8.16683C25.6666 7.85741 25.5437 7.56066 25.3249 7.34187C25.1061 7.12308 24.8093 7.00016 24.4999 7.00016Z"
+                                    fill="white" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- </nz-spin> -->
