@@ -34,7 +34,7 @@ export class PolicyMappingComponent implements OnInit {
   applications: any;
   applicationName: any;
   selectedAppId: any = "";
-  applicationid: string = '';
+  appid: string = '';
   selectDepartmentName: any = [];
   departmentData: any = [];
   departments: any[] = [];
@@ -156,13 +156,13 @@ export class PolicyMappingComponent implements OnInit {
       const jsont = { json: filteredData }
       const jsonData = {
         data: JSON.stringify(jsont),
-        policyid: this.policyName,
-        applicationid: this.applicationid,
+        pid: this.policyName,
+        appid: this.appid,
       }
       const newData = filteredData.map(item => ({
         ...item,
-        policyid: this.policyName,
-        applicationid: this.applicationid,
+        pid: this.policyName,
+        appid: this.appid,
       }));
       var ResponseGuid: any;
       if (this.isSubmit) {
@@ -190,7 +190,7 @@ export class PolicyMappingComponent implements OnInit {
               this.policyMenuList = [];
               this.flattenedArray = [];
               this.policyMenuList = res.data.length > 0 ? res.data[0].data.json || [] : [];
-              this.modelId = res.data.length > 0 ? res.data[0].id : '';
+              this.modelId = res.data.length > 0 ? res.data[0].uid : '';
               this.isSubmit = res.data.length > 0 ? false : true;
               if (this.policyMenuList.length > 0) {
                 let nonReferenceData = JSON.parse(JSON.stringify(this.policyMenuList));
@@ -335,7 +335,7 @@ policyMappingCommit() {
             this.applications = res.data;
             const applications = res.data.map((appData: any) => ({
               label: appData.name,
-              value: appData.id,
+              value: appData.appid,
               isLeaf: true,
             }));
   
@@ -370,7 +370,7 @@ policyMappingCommit() {
               this.departmentData = res.data?.map((data: any) => {
                 return {
                   label: data.name,
-                  value: data.id
+                  value: data.uid
                 };
               });
               // const data = this.departmentData.filter((item: any) => item.label === 'Customer Relation');
@@ -409,7 +409,7 @@ policyMappingCommit() {
         res = res.parseddata.apidata;
         if (res.isSuccess) {
           if (res.data.length > 0) {
-            this.applicationid = res.data[0].applicationid
+            this.appid = res.data[0].appid
             const menuList = res.data[0].menudata?.json;
             const booleanObject = {
               creates: false,
@@ -503,7 +503,7 @@ policyMappingCommit() {
           this.policyMenuList = [];
           this.flattenedArray = [];
           this.policyMenuList = res.data.length > 0 ? res.data[0].data.json || [] : [];
-          this.modelId = res.data.length > 0 ? res.data[0].id : '';
+          this.modelId = res.data.length > 0 ? res.data[0].uid : '';
           this.isSubmit = res.data.length > 0 ? false : true;
           if (this.policyMenuList.length > 0) {
             let nonReferenceData = JSON.parse(JSON.stringify(this.policyMenuList));
@@ -534,14 +534,14 @@ policyMappingCommit() {
     this.actionList.forEach(element => {
       for (let index = 0; index < this.menuList.length; index++) {
         const menu = this.menuList[index];
-        if (menu.screenId === `/pages/${element.moduleId}`) {
+        if (menu.screenId === `/pages/${element.moduleid}`) {
           if (!menu.actionChildren) {
             menu.actionChildren = [];
             // Push obj1 object to children array
             menu.actionChildren.push(element);
             break;
           } else {
-            const checkIsAlreadyExist = menu.children.find((a: any) => a._id == element._id);
+            const checkIsAlreadyExist = menu.children.find((a: any) => a.uid == element.uid);
             if (!checkIsAlreadyExist) {
               menu.actionChildren.push(element);
             }

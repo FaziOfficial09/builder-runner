@@ -85,10 +85,10 @@ export class DrawerComponent implements OnInit {
                 //                 newModel[key][key1] = this.drawerData.eventActionconfig.parentId;
                 //               }
                 //               else if (key1.includes('applicationid')) {
-                //                 newModel[key][key1] = this.dataSharedService.decryptedValue('applicationId') || '';
+                //                 newModel[key][key1] = this.dataSharedService.decryptedValue('appid') || '';
                 //               }
                 //               else if (key1.includes('organizationid')) {
-                //                 newModel[key][key1] = this.dataSharedService.decryptedValue('organizationId') || '';
+                //                 newModel[key][key1] = this.dataSharedService.decryptedValue('orgid') || '';
                 //               }
                 //               else if (key1.includes('createdby')) {
                 //                 newModel[key][key1] = userData.username;
@@ -103,10 +103,10 @@ export class DrawerComponent implements OnInit {
                 //               newModel[key] = this.drawerData.eventActionconfig.parentId;
                 //             }
                 //             else if (key.includes('applicationid')) {
-                //               newModel[key] = this.dataSharedService.decryptedValue('applicationId') || '';
+                //               newModel[key] = this.dataSharedService.decryptedValue('appid') || '';
                 //             }
                 //             else if (key.includes('organizationid')) {
-                //               newModel[key] = this.dataSharedService.decryptedValue('organizationId') || '';
+                //               newModel[key] = this.dataSharedService.decryptedValue('orgid') || '';
                 //             }
                 //             else if (key.includes('createdby')) {
                 //               newModel[key] = userData.username;

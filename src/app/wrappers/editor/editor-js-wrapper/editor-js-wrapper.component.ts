@@ -35,9 +35,11 @@ export class EditorJsWrapperComponent implements OnInit, OnDestroy, ControlValue
   @ViewChild('editorContainer', { static: true }) editorContainer: ElementRef;
   @Input() minHeight: string = '300px';
   @Input() data:any;
+  @Input() item:any
   private editor: EditorJS;
   private onChange: (data: OutputData) => void;
   private onTouched: () => void;
+  renderer: any;
 
   constructor() { }
 
@@ -112,6 +114,21 @@ export class EditorJsWrapperComponent implements OnInit, OnDestroy, ControlValue
         }
       }
     });
+    this.addCustomStyles()
+  }
+  addCustomStyles() {
+    if(this.item.toolbarAlignment=='horizontal' ){
+    document.documentElement.style.setProperty('--flex', ' flex ');
+      document.documentElement.style.setProperty('--flex-drc', ' row ');
+ 
+      document.documentElement.style.setProperty('--width1', '500px');
+      document.documentElement.style.setProperty('--mrl', ' 5px ');
+  }else{
+    document.documentElement.style.setProperty('--flex', ' flex ');
+    document.documentElement.style.setProperty('--flex-drc', ' column ');
+    document.documentElement.style.setProperty('--width1', '200px');
+  }
+    // Add other custom styles as needed
   }
 
   ngOnDestroy(): void {

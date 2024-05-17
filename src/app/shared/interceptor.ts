@@ -49,8 +49,8 @@ export class AuthInterceptor implements HttpInterceptor {
       this.router.navigate(['/auth/login']);
       return throwError('Authentication token is missing');
     }
-    // let applicationId = JSON.parse(localStorage.getItem('applicationId')!);
-    // let organizationId = JSON.parse(localStorage.getItem('organizationId')!);
+    // let appid = JSON.parse(localStorage.getItem('appid')!);
+    // let orgid = JSON.parse(localStorage.getItem('orgid')!);
     // let user: any = localStorage.getItem('username');
     // let id: any = localStorage.getItem('userId');
     let screenId = localStorage.getItem('screenId')! || '';
@@ -59,8 +59,8 @@ export class AuthInterceptor implements HttpInterceptor {
     this.authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
-        // 'applicationId': applicationId,
-        // 'organizationId': organizationId,
+        // 'appid': appid,
+        // 'orgid': orgid,
         'screenId': screenId,
         'screenBuildId': screenBuildId,
         // 'user': user,

@@ -58,8 +58,8 @@ export class CommentListComponent implements OnInit {
       const userData = this.dataSharedService.decryptedValue('user') ? JSON.parse(this.dataSharedService.decryptedValue('user')) : null;
       const commentTime = currentDate.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' });
       let commentObj = {
-        organizationId: this.dataSharedService.decryptedValue('applicationId'),
-        applicationId: this.dataSharedService.decryptedValue('organizationId'),
+        orgid: this.dataSharedService.decryptedValue('appid'),
+        appid: this.dataSharedService.decryptedValue('orgid'),
         screenId: this.screenName,
         ObjectID: this.data.id,
         whoCreated: userData.username,

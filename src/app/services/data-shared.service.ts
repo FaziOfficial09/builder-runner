@@ -216,6 +216,8 @@ export class DataSharedService {
     const sportspotgermanyDomain = 'sportspotgermany';
     const localIP = 'governance.expocitydubai.com';
     const defaultDomain = 'git3.com';
+    // const defaultDomain = 'governance.expocitydubai.com';
+    // const defaultDomain = 'git3.com';
     // const defaultDomain = 'crm.aiappup.com';
     // const defaultDomain = 'default.com';     
     // const defaultDomain = 'carparking.com';

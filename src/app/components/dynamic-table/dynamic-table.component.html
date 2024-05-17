@@ -655,7 +655,13 @@
     <button class="btn" nz-button *ngIf="configurationTable || data?.isAddRow" (click)="save()" nzType="primary"> <i
         class="fa-regular fa-floppy-disk mr-2"></i> Save Change</button>
   </div>
-
+  <nz-modal [nzWidth]="1400" [(nzVisible)]="isHeaderVisible" nzTitle="Grid Rule" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <!-- <st-business-rule-grid [GridType]="GridType" [selectedNode]="_dataSharedService.selectedNode"
+        [screenId]="screenId" [nodes]="_dataSharedService.nodes"></st-business-rule-grid> -->
+    </ng-container>
+  </nz-modal>
 </nz-spin>
 <ng-container *ngIf="data && showChild">
   <ng-container *ngIf="data.children">

@@ -68,7 +68,7 @@ export class CascaderWrapperComponent extends FieldType<FieldTypeConfig> {
     //       });
     //       return newObj;
     //     });
-    //     const applicationID = this.dataSharedService.decryptedValue('applicationId');
+    //     const applicationID = this.dataSharedService.decryptedValue('appid');
 
     //     let finalObj = result.map((item: any) => {
     //       return {
@@ -98,7 +98,7 @@ export class CascaderWrapperComponent extends FieldType<FieldTypeConfig> {
 
   processData(data: any) {
     if (data?.data?.length > 0) {
-      const applicationID = JSON.parse(localStorage.getItem('applicationId')!);
+      const applicationID = JSON.parse(localStorage.getItem('appid')!);
       let propertyNames = Object.keys(data?.data[0]);
       let result = data?.data.map((item: any) => {
         let newObj: any = {};

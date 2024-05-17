@@ -11,7 +11,7 @@
         <label style="width: 25%;" class="mt-2 font-bold">Policy</label>
         <nz-select style="width: 75%;" nzShowSearch nzAllowClear class="temp-modal-select !h-10 !rounded-md"
             [(ngModel)]="policyName" placeholder="Select User">
-            <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.name"
+            <nz-option [nzValue]="item.pid" placeholder="Select Block Type..." [nzLabel]="item.name"
                 *ngFor="let item of policyList"></nz-option>
         </nz-select>
     </div>

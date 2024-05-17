@@ -232,9 +232,9 @@ export class DynamicTableComponent implements OnInit {
     }
   }
   async getSaveGroupNodes() {
-    const applicationId = localStorage.getItem('applicationId') || '';
+    const appid = localStorage.getItem('appid') || '';
     let groupedNodes: any = []
-    //  groupedNodes = await this.dataService.getNodes(this.screenName, JSON.parse(applicationId), "Table");
+    //  groupedNodes = await this.dataService.getNodes(this.screenName, JSON.parse(appid), "Table");
     if (groupedNodes.length > 0) {
       this.groupingArray = groupedNodes[groupedNodes.length - 1].data;
     }
@@ -1263,7 +1263,7 @@ export class DynamicTableComponent implements OnInit {
                 modalData: findInlineSave
               };
               this.saveLoader = true;
-              const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findAction.id);
+              const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findAction.arid);
               const jsonData1 = {
                 postType: 'post',
                 modalData: findInlineSave, metaInfo: jsonData.metaInfo
@@ -1391,7 +1391,7 @@ export class DynamicTableComponent implements OnInit {
       this.saveLoader = true;
 
       if (this.data?.targetId) {
-        const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010', this.data.eventActionconfig.id, this.data?.targetId, Rulepage, RulepageSize);
+        const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010', this.data.eventActionconfig.arid, this.data?.targetId, Rulepage, RulepageSize);
         this.dataSharedService.saveDebugLog('onPageIndexChange', RequestGuid)
         this.socketService.Request(jsonData);
         this.socketService.OnResponseMessage().subscribe({
@@ -1406,11 +1406,11 @@ export class DynamicTableComponent implements OnInit {
           }
         });
       } else {
-        let url = 'knex-query/getexecute-rules/' + this.data.eventActionconfig.id;
+        let url = 'knex-query/getexecute-rules/' + this.data.eventActionconfig.arid;
         if (this.childDataObj) {
           let findExpandKeyHead = (this.data.tableHeaders || this.tableHeaders).find((head: any) => head.key == 'expand');
           if (findExpandKeyHead) {
-            url = findExpandKeyHead.callApi + '/' + this.childDataObj.id;
+            url = findExpandKeyHead.callApi + '/' + this.childDataObj.arid;
           }
         }
         let splitApi = url.includes('getexecute-rules/') ? url.split('getexecute-rules/')[1] : url;
@@ -1533,8 +1533,8 @@ export class DynamicTableComponent implements OnInit {
             newData['parentid'] = newData.id;
             const userData = JSON.parse(localStorage.getItem('user')!);
             newData.id = '';
-            newData['organizationid'] = this.dataSharedService.decryptedValue('organizationId') || '';
-            newData['applicationid'] = this.dataSharedService.decryptedValue('applicationId') || '';
+            newData['organizationid'] = this.dataSharedService.decryptedValue('orgid') || '';
+            newData['applicationid'] = this.dataSharedService.decryptedValue('appid') || '';
             newData['createdby'] = userData.username;
             // Get the current date and time
             const currentDate = new Date();
@@ -1911,8 +1911,8 @@ export class DynamicTableComponent implements OnInit {
         this.pageChange(1);
       }
       if (allowSaveInLocal) {
-        const applicationId = this.dataSharedService.decryptedValue('applicationId') || '';
-        this.dataService.addData(this.screenName, JSON.parse(applicationId), "Table", this.groupingArray);
+        const appid = this.dataSharedService.decryptedValue('appid') || '';
+        this.dataService.addData(this.screenName, JSON.parse(appid), "Table", this.groupingArray);
       }
       this.saveLoader = false;
     } catch (error) {
@@ -2072,10 +2072,10 @@ export class DynamicTableComponent implements OnInit {
     try {
       if (tableData && res?.data.length > 0) {
         this.data['searchValue'] = '';
-        const applicationId = localStorage.getItem('applicationId') || '';
+        const appid = localStorage.getItem('appid') || '';
         let savedGroupData: any = [];
-        if (applicationId) {
-          // savedGroupData = await this.dataService.getNodes(JSON.parse(applicationId), this.screenName, "Table");
+        if (appid) {
+          // savedGroupData = await this.dataService.getNodes(JSON.parse(appid), this.screenName, "Table");
         }
         if (this.data?.eventActionconfig && !this
           .childTable && Object.keys(this.data.eventActionconfig).length > 0) {
@@ -2233,7 +2233,7 @@ export class DynamicTableComponent implements OnInit {
             postType: 'put',
             modalData: newDataModel
           };
-          const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findClickApi[0]?.id);
+          const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findClickApi[0]?.arid);
           const jsonData1 = {
             postType: 'put',
             modalData: newDataModel, metaInfo: jsonData.metaInfo
@@ -2330,10 +2330,10 @@ export class DynamicTableComponent implements OnInit {
       try {
 
         this.saveLoader = true;
-        const applicationId = this.dataSharedService.decryptedValue('applicationId') || '';
+        const appid = this.dataSharedService.decryptedValue('appid') || '';
         let savedGroupData: any = [];
-        if (applicationId) {
-          // savedGroupData = await this.dataService.getNodes(JSON.parse(applicationId), this.screenName, "Table");
+        if (appid) {
+          // savedGroupData = await this.dataService.getNodes(JSON.parse(appid), this.screenName, "Table");
         }
         // Step 1: Remove the 'expand' header from tableHeaders
         this.tableHeaders = this.tableHeaders.filter((head: any) => head.key != 'expand');
@@ -2556,7 +2556,7 @@ export class DynamicTableComponent implements OnInit {
               this.loadScreen(this.data?.drawerScreenLink);
             } else {
               this.saveLoader = false;
-              this.screenId = res.data[0].screenbuilderid;
+              this.screenId = res.data[0].sbid;
               this.nodes.push(res);
             }
           }
@@ -2583,7 +2583,7 @@ export class DynamicTableComponent implements OnInit {
             res = res.parseddata.apidata;
             if (res.isSuccess) {
               if (res.data.length > 0) {
-                this.screenId = res.data[0].screenbuilderid;
+                this.screenId = res.data[0].sbid;
                 this.nodes = [];
                 this.nodes.push(res);
               }
@@ -2723,12 +2723,12 @@ export class DynamicTableComponent implements OnInit {
       this.search(this.data?.searchType ? this.data?.searchType : 'keyup')
     }
     else {
-      const applicationId = localStorage.getItem('applicationId') || '';
+      const appid = localStorage.getItem('appid') || '';
       let savedGroupData: any = [];
-      if (applicationId) {
+      if (appid) {
         // this.saveLoader = true;
         // time ly rahi thi es liyee comment ki
-        // savedGroupData = await this.dataService.getNodes(JSON.parse(applicationId), this.screenName, "Table");
+        // savedGroupData = await this.dataService.getNodes(JSON.parse(appid), this.screenName, "Table");
         // this.saveLoader = false;
       }
       if (savedGroupData.length > 0) {

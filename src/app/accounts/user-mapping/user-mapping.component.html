@@ -5,7 +5,7 @@
                 <label style="width: 30%;" class="mt-2 font-bold">User name</label>
                 <nz-select style="width: 70%;" nzShowSearch nzAllowClear class="temp-modal-select"
                     [(ngModel)]="userName">
-                    <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.username"
+                    <nz-option [nzValue]="item.usid" placeholder="Select Block Type..." [nzLabel]="item.username"
                         *ngFor="let item of userList"></nz-option>
                 </nz-select>
             </div>
@@ -13,7 +13,7 @@
                 <label style="width: 30%;" class="mt-2 font-bold">User Policy</label>
                 <nz-select style="width: 70%;" nzShowSearch nzAllowClear class="temp-modal-select"
                     [(ngModel)]="policyName">
-                    <nz-option [nzValue]="item.id" placeholder="Select Block Type..." [nzLabel]="item.name"
+                    <nz-option [nzValue]="item.pid" placeholder="Select Block Type..." [nzLabel]="item.name"
                         *ngFor="let item of policyList"></nz-option>
                 </nz-select>
             </div>
@@ -78,7 +78,7 @@
 
                         <i class="fa-regular fa-trash !text-[#fd3636] pl-2 hover:cursor-pointer" nzTooltipTitle="Delete"
                             nz-tooltip nz-popconfirm nzPopconfirmTitle="Sure to delete?"
-                            (nzOnConfirm)="deleteRow(data.id)"></i>
+                            (nzOnConfirm)="deleteRow(data.uid)"></i>
                     </td>
                 </tr>
             </tbody>

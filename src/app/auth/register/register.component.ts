@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.loadScript();
     this.create();
-    this.getApplicationData();
+    // this.getApplicationData();
   }
   get f() {
     return this.form.controls;
@@ -113,12 +113,12 @@ export class RegisterComponent implements OnInit {
     //   this.toastr.warning('Application required', { nzDuration: 3000 }); // Show an error message to the user
     //   return;
     // }
-    this.recaptchaResponse = grecaptcha.getResponse();
-    if (!this.recaptchaResponse) {
-      // this.toastr.warning('You are not human', { nzDuration: 3000 }); // Show an error message to the user
-      this.showRecaptcha = true;
-      return;
-    }
+    // this.recaptchaResponse = grecaptcha.getResponse();
+    // if (!this.recaptchaResponse) {
+    //   // this.toastr.warning('You are not human', { nzDuration: 3000 }); // Show an error message to the user
+    //   this.showRecaptcha = true;
+    //   return;
+    // }
 
     this.loader = true;
     let obj = {
@@ -129,22 +129,23 @@ export class RegisterComponent implements OnInit {
       "companyName": this.form.value.companyname,
       "password": this.form.value.password,
       "accreditationNumber": this.form.value.accreditationNumber,
-      "organizationId": this.applications?.organizationid,
-      "applicationId": this.applications?.id,
-      // "organizationId": '74f47893-bb58-43b1-97f2-46d05ec50404',
-      // "applicationId": '3ee3ad6b-c0c0-4b37-8947-0f441753586c',
+      // "orgid": this.applications?.organizationid,
+      // "appid": this.applications?.id,
+      // "orgid": '74f47893-bb58-43b1-97f2-46d05ec50404',
+      // "appid": '3ee3ad6b-c0c0-4b37-8947-0f441753586c',
       "status": 'Pending',
-      "domain": window.location.host.split(':')[0],
+      // "domain": window.location.host.split(':')[0],
       "contactnumber": this.form.value.contactnumber,
       "responsekey": this.recaptchaResponse,
+      "token":window.localStorage['authToken']
     }
     console.log(obj);
-    if (!this.form.value?.remember && !this.userAddDrawer) {
-      grecaptcha.reset();
+    // if (!this.form.value?.remember && !this.userAddDrawer) {
+    //   grecaptcha.reset();
 
-      this.toastr.warning("Please accept the term and conditions", { nzDuration: 2000 });
-      return;
-    }
+    //   this.toastr.warning("Please accept the term and conditions", { nzDuration: 2000 });
+    //   return;
+    // }
     if (this.form.valid) {
       // this.saveLoader = true;
       const tableValue = 'AuthRegister';

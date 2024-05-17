@@ -10,7 +10,7 @@
       <st-task-report class="close-icon absolute left-[23px] top-[-9px] z-[1000]"
         *ngIf="item['issueReport'] && item['issueReport']?.length > 0 && item.type != 'input'" [item]="item"
         [screenName]="screenName" [type]="'pages'"></st-task-report>
-      <span *ngIf="applicationId == '651fa8129ce5925c4c89ced7' &&  !url.includes('/builder'); else withOutCOmment">
+      <span *ngIf="appid == '651fa8129ce5925c4c89ced7' &&  !url.includes('/builder'); else withOutCOmment">
         <st-mains [mappingId]="mappingId" [isDrawer]="isDrawer"
           (click)="applyHighlightInsideLayer(mainData , item.id , $event)" [item]="item" [formlyModel]="formlyModel"
           [screenName]="screenName" [screenId]="screenId" [isLast]='isLast' [form]="form" *ngIf="item"></st-mains>

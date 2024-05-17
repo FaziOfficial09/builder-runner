@@ -6,7 +6,7 @@ export const environment = {
   production: true,
   nestImageUrl:"http://campaigns.expocitydubai.com.s3-website.me-south-1.amazonaws.com/",
   // websocketUrl:'http://localhost:8080',
-  websocketUrl:'http://127.0.0.1:9091',
+  websocketUrl:'http://127.0.0.1:9090',
   loggerUrl:'http://127.0.0.1:4200/logger?id=',
   isloggerlinkShow:true,
   recaptcha: {

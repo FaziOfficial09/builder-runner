@@ -70,7 +70,7 @@ export class SupportChatComponent {
       "ticketcomments.commenttable": "",
       "ticketcomments.screenid": ""
     }
-    let actionID = this.editId ? putEvent?.id : postEvent.id;
+    let actionID = this.editId ? putEvent?.arid : postEvent.arid;
     if (this.editId) {
       modalData['ticketcomments.id'] = this.editId;
     }

@@ -134,14 +134,14 @@ export class CommonFunctionService {
       type: 'inputValidationRule',
       title: currentNode.title ? currentNode.title : currentNode.id,
       commonData: [validationObj]
-    });
+    }); 
     if (joiValidationData && joiValidationData?.length > 0) {
       const selectedValidationRule: any = joiValidationData?.find(
         (a) => a?.data?.json?.cid === currentNode.id
       );
       const getJoiRule = selectedValidationRule ? selectedValidationRule?.data?.json : null;
       if (getJoiRule) {
-        getJoiRule['id'] = selectedValidationRule.id;
+        getJoiRule['id'] = selectedValidationRule.uid;
         // if (typeof getJoiRule?.emailtypeallow === 'string') {
         //   getJoiRule.emailtypeallow = getJoiRule.emailtypeallow ? (getJoiRule.emailtypeallow.includes(',') ? getJoiRule.emailtypeallow.split(',') : [getJoiRule.emailtypeallow]) : []
         // }
@@ -433,6 +433,12 @@ export class CommonFunctionService {
       case 'skeleton':
         fieldData.commonData?.push({ title: 'Skeleton Fields', data: _formFieldData.skeletonFields });
         break;
+        case 'map':
+        fieldData.commonData?.push({ title: 'Map Fields', data: _formFieldData.googleMapFields });
+        break;
+        case 'textEditor':
+          fieldData.commonData?.push({ title: 'Text Editor Aligment Fields', data: _formFieldData.editorJsFields });
+          break;
       case 'badge':
         this.addIconCommonConfiguration(_formFieldData.badgeFields, false);
         fieldData.commonData?.push({ title: 'Badge Fields', data: _formFieldData.badgeFields });
@@ -1625,7 +1631,7 @@ export class CommonFunctionService {
     }
   }
 
-  notifyEmit(event: actionTypeFeild, selectedNode: any, screenbuilderid: string, applicationid: string, screenname: string, formlyModel: any) {
+  notifyEmit(event: actionTypeFeild, selectedNode: any, sbid: string, applicationid: string, screenname: string, formlyModel: any) {
     let needToUpdate = true;
     let dynamicSection = false;
     let dynamicSectionValue: any;
@@ -2416,8 +2422,8 @@ export class CommonFunctionService {
         if (selectedNode) {
           const ruleData = {
             json: {
-              "screenbuilderid": screenbuilderid,
-              "applicationid": applicationid,
+              "sbid": sbid,
+              // "applicationid": applicationid,
               "screenname": screenname,
               "cid": selectedNode.id,
               "key": selectedNode?.formly?.[0]?.fieldGroup?.[0]?.key,
@@ -2432,8 +2438,8 @@ export class CommonFunctionService {
             }
           }
           const jsonRuleValidation = {
-            "screenbuilderid": screenbuilderid,
-            "applicationid": applicationid,
+            "sbid": sbid,
+            // "applicationid": applicationid,
             "saveCommit": event.commit,
             "data": JSON.stringify(ruleData)
           }

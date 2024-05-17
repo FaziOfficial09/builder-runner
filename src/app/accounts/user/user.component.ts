@@ -83,7 +83,7 @@ export class UserComponent {
   }
 
   editFunc(data: any) {
-    this.edit = data.id;
+    this.edit = data.uid;
     this.updateModel = JSON.parse(JSON.stringify(data));
   }
   cancelEdit(data: any) {
@@ -96,7 +96,7 @@ export class UserComponent {
   saveEdit(data: any) {
     this.edit = null;
     this.loading = true;
-    const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(data.id);
+    const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(data.uid);
     const Update = { [`users`]: data, metaInfo: metainfoupdate };
     this.dataSharedService.saveDebugLog('saveEdit',newUGuid)
     this.socketService.Request(Update);
@@ -123,7 +123,7 @@ export class UserComponent {
   }
   delete(data: any) {
     this.loading = true;
-    const { jsonData, newGuid } = this.socketService.deleteModelType('users', data.id);
+    const { jsonData, newGuid } = this.socketService.deleteModelType('users', data.uid);
     this.dataSharedService.saveDebugLog('deleteUser',newGuid)
     this.socketService.Request(jsonData);
     this.socketService.OnResponseMessage().subscribe({

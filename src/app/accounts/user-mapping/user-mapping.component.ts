@@ -172,7 +172,7 @@ UserMappingCommit() {
     }
     else {
       if (this.isSubmit) {
-        let findPreviousUser = this.listOfData.find(a => a.policyId == this.policyName && a.userId == this.userName);
+        let findPreviousUser = this.listOfData.find(a => a.pid == this.policyName && a.usid == this.userName);
         if (findPreviousUser) {
           this.toastr.warning('This user already assign this policy please select another.', { nzDuration: 2000 });
           this.loading = false;
@@ -180,13 +180,13 @@ UserMappingCommit() {
         }
       }
       else {
-        const findAlreadypolicyAssign = this.listOfData.find(a => a.userId == this.userName && a.policyId == this.policyName && a.id != this.editId);
+        const findAlreadypolicyAssign = this.listOfData.find(a => a.usid == this.userName && a.pid == this.policyName && a.uid != this.editId);
         if (findAlreadypolicyAssign) {
           this.toastr.warning('This user already assign this policy please select another.', { nzDuration: 2000 });
           this.loading = false;
           return;
         }
-        let findPreviousUser = this.listOfData.find(a => a.userId == this.userName && a.defaultPolicy == this.defaultPolicy && this.policyName == a.policyId);
+        let findPreviousUser = this.listOfData.find(a => a.usid == this.userName && a.defaultPolicy == this.defaultPolicy && this.policyName == a.pid);
         if (findPreviousUser) {
           this.toastr.warning('You did not change data', { nzDuration: 2000 });
           this.loading = false
@@ -195,7 +195,7 @@ UserMappingCommit() {
       }
 
       // if (this.defaultPolicy == true) {
-      //   let defaultPolicyUsers: any[] = this.listOfData.filter(a => a.userId == this.userName && a.defaultPolicy == true && a.id != this.policyName);
+      //   let defaultPolicyUsers: any[] = this.listOfData.filter(a => a.usid == this.userName && a.defaultPolicy == true && a.uid != this.policyName);
       //   if (defaultPolicyUsers.length > 0) {
       //     this.toastr.warning('Already assign default.', { nzDuration: 2000 });
       //     this.loading = false;
@@ -203,10 +203,10 @@ UserMappingCommit() {
       //   }
       // }
       let obj = {
-        policyId: this.policyName,
-        userId: this.userName,
+        pid: this.policyName,
+        usid: this.userName,
         defaultPolicy: this.defaultPolicy,
-        applicationId: this.dataSharedService.decryptedValue('applicationId'),
+        // appid: this.dataSharedService.decryptedValue('appid'),
       }
       var ResponseGuid: any;
       if (this.isSubmit) {
@@ -253,9 +253,9 @@ UserMappingCommit() {
   }
   editId: any
   editItem(item: any) {
-    this.editId = item.id;
-    this.policyName = item.policyid;
-    this.userName = item.userid;
+    this.editId = item.uid;
+    this.policyName = item.pid;
+    this.userName = item.usid;
     this.defaultPolicy = item.defaultpolicy;
     this.isSubmit = false;
   }

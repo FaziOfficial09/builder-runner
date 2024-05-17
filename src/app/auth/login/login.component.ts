@@ -170,7 +170,8 @@ export class LoginComponent implements OnInit {
     this.form.value['domain'] = this.sharedService.checkDomain(window.location.host),
       this.form.value['responsekey'] = this.recaptchaResponse;
     let obj = this.form.value;
-    obj['applicationId'] = this.applications?.application?.id;
+    this.form.value['appid'] = this.applications?.application?.appid;
+    this.form.value['orgid'] = this.applications?.application?.orgid;
     // Show Loader
     this.showLoader = true;
     const tableValue = 'AuthLogin';
@@ -357,8 +358,8 @@ export class LoginComponent implements OnInit {
       "password": "",
       "id": Id,
       "accreditationNumber": "",
-      "organizationId": this.applications?.department?.organizationId,
-      "applicationId": this.applications?.application?._id,
+      "orgid": this.applications?.department?.orgid,
+      "appid": this.applications?.application?.appid,
       "status": 'Pending',
       "domain": this.sharedService.checkDomain(window.location.host),
       "contactnumber": "",

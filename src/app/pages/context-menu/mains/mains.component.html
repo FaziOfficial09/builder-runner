@@ -206,7 +206,7 @@
 
             <nz-card *ngSwitchCase="'textEditor'">
                 <st-editor-js-wrapper [(ngModel)]="item.editorJson" [minHeight]="'300px'"
-                    [data]="item.editorJson"></st-editor-js-wrapper>
+                    [data]="item.editorJson" [item]="item"></st-editor-js-wrapper>
             </nz-card>
             <!-- <pre>{{ item.editorJson | json }}</pre> -->
             <!-- <st-editors [editorData]="item"></st-editors> -->
@@ -391,7 +391,7 @@
             </div>
 
             <st-menu-controll class="desktop-toggle" *ngSwitchCase="'menu'"></st-menu-controll>
-            <st-google-map *ngSwitchCase="'map'"></st-google-map>
+            <st-google-map [item]="item" *ngSwitchCase="'map'"></st-google-map>
 
             <st-downloadbutton *ngSwitchCase="'downloadButton'" [screenId]="screenId" [formlyModel]="formlyModel"
                 [form]="form" [screenName]="screenName" [mappingId]="mappingId" [tableRowId]="''" [buttonData]="item"

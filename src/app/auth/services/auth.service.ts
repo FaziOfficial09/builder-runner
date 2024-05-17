@@ -26,8 +26,8 @@ export class AuthService {
     // saving JWT sent from Server, in LocalStorage
     this.jwtService.saveToken(user.access_token);
     this.jwtService.ecryptedValue('user', JSON.stringify(user), true);
-    this.jwtService.ecryptedValue('applicationId', user?.applicationId, true);
-    this.jwtService.ecryptedValue('organizationId', user?.organizationId, true);
+    this.jwtService.ecryptedValue('appid', user?.appid, true);
+    this.jwtService.ecryptedValue('orgid', user?.orgid, true);
     window.localStorage['authToken'] = JSON.stringify(user?.access_token);
     // set current user data into  Observable
     this.currentUserSubject.next(user)

@@ -383,7 +383,7 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.dataSharedService.currentMenuLink = '/pages/' + this.navigation;
         localStorage.setItem('screenId', this.dataSharedService.currentMenuLink);
         this.getBuilderScreen(params);
-        this.getTaskManagementIssuesFunc(params["schema"], this.dataSharedService.decryptedValue('applicationId'));
+        this.getTaskManagementIssuesFunc(params["schema"], this.dataSharedService.decryptedValue('appid'));
 
         // this.requestSubscription = this.applicationService.getNestCommonAPI("cp/getuserCommentsByApp/UserComment/pages/" + params["schema"]).subscribe((res: any) => {
         //   if (res.isSuccess) {
@@ -397,7 +397,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     //
     else if (this.data.length > 0 && params["pdfPage"] == undefined) {
 
-      const { jsonData, newGuid } = this.socketService.makeJsonDataById('CacheRule', this.data[0].data[0].screenbuilderid, '2002');
+      const { jsonData, newGuid } = this.socketService.makeJsonDataById('CacheRule', this.data[0].data[0].sbid, '2002');
       this.dataSharedService.saveDebugLog('CacheRule', newGuid)
       this.socketService.Request(jsonData);
       this.socketService.OnResponseMessage().subscribe({
@@ -447,30 +447,30 @@ export class PagesComponent implements OnInit, OnDestroy {
           res = res.parseddata.apidata;
           if (res.response.isSuccess) {
             if (res.versionchange == true && res?.response?.data.length > 0) {
-              localStorage.setItem('screenBuildId', res.response.data[0].screenbuilderid);
+              localStorage.setItem('screenBuildId', res.response.data[0].sbid);
               if (existingData) {
                 // Data exists, update it
-                await this.autoMergeService.updateData(pageName, res.response, domain, res.response.data[0]?.updateddate);
+                await this.autoMergeService.updateData(pageName, res.response, domain, res.response.data[0]?.udate);
               } else {
                 // Data doesn't exist, save it
-                await this.autoMergeService.saveData(pageName, res.response, domain, res.response.data[0]?.updateddate);
+                await this.autoMergeService.saveData(pageName, res.response, domain, res.response.data[0]?.udate);
               }
-              this.handleCacheRuleRequest(res.response.data[0].screenbuilderid, res.response);
+              this.handleCacheRuleRequest(res.response.data[0].sbid, res.response);
             }
             else if (res.versionchange == false && res?.response?.data == false) {
               const indexeddbres = await this.autoMergeService.getNode(pageName, domain);
-              localStorage.setItem('screenBuildId', indexeddbres.jsonData.data[0].screenbuilderid);
-              this.handleCacheRuleRequest(indexeddbres.jsonData.data[0].screenbuilderid, indexeddbres.jsonData);
+              localStorage.setItem('screenBuildId', indexeddbres.jsonData.data[0].sbid);
+              this.handleCacheRuleRequest(indexeddbres.jsonData.data[0].sbid, indexeddbres.jsonData);
             }
             else if (res?.response?.data.length > 0) {
-              localStorage.setItem('screenBuildId', res.response.data[0].screenbuilderid);
-              this.handleCacheRuleRequest(res.response.data[0].screenbuilderid, res.response);
+              localStorage.setItem('screenBuildId', res.response.data[0].sbid);
+              this.handleCacheRuleRequest(res.response.data[0].sbid, res.response);
               if (existingData) {
                 // Data exists, update it
-                await this.autoMergeService.updateData(pageName, res.response, domain, res.response.data[0]?.updateddate);
+                await this.autoMergeService.updateData(pageName, res.response, domain, res.response.data[0]?.udate);
               } else {
                 // Data doesn't exist, save it
-                await this.autoMergeService.saveData(pageName, res.response, domain, res.response.data[0]?.updateddate);
+                await this.autoMergeService.saveData(pageName, res.response, domain, res.response.data[0]?.udate);
               }
             }
 
@@ -511,7 +511,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   editData: any;
   actionsBindWithPage(res: any, res1: any) {
 
-    this.screenId = res.data[0].screenbuilderid;
+    this.screenId = res.data[0].sbid;
     this.screenName = res.data[0].screenname;
     this.navigation = res.data[0].navigation;
     this.dataSharedService.currentPageLink = this.navigation;
@@ -538,18 +538,22 @@ export class PagesComponent implements OnInit, OnDestroy {
           })
         }
       });
-      let originalData = JSON.parse(JSON.stringify({ uiData: parseData }));
-      let objUiData = this.screenData?.patchOperations ? applyPatch(originalData, this.screenData?.patchOperations).newDocument : parseData;
-      objUiData = objUiData.uiData ? objUiData.uiData : objUiData;
-      this.screenData.uiData = objUiData;
-      const checkLoadtype = this.screenData?.uiData?.filter((a: any) => a.actionType == 'load');
-      if (checkLoadtype?.length > 0) {
-        const field = {
-          title: "User Policy",
-          key: "policyId",
-          type: 'string'
+      try {
+        let originalData = JSON.parse(JSON.stringify({ uiData: parseData }));
+        let objUiData = this.screenData?.patchOperations ? applyPatch(originalData, this.screenData?.patchOperations).newDocument : parseData;
+        objUiData = objUiData.uiData ? objUiData.uiData : objUiData;
+        this.screenData.uiData = objUiData;
+        const checkLoadtype = this.screenData?.uiData?.filter((a: any) => a.actionType == 'load');
+        if (checkLoadtype?.length > 0) {
+          const field = {
+            title: "User Policy",
+            key: "policyId",
+            type: 'string'
+          }
+          this.checkConditionUIRule(field, this.user?.policy?.policyId, 'policy');
         }
-        this.checkConditionUIRule(field, this.user?.policy?.policyid, 'policy');
+      } catch (error) {
+
       }
     }
     let nodesData1 = this.jsonParseWithObject(this.jsonStringifyWithObject(this.resData));
@@ -1471,9 +1475,9 @@ export class PagesComponent implements OnInit, OnDestroy {
             "key": res.data?.json ? res.data.json.key : res.data.key,
             "title": res.data?.json ? res.data.json.title : res.data.title,
             "screenName": res.data?.json ? res.data.json.screenname : res.data.screenname,
-            "screenId": res.data?.json ? res.data.json.screenbuilderid : res.data.screenbuilderid,
+            "screenId": res.data?.json ? res.data.json.sbid : res.data.sbid,
             "uiData": res.data?.json ? res.data.json.uidata.json : res.data.uidata.json,
-            "patchOperations":res.data?.json ?  res.data.json.patchoperations.json : res.data.patchoperations.json
+            "patchOperations": res.data?.json ? res.data.json.patchoperations.json : res.data.patchoperations.json
           }
           this.screenData = jsonUIResult;
         } else {
@@ -1907,8 +1911,8 @@ export class PagesComponent implements OnInit, OnDestroy {
                           if (res?.data[0][key] && uiRule.ifMenuName && uiRule.ifMenuName.includes('app_')) {
                             let getData: any = localStorage;
                             let modifedData = JSON.parse(JSON.stringify(getData))
-                            modifedData['applicationId'] = this.dataSharedService.decryptedValue('applicationId');
-                            modifedData['organizationId'] = this.dataSharedService.decryptedValue('organizationId');
+                            modifedData['appid'] = this.dataSharedService.decryptedValue('appid');
+                            modifedData['orgid'] = this.dataSharedService.decryptedValue('orgid');
                             modifedData['user'] = this.dataSharedService.decryptedValue('user') ? this.dataSharedService.decryptedValue('user') ? JSON.parse(this.dataSharedService.decryptedValue('user')) : null : null;
 
                             let externalLogin = this.externalLogin = this.dataSharedService.decryptedValue('externalLogin') ? JSON.parse(this.dataSharedService.decryptedValue('externalLogin')).login : false;
@@ -2116,6 +2120,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     let typeMap: any = this.dataSharedService.typeMap;
     const type = node.type;
     const key = value.componentKey ? value.componentKey : typeMap[type];
+    if (node?.key == 'photo') {
+      console.log(node?.key)
+    }
     if (node.formly) {
       if (node.type == 'multiselect') {
         if (replaceData['orderrequest.requiredfrequency']) {
@@ -2130,8 +2137,8 @@ export class PagesComponent implements OnInit, OnDestroy {
         this.makeModel(node, replaceData[value.defaultValue])
         return node;
       }
-      else if(node?.formly[0]?.fieldGroup[0]?.type == "rangePicker" && (node.type == "date" || node.type == "week" || node.type == "year" || 
-      node.type == "month" || node.tye == 'zorro-timePicker' )){
+      else if (node?.formly[0]?.fieldGroup[0]?.type == "rangePicker" && (node.type == "date" || node.type == "week" || node.type == "year" ||
+        node.type == "month" || node.tye == 'zorro-timePicker')) {
         this.makeModel(node, replaceData[value.defaultValue].split(','))
         return node;
       }
@@ -2140,16 +2147,14 @@ export class PagesComponent implements OnInit, OnDestroy {
       }
 
     }
-    if (node.type == 'avatar') {
-      if (Array.isArray(replaceData[value.defaultValue])) {
-        let nodesArray: any = [];
-        replaceData[value.defaultValue].forEach((i: any) => {
-          let newNode = JSON.parse(JSON.stringify(node));
-          newNode.src = i;
-          nodesArray.push(newNode);
-        });
-        return nodesArray;
-      }
+    if (node.type == 'avatar' && Array.isArray(replaceData[value.defaultValue])) {
+      let nodesArray: any = [];
+      replaceData[value.defaultValue].forEach((i: any) => {
+        let newNode = JSON.parse(JSON.stringify(node));
+        newNode.src = i;
+        nodesArray.push(newNode);
+      });
+      return nodesArray;
     }
     else if (node.type == "tag") {
       if (Array.isArray(replaceData[value.defaultValue])) {
@@ -2179,6 +2184,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
   }
   replaceObjectByKey(data: any, key: any, updatedObj: any) {
+    if (data?.key == 'div_7b80857d') {
+      console.log(data.key)
+    }
     if (data.key === key) {
       return updatedObj;
     }
@@ -2322,7 +2330,7 @@ export class PagesComponent implements OnInit, OnDestroy {
               let guid: any = '';
               if (findEvent.rule.includes('post_')) {
                 const oneModelData = this.convertModel(this.formlyModel?.[this.screenId]);
-                const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findEvent.id);
+                const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', findEvent.arid);
                 const jsonData1 = {
                   postType: (findEvent.rule.includes('post_')) ? 'post' : 'put',
                   modalData: oneModelData, metaInfo: jsonData.metaInfo
@@ -2331,7 +2339,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                 this.socketService.Request(jsonData1);
                 guid = RequestGuid;
               } else {
-                const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010', findEvent.id, targetId);
+                const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010', findEvent.arid, targetId);
                 guid = RequestGuid;
                 this.dataSharedService.saveDebugLog('getEnumList', RequestGuid)
                 this.socketService.Request(jsonData);
@@ -2395,7 +2403,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                         }
                         const key = findEvent.targetid;
                         this.formlyModel[this.screenId][key] = '';
-                        if(key.includes(".")){
+                        if (key.includes(".")) {
                           this.formlyModel[this.screenId][key.split('.')[0]][key.split('.')[1]] = '';
                         }
                         this.form.patchValue({ key: parseInt(this.formlyModel?.[this.screenId][key]) });
@@ -2411,7 +2419,7 @@ export class PagesComponent implements OnInit, OnDestroy {
                       }
                       const key = findEvent.targetid;
                       this.formlyModel[this.screenId][key] = '';
-                      if(key.includes(".")){
+                      if (key.includes(".")) {
                         this.formlyModel[this.screenId][key.split('.')[0]][key.split('.')[1]] = '';
                       }
                       this.form.patchValue({ key: parseInt(this.formlyModel?.[this.screenId][key]) });
@@ -2576,8 +2584,8 @@ export class PagesComponent implements OnInit, OnDestroy {
       });
     }
   }
-  getTaskManagementIssuesFunc(screenId: string, applicationId: string) {
-    // this.requestSubscription = this.builderService.getUserAssignTask(screenId, applicationId).subscribe({
+  getTaskManagementIssuesFunc(screenId: string, appid: string) {
+    // this.requestSubscription = this.builderService.getUserAssignTask(screenId, appid).subscribe({
     //   next: (res: any) => {
     //     if (res.isSuccess) {
     //       if (res.data.length > 0) {

@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
   url: any = '';
   array = [1, 2, 3, 4];
   effect = 'scrollx';
-  applicationId: any;
+  appid: any;
   @Input() mappingId: any;
 
   constructor(private cd: ChangeDetectorRef, private nzImageService: NzImageService, 
@@ -62,7 +62,7 @@ export class MainComponent implements OnInit {
     this.commentForm = this.formBuilder.group({
       message: ['', Validators.required],
     });
-    this.applicationId = this.dataSharedService.decryptedValue('applicationId');
+    this.appid = this.dataSharedService.decryptedValue('appid');
     // if (window.location.href.includes('/pages'))
     //   this.isShowContextMenu = true;
   }

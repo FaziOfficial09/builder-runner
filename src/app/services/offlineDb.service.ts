@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 interface dbModel {
   id?: number;
   screenName: string;
-  applicationId: string;
+  appid: string;
   type: string;
   data: any;
 }
@@ -15,23 +15,23 @@ export class DataService {
     this.db = new MyDatabase();
   }
 
-  async saveData(screenName: string, applicationId: string, type: string, data: any): Promise<void> {
-    const obj = { screenName: screenName, applicationId: applicationId, type: type, data: data };
+  async saveData(screenName: string, appid: string, type: string, data: any): Promise<void> {
+    const obj = { screenName: screenName, appid: appid, type: type, data: data };
     await this.db.myTable.add(obj);
-    this.getNodes(applicationId, screenName, type);
+    this.getNodes(appid, screenName, type);
   }
 
-  async getNodes(applicationId: string, screenName: string, type: string): Promise<any[]> {
+  async getNodes(appid: string, screenName: string, type: string): Promise<any[]> {
     try {
-      // Check if the applicationId is a valid string
-      if (typeof applicationId !== 'string' || applicationId.trim() === '') {
-        throw new Error('Invalid applicationId');
+      // Check if the appid is a valid string
+      if (typeof appid !== 'string' || appid.trim() === '') {
+        throw new Error('Invalid appid');
       }
 
       // Query the database
       let check = await this.db.myTable
-        .where('applicationId')
-        .equals(applicationId)
+        .where('appid')
+        .equals(appid)
         .and(node => node.screenName === screenName && node.type === type)
         .toArray();
 
@@ -46,18 +46,18 @@ export class DataService {
 
 
 
-  async deleteDb(applicationId: string, screenName: string, type: string): Promise<void> {
-    await this.db.myTable.where({ applicationId: applicationId, screenName: screenName, type: type }).delete();
+  async deleteDb(appid: string, screenName: string, type: string): Promise<void> {
+    await this.db.myTable.where({ appid: appid, screenName: screenName, type: type }).delete();
     console.log("Data successfully deleted");
   }
 
-  async addData(screenName: string, applicationId: string, type: string, data: any): Promise<void> {
-    const obj = { screenName: screenName, applicationId: applicationId, type: type, data: data };
+  async addData(screenName: string, appid: string, type: string, data: any): Promise<void> {
+    const obj = { screenName: screenName, appid: appid, type: type, data: data };
 
     // Use the put method to insert or update the record based on the primary key
     await this.db.myTable.put(obj);
 
-    this.getNodes(applicationId, screenName, type);
+    this.getNodes(appid, screenName, type);
   }
 }
 
@@ -67,11 +67,11 @@ class MyDatabase extends Dexie {
   constructor() {
     super('MyDatabase');
     this.version(2).stores({
-      myTable: '++id,screenName,applicationId,type,data', // Include applicationId as an indexed field
+      myTable: '++id,screenName,appid,type,data', // Include appid as an indexed field
     }).upgrade(async (trans) => {
-      // Ensure the applicationId field is indexed
+      // Ensure the appid field is indexed
       await trans.table('myTable').toCollection().modify((record) => {
-        record.applicationId; // This read will ensure the index is created
+        record.appid; // This read will ensure the index is created
       });
     });
 

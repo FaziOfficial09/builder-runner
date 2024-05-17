@@ -94,7 +94,7 @@ export class SiteLayoutComponent implements OnInit {
   ngOnInit(): void {
 
     this.dataSharedService.measureHeight = 0;
-    // this.getTaskManagementIssuesFunc(JSON.parse(localStorage.getItem('applicationId')!));
+    // this.getTaskManagementIssuesFunc(JSON.parse(localStorage.getItem('appid')!));
 
     this.currentUser = this.dataSharedService.decryptedValue('user') ? JSON.parse(this.dataSharedService.decryptedValue('user')) : null;
     let externalLogin = this.dataSharedService.decryptedValue('externalLogin') ? JSON.parse(this.dataSharedService.decryptedValue('externalLogin')).login : false;
@@ -178,7 +178,7 @@ export class SiteLayoutComponent implements OnInit {
 
           if (module) {
             setTimeout(() => {
-              const filteredMenu = this.menuList.filter((item: any) => item.applicationId == module);
+              const filteredMenu = this.menuList.filter((item: any) => item.appid == module);
               if (filteredMenu.length > 0) {
                 this.selectedTheme = filteredMenu[0].selectedTheme;
                 this.selectedTheme.allMenuItems = filteredMenu[0].menuData;
@@ -301,8 +301,8 @@ export class SiteLayoutComponent implements OnInit {
               this.logo = res.data.appication['image'];
               this.dataSharedService.headerLogo = res.data.appication['image'];
               // if (allowStoreId) {
-              //   localStorage.setItem('applicationId', JSON.stringify(res.data?.appication?._id));
-              //   localStorage.setItem('organizationId', JSON.stringify(res.data?.department?.organizationId));
+              //   localStorage.setItem('appid', JSON.stringify(res.data?.appication?._id));
+              //   localStorage.setItem('orgid', JSON.stringify(res.data?.department?.orgid));
               // }
               if (res.data['applicationGlobalClasses']) {
                 this.dataSharedService.applicationGlobalClass = res.data['applicationGlobalClasses'];
@@ -473,7 +473,7 @@ export class SiteLayoutComponent implements OnInit {
               let menus: any = [];
               this.currentWebsiteLayout = "backend_application";
               res.data.forEach((element: any) => {
-                let newID = element.applicationId ? element.applicationId : element.name.replace(/\s+/g, '-');
+                let newID = element.appid ? element.appid : element.name.replace(/\s+/g, '-');
                 const newNode = {
                   id: newID,
                   key: newID,
@@ -605,8 +605,8 @@ export class SiteLayoutComponent implements OnInit {
       }
     });
   }
-  getTaskManagementIssuesFunc(applicationId: string) {
-    const { jsonData, newGuid } = this.socketService.makeJsonDataById('UserAssignTask', applicationId, '2002');
+  getTaskManagementIssuesFunc(appid: string) {
+    const { jsonData, newGuid } = this.socketService.makeJsonDataById('UserAssignTask', appid, '2002');
     this.dataSharedService.saveDebugLog('getTaskManagementIssuesFunc',newGuid)
     this.socketService.Request(jsonData);
     this.socketService.OnResponseMessage().subscribe({

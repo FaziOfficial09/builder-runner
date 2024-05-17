@@ -38,7 +38,7 @@ export class PolicyComponent implements OnInit {
       name: 'Policy Id',
       visible: true,
       sortOrder: null,
-      sortFn: (a: any, b: any) => a.id.localeCompare(b.id),
+      sortFn: (a: any, b: any) => a.uid.localeCompare(b.uid),
       sortDirections: ['ascend', 'descend', null],
     },
     {
@@ -169,7 +169,7 @@ export class PolicyComponent implements OnInit {
     let findDataPolicy = this.listOfDisplayData.find(
       (a) =>
         a.name.toLowerCase() == this.form.value.name.toLowerCase() &&
-        a.id != this.model?.id
+        a.uid != this.model?.uid
     );
 
     if (findDataPolicy) {
@@ -183,9 +183,9 @@ export class PolicyComponent implements OnInit {
       return;
     } else {
       let obj = {
-        applicationId: this.dataSharedService.decryptedValue('applicationId'),
+        // appid: this.dataSharedService.decryptedValue('appid'),
         name: this.form.value.name,
-        menuThemeId: this.form.value.menuthemeid,
+        mtid: this.form.value.mtid,
         applicationTheme: this.form.value.applicationtheme
       };
       var ResponseGuid: any;
@@ -197,7 +197,7 @@ export class PolicyComponent implements OnInit {
         this.socketService.Request(Add);
       }
       else {
-        const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(this.model.id);
+        const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(this.model.uid);
         ResponseGuid = newUGuid;
         const Update = { [`Policy`]: obj, metaInfo: metainfoupdate };
         this.dataSharedService.saveDebugLog('PolicyUpdate',newUGuid)
@@ -301,7 +301,7 @@ export class PolicyComponent implements OnInit {
       {
         fieldGroup: [
           {
-            key: 'menuthemeid',
+            key: 'mtid',
             type: 'select',
             wrappers: ["formly-vertical-theme-wrapper"],
             defaultValue: '',
@@ -361,7 +361,7 @@ export class PolicyComponent implements OnInit {
           if (res.isSuccess) {
             this.themeList = res.data.map((item: any) => ({
               label: item.name,
-              value: item.id
+              value: item.uid
             }));
             this.loadPolicyListFields();
           } else
@@ -384,7 +384,7 @@ export class PolicyComponent implements OnInit {
           if (res.isSuccess) {
             this.applicationThemeList = res.data.map((item: any) => ({
               label: item.name,
-              value: item.id
+              value: item.uid
             }));
             this.loadPolicyListFields();
           } else

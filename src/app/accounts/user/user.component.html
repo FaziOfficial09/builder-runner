@@ -28,8 +28,8 @@
                 <tr *ngFor="let data of basicTable.data">
                     <td>{{data?.username}}</td>
                     <td>{{data?.accreditationnumber || 'N/A'}}</td>
-                    <td [hidden]="edit == data.id">{{data?.status ? data?.status : 'Pending' }}</td>
-                    <td [hidden]="edit != data.id">
+                    <td [hidden]="edit == data?.uid">{{data?.status ? data?.status : 'Pending' }}</td>
+                    <td [hidden]="edit != data?.uid">
                         <select [(ngModel)]="data.status"
                             class="px-3 py-1.5 rounded-[4px] bg-white border border-gray-300 hover:text-blue-600 hover:border-blue-600">
                             <option class="text-black mx-2" value="Pending">Pending</option>
@@ -37,11 +37,11 @@
                         </select>
                     </td>
                     <td class="">
-                        <i (click)="editFunc(data)" *ngIf="edit !== data.id"
+                        <i (click)="editFunc(data)" *ngIf="edit !== data?.uid"
                             class="fa-regular !text-sm fa-pencil text-blue-500"></i>
-                        <i (click)="showDeleteConfirm(data)" *ngIf="edit !== data.id"
+                        <i (click)="showDeleteConfirm(data)" *ngIf="edit !== data?.uid"
                             class="fa-regular !text-sm fa-trash text-red-500 ml-2"></i>
-                        <div class="flex justify-start items-center" *ngIf="edit == data.id">
+                        <div class="flex justify-start items-center" *ngIf="edit == data?.uid">
                             <i (click)="saveEdit(data)" class="fa-regular !text-sm fa-save text-blue-500 mr-2.5"></i>
                             <!-- <i  class="fa-regular !text-sm fa-times text-red-500 "></i> -->
                             <i (click)="cancelEdit(data)" class="fa-solid fa-circle-xmark !text-sm text-red-500"></i>

@@ -254,7 +254,7 @@ export class ButtonsComponent implements OnInit {
       policyId: policy?.id,
       userId: user.policy?.userid,
       defaultPolicy: true,
-      applicationId: this.dataSharedService.decryptedValue('applicationId'),
+      appid: this.dataSharedService.decryptedValue('appid'),
     }
     this.dataSharedService.pagesLoader.next(true);
     const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(policy.id);
@@ -364,7 +364,7 @@ export class ButtonsComponent implements OnInit {
             res = res.parseddata.apidata;
             if (res.isSuccess) {
               if (res.data.length > 0) {
-                this.screenId = res.data[0].screenbuilderid;
+                this.screenId = res.data[0].sbid;
                 this.nodes = [];
                 this.nodes.push(res);
               }
@@ -438,7 +438,7 @@ export class ButtonsComponent implements OnInit {
               }
               else {
                 this.loader = false;
-                this.drawScreenId = res.data[0].screenbuilderid;
+                this.drawScreenId = res.data[0].sbid;
                 this.dataSharedService.currentPageLink = this.drawScreenId;
 
                 this.nodes.push(res)

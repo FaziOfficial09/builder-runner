@@ -9537,6 +9537,10 @@ ul.jsondiffpatch-textdiff {
     padding: 2px 2px !important;
   }
 }
+.map-container {
+  width: 10;  
+  max-width: 100%; /* Optionally, you can limit the maximum width */
+}
 
 // .statistic{
 //   .ant-statistic-content{
@@ -9548,4 +9552,22 @@ ul.jsondiffpatch-textdiff {
 
 //     }
 //   }
+// }
+// style for editor.js
+
+.ce-popover__items {
+  display: var(--flex) !important;
+  flex-direction: var(--flex-drc)!important;
+  }
+.ce-popover {
+  --width: var(--width1) !important;
+}
+.ce-popover-item {
+  margin-left: var(-mrl) !important;
+}
+
+// radio buton style
+// .ant-radio-wrapper {
+  
+//   width: var(radioWidth) !important;
 // }

@@ -184,7 +184,7 @@ export class SectionsComponent implements OnInit {
       };
       this.dataSharedService.buttonData = '';
 
-      const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', event.id);
+      const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('3007', event.arid);
       const jsonData1 = {
         postType: (event.rule.includes('post_')) ? 'post' : 'put',
         modalData: empData.modalData, metaInfo: jsonData.metaInfo
@@ -445,7 +445,7 @@ export class SectionsComponent implements OnInit {
           RulepageSize = `${localStorage.getItem('tablePageSize') || 10}`;
         }
         this.saveLoader = true;
-        // let savedGroupData = await this.dataService.getNodes(JSON.parse(applicationId), this.screenName, "Table");
+        // let savedGroupData = await this.dataService.getNodes(JSON.parse(appid), this.screenName, "Table");
         const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010', findClickApi?.id, this.mappingId, Rulepage, RulepageSize, data);
         this.dataSharedService.saveDebugLog('getFromQuery', RequestGuid)
         this.socketService.Request(jsonData);

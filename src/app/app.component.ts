@@ -14,7 +14,7 @@ export class AppComponent  {
       {
         "id": "50vS0E6nc0",
         "type": "table",
-        "data": {
+        "data": {   
           "withHeadings": true,
           "content": [
             [

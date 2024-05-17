@@ -38,8 +38,8 @@ export class SocketService {
     if (this.socket) {
       this.socket.disconnect();
     }
-    // const applicationId = this.getFromLocalStorage('applicationId');
-    // const organizationId = this.getFromLocalStorage('organizationId');
+    // const appid = this.getFromLocalStorage('appid');
+    // const orgid = this.getFromLocalStorage('orgid');
     // const user = this.getFromLocalStorage('user')?.username;
     // const id = this.getFromLocalStorage('user')?.userId;
     // const policyId = this.getFromLocalStorage('user')?.policy?.policyid;
@@ -48,8 +48,8 @@ export class SocketService {
     const socketOptions = {
       extraHeaders: {
         Authorization: `Bearer ${token}`,
-        // OrganizationId: organizationId,
-        // ApplicationId: applicationId,
+        // OrganizationId: orgid,
+        // ApplicationId: appid,
         // userId: id,
         // user: user,
         // policyid: policyId,
@@ -194,12 +194,12 @@ export class SocketService {
     return { newGuid, metainfocreate };
   }
 
-  metainfoDynamic(tag: any, modelType?: string, screenbuilderid?: string) {
+  metainfoDynamic(tag: any, modelType?: string, sbid?: string) {
     const newGuid = Guid.new16DigitGuid();
     const metainfocreate = {
       actioncode: tag,
       RequestId: newGuid,
-      screenbuilderid: screenbuilderid,
+      sbid: sbid,
       modelType: modelType,
     }
     return { newGuid, metainfocreate };

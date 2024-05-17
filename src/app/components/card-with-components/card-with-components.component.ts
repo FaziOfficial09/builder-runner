@@ -80,7 +80,7 @@ export class CardWithComponentsComponent implements OnInit {
       policyId: policy?.id,
       userId: user.policy?.userid,
       defaultPolicy: true,
-      applicationId: this.dataSharedService.decryptedValue('applicationId'),
+      appid: this.dataSharedService.decryptedValue('appid'),
     }
     this.dataSharedService.pagesLoader.next(true);
     const { newUGuid, metainfoupdate } = this.socketService.metainfoupdate(policy.id);

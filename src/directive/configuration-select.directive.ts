@@ -58,7 +58,7 @@ export class ConfigurableSelectDirective implements OnInit, OnDestroy {
 
   private loadOptions(): void {
     if (this.loadAction && Object.keys(this.loadAction).length !== 0) {
-      if (this.loadAction?.id) {
+      if (this.loadAction?.arid) {
         const RequestGuid = this.executeAction(this.loadAction)
         this.dataSharedService.saveDebugLog('ConfigurableSelectDirective',RequestGuid)
 
@@ -108,7 +108,7 @@ export class ConfigurableSelectDirective implements OnInit, OnDestroy {
   }
 
   private executeAction(action: Action): any {
-    const { id, actionLink, data, headers, parentId, page, pageSize } = action;
+    const { arid, actionLink, data, headers, parentId, page, pageSize } = action;
     let pagination = ''; let Rulepage = ''; let RulepageSize = '';
     if (page && pageSize) {
       pagination = `?page=${localStorage.getItem('tablePageNo') || 1}&pageSize=${localStorage.getItem('tablePageSize') || 10}`
@@ -116,7 +116,7 @@ export class ConfigurableSelectDirective implements OnInit, OnDestroy {
       RulepageSize = `${localStorage.getItem('tablePageSize') || 10}`;
     }
 
-    const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010',id, parentId, Rulepage, RulepageSize, data,  headers);
+    const { jsonData, RequestGuid } = this.socketService.metaInfoForGrid('2010',arid, parentId, Rulepage, RulepageSize, data,  headers);
     // return this.applicationService.callApi(`knex-query/getexecute-rules/${id}${pagination}`, 'get', data, headers, parentId)
     //   .pipe(takeUntil(this.unsubscribe$));
     //  const { jsonData, newGuid } = this.socketService.querymakeJsonData('2010','2010',dummyData);
@@ -135,7 +135,7 @@ type Action = {
   actionLink: string;
   data?: any;
   headers?: any;
-  id?: any;
+  arid?: any;
   page?: any;
   pageSize?: any;
   parentId?: any;
